@@ -1,15 +1,14 @@
 import React from 'react';
+import DeliveryRoutes from './routes';
+import DeliveryProvider from './context/DeliveryProvider';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 
 function App() {
+  console.log('oi');
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <DeliveryProvider>
+      <DeliveryRoutes />
+    </DeliveryProvider>
   );
 }
 
