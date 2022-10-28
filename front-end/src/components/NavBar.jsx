@@ -4,20 +4,12 @@ function Navbar() {
   return (
     <nav className="nav-bar">
       <div className="box">
-        <button type="button">
-          PRODUTOS
-        </button>
-        <button type="button">
-          MEUS PEDIDOS
-        </button>
+        <a href="/customer/products/">PRODUTOS</a>
+        <a href="/customer/orders/">MEUS PEDIDOS</a>
       </div>
       <div className="box">
-        <button type="button">
-          Nome Usuário
-        </button>
-        <button type="button">
-          Sair
-        </button>
+        <a href="/8">Nome Usuário</a>
+        <a href="/">Sair</a>
       </div>
     </nav>
   );
