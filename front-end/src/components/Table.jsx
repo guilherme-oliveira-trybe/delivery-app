@@ -1,6 +1,20 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import DeliveryContext from '../context/DeliveryContext';
 
-export default function Table({ orders, needButton }) {
+export default function Table({ needButton }) {
+  const { orders, setOrders } = useContext(DeliveryContext);
+
+  const handleRemove = (indexToRemove) => {
+    const ordersFilter = orders.filter((_, index) => index !== indexToRemove);
+    setOrders(ordersFilter);
+  };
+
+  const total = orders.reduce((acc, curr) => {
+    acc += (curr.amount * curr.price);
+    return acc;
+  }, 0);
+
   return (
     <section>
       <table>
@@ -22,22 +36,26 @@ export default function Table({ orders, needButton }) {
               <td>{ order.amount }</td>
               <td>{ order.price }</td>
               <td>{ order.amount * order.price }</td>
-              {needButton && <td><button type="button">Remover</button></td>}
+              {needButton && (
+                <td>
+                  <button
+                    type="button"
+                    onClick={ () => handleRemove(index) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-      <h3>
-        {orders.reduce((acc, curr) => {
-          acc += (curr.amount * curr.price);
-          return acc;
-        }, 0)}
-      </h3>
+      <h3>{`Total: ${total}`}</h3>
     </section>
   );
 }
 
 Table.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  // orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   needButton: PropTypes.bool.isRequired,
 };
