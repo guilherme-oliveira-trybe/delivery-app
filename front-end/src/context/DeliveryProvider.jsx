@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
-  // const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // const contextValue = {
-  //   loading,
-  //   setLoading,
-  // };
-
-  const teste = true;
+  const contextValue = useMemo(() => ({
+    loading,
+    setLoading,
+    orders,
+    setOrders,
+    user,
+    setUser,
+  }), [orders, loading, user]);
 
   return (
-    <DeliveryContext.Provider value={ teste }>
+    <DeliveryContext.Provider value={ contextValue }>
       {children}
     </DeliveryContext.Provider>
   );
