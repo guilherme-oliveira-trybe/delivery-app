@@ -28,8 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
     }
   }, {
+    underscore: true,
     timestamps: false,
-    tableName: 'sales'
+    // createdAt: 'sale_date',
+    // updatedAt: false,
+    tableName: 'sales',
   });
 
 
