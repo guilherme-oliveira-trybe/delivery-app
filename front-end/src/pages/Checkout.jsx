@@ -5,7 +5,7 @@ import DeliveryContext from '../context/DeliveryContext';
 import Form from '../components/Form';
 
 export default function Checkout() {
-  const { orders, setOrders } = useContext(DeliveryContext);
+  const { loading, setLoading, setOrders } = useContext(DeliveryContext);
 
   useEffect(() => {
     setOrders([
@@ -24,7 +24,8 @@ export default function Checkout() {
         url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
       },
     ]);
-  }, [setOrders]);
+    setLoading(false);
+  }, [setOrders, setLoading]);
 
   return (
     <main>
@@ -38,7 +39,7 @@ export default function Checkout() {
 
       <section>
         <h3>Finalizar Pedido</h3>
-        {orders.length === 0 ? (
+        {loading ? (
           <h2>Carregando...</h2>
         ) : (
           <Table needButton />
