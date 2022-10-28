@@ -42,7 +42,7 @@ export default function Checkout() {
         {loading ? (
           <h2>Carregando...</h2>
         ) : (
-          <Table needButton />
+          <Table needButton dateTest="element-order-table-name" />
         )}
       </section>
       <section>
