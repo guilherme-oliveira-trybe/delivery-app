@@ -17,8 +17,8 @@ export default function Table({ orders, needButton }) {
         <tbody>
           {orders.map((order, index) => (
             <tr key={ index }>
-              <td>{ index }</td>
-              <td>{ order.name }</td>
+              <td>{ index + 1 }</td>
+              <td data-testid={ `element-order-table-name-${index}` }>{ order.name }</td>
               <td>{ order.amount }</td>
               <td>{ order.price }</td>
               <td>{ order.amount * order.price }</td>
