@@ -41,7 +41,7 @@ export default function Checkout() {
         {orders.length === 0 ? (
           <h2>Carregando...</h2>
         ) : (
-          <Table orders={ orders } needButton />
+          <Table needButton />
         )}
       </section>
       <section>
