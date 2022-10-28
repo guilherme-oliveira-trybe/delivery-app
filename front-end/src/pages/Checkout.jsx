@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import Table from '../components/Table';
 import DeliveryContext from '../context/DeliveryContext';
+import Form from '../components/Form';
 
 export default function Checkout() {
   const { orders, setOrders } = useContext(DeliveryContext);
@@ -42,6 +43,10 @@ export default function Checkout() {
         ) : (
           <Table orders={ orders } needButton />
         )}
+      </section>
+      <section>
+        <h3>Detalhes e Endereço para Entrega</h3>
+        <Form />
       </section>
     </main>
   );
