@@ -10,18 +10,18 @@ export default function Checkout() {
   useEffect(() => {
     setOrders([
       {
-        id: 1,
+        productId: 1,
         name: 'Skol Lata 250ml',
-        price: 2.20,
-        amount: 2,
-        url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+        quantity: 2,
+        unitPrice: 2.20,
+        subTotal: 4.40,
       },
       {
-        id: 2,
+        productId: 2,
         name: 'Heineken 600ml',
-        price: 7.50,
-        amount: 2,
-        url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
+        quantity: 4,
+        unitPrice: 7.50,
+        subTotal: 30.00,
       },
     ]);
     setLoading(false);
@@ -45,6 +45,7 @@ export default function Checkout() {
           <Table needButton dateTest="element-order-table-name" />
         )}
       </section>
+
       <section>
         <h3>Detalhes e Endereço para Entrega</h3>
         <Form />

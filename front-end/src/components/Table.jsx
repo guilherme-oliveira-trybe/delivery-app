@@ -11,7 +11,7 @@ export default function Table({ needButton, dateTest }) {
   };
 
   const total = orders.reduce((acc, curr) => {
-    acc += (curr.amount * curr.price);
+    acc += Number(curr.subTotal);
     return acc;
   }, 0);
 
@@ -34,9 +34,9 @@ export default function Table({ needButton, dateTest }) {
               <tr key={ index }>
                 <td>{ index + 1 }</td>
                 <td data-testid={ `${dateTest}-${index}` }>{ order.name }</td>
-                <td>{ order.amount }</td>
-                <td>{ order.price }</td>
-                <td>{ order.amount * order.price }</td>
+                <td>{ order.quantity }</td>
+                <td>{ order.unitPrice }</td>
+                <td>{ order.subTotal }</td>
                 {needButton && (
                   <td>
                     <button
@@ -52,7 +52,7 @@ export default function Table({ needButton, dateTest }) {
           </tbody>
         </table>
       )}
-      <h3>{`Total: ${total}`}</h3>
+      <h3>{`Total: R$${total.toFixed(2)}`}</h3>
     </section>
   );
 }
