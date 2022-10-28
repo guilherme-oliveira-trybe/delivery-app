@@ -30,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     underscore: true,
     timestamps: false,
-    // createdAt: 'sale_date',
-    // updatedAt: false,
     tableName: 'sales',
   });
 

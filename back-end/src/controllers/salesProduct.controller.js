@@ -14,8 +14,8 @@ module.exports = {
   }),
 
   getAll: rescue(async (_req, res, next) => {
-    const { data, code, message } = await salesProduct.getAll();
-    if (message) return next({ code, message });
+    const { data, code } = await salesProduct.getAll();
+    // if (message) return next({ code, message });
     return res.status(code).json(data);
   }),
 };
