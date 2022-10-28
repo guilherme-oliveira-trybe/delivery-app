@@ -14,7 +14,7 @@ export default function DeliveryRoutes() {
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/1" component={ Register } />
-      <Route exact path="/2" component={ Products } />
+      <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/3" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
       <Route exact path="/5" component={ OrderDetails } />
