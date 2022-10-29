@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function ProductCard(props) {
-  const { id, name, image, price } = props;
+  const { id, name, price, urlImage } = props;
 
   const [value, setValue] = useState(0);
 
@@ -21,10 +21,10 @@ export default function ProductCard(props) {
       <p
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {`R$ ${price}`}
+        {`R$${price}`}
       </p>
       <img
-        src={ image }
+        src={ urlImage }
         width="200"
         alt={ name }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -55,6 +55,6 @@ export default function ProductCard(props) {
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  urlImage: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
 };
