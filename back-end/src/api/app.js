@@ -9,5 +9,6 @@ app.use(cors());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/products', productRoutes);
+app.use(express.static('public'));
 
 module.exports = app;
