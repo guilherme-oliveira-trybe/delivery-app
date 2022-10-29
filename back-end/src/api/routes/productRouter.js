@@ -6,5 +6,4 @@ const route = Router();
 
 route.get('/', getAllProducts);
 
-
 module.exports = route;
