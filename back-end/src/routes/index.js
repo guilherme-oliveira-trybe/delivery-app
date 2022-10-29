@@ -1,3 +1,3 @@
-const saleRoute = require('./sales');
+const salesRoute = require('./sales');
 
-module.exports = { saleRoute };
+module.exports = { salesRoute };
