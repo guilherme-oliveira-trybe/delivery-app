@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import getAllProducts from '../services/api';
@@ -11,9 +11,9 @@ export default function Products() {
     setProducts(AllProducts.products);
   };
 
-  window.onload = () => {
+  useEffect(() => {
     fetchProducts();
-  };
+  });
 
   return (
     <div>

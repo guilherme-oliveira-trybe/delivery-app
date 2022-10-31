@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
@@ -12,10 +12,13 @@ import UserManager from '../pages/UserManager';
 export default function DeliveryRoutes() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route exact path="/1" component={ Register } />
-      <Route exact path="/customer/products" component={ Products } />
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
+      <Route exact path="/login" component={ Login } />
+      <Route exact path="/register" component={ Register } />
       <Route exact path="/3" component={ Checkout } />
+      <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/customer/orders" component={ Orders } />
       <Route exact path="/5" component={ OrderDetails } />
       <Route exact path="/6" component={ SellOrders } />
