@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import OrderCard from '../components/customerOrders/OrderCard';
-import Navbar from '../components/NavBar';
 
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);
@@ -21,7 +20,6 @@ export default function Orders() {
 
   return (
     <div>
-      <Navbar />
       { loading && <span>Loading</span>}
       { !loading
       && customerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
