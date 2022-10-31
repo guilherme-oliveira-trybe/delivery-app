@@ -14,6 +14,12 @@ const UserService = {
   },
 
   create: async () => null,
+
+  findByEmail: async (email) => {
+    const user = await Users.findOne({ where: { email } });
+
+    return user;
+  }
 };
 
 module.exports = UserService;
