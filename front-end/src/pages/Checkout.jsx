@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-import Table from '../components/Table';
+import CheckoutTable from '../components/CheckoutTable';
 import DeliveryContext from '../context/DeliveryContext';
-import Form from '../components/Form';
+import CheckoutForm from '../components/CheckoutForm';
 
 export default function Checkout() {
   const { loading, setLoading, setOrders } = useContext(DeliveryContext);
@@ -42,13 +42,13 @@ export default function Checkout() {
         {loading ? (
           <h2>Carregando...</h2>
         ) : (
-          <Table needButton dateTest="element-order-table-name" />
+          <CheckoutTable needButton dateTest="element-order-table-name" />
         )}
       </section>
 
       <section>
         <h3>Detalhes e Endereço para Entrega</h3>
-        <Form />
+        <CheckoutForm />
       </section>
     </main>
   );

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryContext from '../context/DeliveryContext';
 
-export default function Table({ needButton, dateTest }) {
+export default function CheckoutTable({ needButton, dateTest }) {
   const { orders, setOrders } = useContext(DeliveryContext);
 
   const handleRemove = (indexToRemove) => {
@@ -10,10 +10,7 @@ export default function Table({ needButton, dateTest }) {
     setOrders(ordersFilter);
   };
 
-  const total = orders.reduce((acc, curr) => {
-    acc += Number(curr.subTotal);
-    return acc;
-  }, 0);
+  const total = orders.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
 
   return (
     <section>
@@ -57,7 +54,7 @@ export default function Table({ needButton, dateTest }) {
   );
 }
 
-Table.propTypes = {
+CheckoutTable.propTypes = {
   // orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   needButton: PropTypes.bool.isRequired,
   dateTest: PropTypes.string.isRequired,
