@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+// require('dotenv').config();
+
+// const {
+//   REACT_APP_HOSTNAME,
+//   REACT_APP_BACKEND_PORT,
+// } = process.env;
+
+// [TO-DO]: [Iasmin] resolver problema ao utilizar variáveis de ambiente no Front;
+// const loginURL = `http://${REACT_APP_HOSTNAME}:${REACT_APP_BACKEND_PORT}/login`;
+const loginURL = 'http://localhost:3001/login';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
+  const [failedLogin, setFailedLogin] = useState(false);
 
   const emailValidation = (value) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    return !!((!value || regex.test(value) === false));
+    return !regex.test(value);
   };
 
   const passwordValidation = (value) => {
     const minLength = 6;
     return (value.length < minLength);
   };
-
-  const handleChange = ({ target }) => {
-    if (target.type === 'email') {
-      setEmail(target.value);
-      setErrorEmail(emailValidation(target.value));
-    } else {
-      setPassword(target.value);
-      setErrorPassword(passwordValidation(target.value));
-    }
-  };
-
-  const loginValidation = () => (!!((errorEmail || errorPassword)));
 
   return (
     <div>
@@ -41,7 +42,10 @@ export default function Login() {
           placeholder="Email"
           data-testid="common_login__input-email"
           value={ email }
-          onChange={ handleChange }
+          onChange={ ({ target: { value } }) => {
+            setEmail(value);
+            setErrorEmail(emailValidation(value));
+          } }
         />
         <input
           type="password"
@@ -49,20 +53,30 @@ export default function Login() {
           placeholder="Password"
           data-testid="common_login__input-password"
           value={ password }
-          onChange={ handleChange }
+          onChange={ ({ target: { value } }) => {
+            setPassword(value);
+            setErrorPassword(passwordValidation(value));
+          } }
         />
-        <p data-testid="login__input_invalid_login_alert">
-          * Mensagem de erro em caso de dados inválidos *
-        </p>
-        <Link to="/products">
-          <button
-            type="submit"
-            data-testid="common_login__button-login"
-            disabled={ loginValidation() }
-          >
-            Log In
-          </button>
-        </Link>
+        {!!((errorEmail || errorPassword)) && (
+          <p data-testid="login__input_invalid_login_alert">
+            * Please, provide a valid email and password *
+          </p>)}
+
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ !!((errorEmail || errorPassword)) }
+          onClick={ async () => {
+            setFailedLogin(true);
+            const response = await axios.post(loginURL);
+            const result = await response.json();
+            console.log(result.message);
+          } }
+        >
+          Log In
+        </button>
+
         <Link to="/register">
           <button
             type="button"
@@ -72,6 +86,11 @@ export default function Login() {
           </button>
         </Link>
       </form>
+      { failedLogin && (
+        <p data-testid="common_login__element-invalid-email">
+          Login attempt failed. User not found.
+        </p>
+      )}
     </div>
   );
 }
