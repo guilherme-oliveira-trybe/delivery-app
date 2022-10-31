@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import getAllProducts from '../services/api';
@@ -11,6 +12,11 @@ export default function Products() {
     setProducts(AllProducts.products);
   };
 
+  const history = useHistory();
+  function handleOnClick() {
+    history.push('/customer/checkout');
+  }
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -19,6 +25,15 @@ export default function Products() {
     <div>
       <NavBar />
       <div>
+        <button
+          type="submit"
+          data-testid="customer_products__button-cart"
+          onClick={ handleOnClick }
+          // disabled={ cart.length === 0 }
+        >
+          Ver Carrinho:
+          {/* <p data-testid="customer_products__checkout-bottom-value">{ total }</p> */}
+        </button>
         { products.map((product) => (
           <ProductCard
             key={ product.id }
@@ -26,14 +41,8 @@ export default function Products() {
             name={ product.name }
             price={ product.price }
             urlImage={ product.urlImage }
-          />))}
+          />)) }
       </div>
-      <button
-        type="button"
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        Ver Carrinho
-      </button>
     </div>
   );
 }
