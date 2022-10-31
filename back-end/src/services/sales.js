@@ -7,12 +7,12 @@ const saleService = {
     return sale;
   },
 
-  create: async (sale, order) => {
+  create: async (sale, orders) => {
     try {
       const saleCreated = await sequelize.transaction(async (transaction) => {
         const newSale = { ...sale, status: 'Pendente', saleDate: new Date() };
         const { dataValues } = await Sales.create(newSale, { transaction });
-        const salesProductsArray = order.map(({ productId, quantity }) => ({
+        const salesProductsArray = orders.map(({ productId, quantity }) => ({
           saleId: dataValues.id, productId, quantity,
         }));
         await SalesProduct.bulkCreate(salesProductsArray, { transaction });
