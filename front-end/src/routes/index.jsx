@@ -17,7 +17,7 @@ export default function DeliveryRoutes() {
       <Route exact path="/2" component={ Products } />
       <Route exact path="/3" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
-      <Route exact path="/5" component={ OrderDetails } />
+      <Route exact path="/customer/orders/:id" component={ OrderDetails } />
       <Route exact path="/6" component={ SellOrders } />
       <Route exact path="/7" component={ SellOrderDetails } />
       <Route exact path="/8" component={ UserManager } />
