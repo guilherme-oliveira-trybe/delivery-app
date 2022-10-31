@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 import OrderCard from '../components/customerOrders/OrderCard';
 
 export default function Orders() {
@@ -7,7 +8,7 @@ export default function Orders() {
 
   useEffect(() => {
     const fetchCustomerOrders = async () => {
-      const url = 'http://www.localhost:3001/customer/orders/1';
+      const url = 'http://www.localhost:3001/customer/orders/1'; // colocar userId de forma dinâmica
       const response = await fetch(url);
       const data = await response.json();
       setCustomerOrder(data);
@@ -18,6 +19,7 @@ export default function Orders() {
 
   return (
     <div>
+      <NavBar />
       { loading && <span>Loading</span>}
       { !loading
       && customerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
