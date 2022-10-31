@@ -20,8 +20,6 @@ export default function OrderCard({
     return `${day[0]}/${mounth}/${year}`;
   };
 
-  console.log(handleSaleDate(saleDate));
-
   const onClick = (value) => {
     history.push(`/customer/orders/${value}`);
   };

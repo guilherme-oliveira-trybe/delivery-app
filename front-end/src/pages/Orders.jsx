@@ -16,8 +16,6 @@ export default function Orders() {
     setLoading(false);
   }, []);
 
-  console.log(customerOrder);
-
   return (
     <div>
       { loading && <span>Loading</span>}
