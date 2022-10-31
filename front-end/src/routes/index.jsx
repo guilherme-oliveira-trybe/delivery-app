@@ -12,8 +12,8 @@ import UserManager from '../pages/UserManager';
 export default function DeliveryRoutes() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route exact path="/1" component={ Register } />
+      <Route exact path="/login" component={ Login } />
+      <Route exact path="/register" component={ Register } />
       <Route exact path="/2" component={ Products } />
       <Route exact path="/3" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
