@@ -10,10 +10,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
-app.use(salesRoute);
-app.use(userRoute);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
+
+app.use(salesRoute);
+app.use(userRoute);
 app.use('/products', productRoute);
 
 app.get('/login', (_req, res) => res.status(200).json({ message: 'Login attempt' }));
