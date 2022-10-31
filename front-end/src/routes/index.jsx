@@ -20,7 +20,7 @@ export default function DeliveryRoutes() {
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
       <Route exact path="/customer/orders" component={ Orders } />
-      <Route exact path="/5" component={ OrderDetails } />
+      <Route exact path="/customer/orders/:id" component={ OrderDetails } />
       <Route exact path="/6" component={ SellOrders } />
       <Route exact path="/7" component={ SellOrderDetails } />
       <Route exact path="/8" component={ UserManager } />
