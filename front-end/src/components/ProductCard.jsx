@@ -17,12 +17,11 @@ export default function ProductCard(props) {
   };
 
   return (
-    <div className="cardProductContainer">
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {`R$${price}`}
-      </p>
+    <div
+      className="cardProductContainer"
+      data-testid={ `customer_products__element-card-price-${id}` }
+    >
+      <p>{ `R$${price}` }</p>
       <img
         src={ urlImage }
         width="200"
@@ -38,7 +37,12 @@ export default function ProductCard(props) {
         >
           +
         </button>
-        <p>{value}</p>
+        <input
+          type="number"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ value }
+          // onChange={ ({ target }) => handleOnChange(target) }
+        />
         <button
           type="button"
           disabled={ (value === 0) }
