@@ -1,7 +1,7 @@
 import React from 'react';
 
 function NavBar() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <nav className="nav-bar">
@@ -23,7 +23,8 @@ function NavBar() {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          { user.name }
+          {/* { user.name } */}
+          Nome do usuário
         </p>
         <a
           href="/"
