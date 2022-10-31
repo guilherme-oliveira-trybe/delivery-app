@@ -1,4 +1,4 @@
-const { Sales, SalesProducts, sequelize } = require('../database/models');
+const { Sales, SalesProduct, sequelize } = require('../database/models');
 
 const saleService = {
   getAllByUserId: async (userId) => {
@@ -8,21 +8,20 @@ const saleService = {
   },
 
   create: async (sale, order) => {
-    // console.log(sale);
-    // validations
-
-    const saleCreated = await sequelize.transaction(async (transaction) => {
-      const newSale = { ...sale, status: 'Pendente', saleDate: new Date() };
-
-      const { dataValues } = await Sales.create(newSale, { transaction });
-      const salesProductsArray = order.map(({ productId, quantity }) => ({
-        saleId: dataValues.id, productId, quantity,
-      }));
-
-      await SalesProducts.bulkCreate(salesProductsArray, { transaction });
-      return dataValues;
-    });
-    return saleCreated;
+    try {
+      const saleCreated = await sequelize.transaction(async (transaction) => {
+        const newSale = { ...sale, status: 'Pendente', saleDate: new Date() };
+        const { dataValues } = await Sales.create(newSale, { transaction });
+        const salesProductsArray = order.map(({ productId, quantity }) => ({
+          saleId: dataValues.id, productId, quantity,
+        }));
+        await SalesProduct.bulkCreate(salesProductsArray, { transaction });
+        return dataValues;
+      });
+      return saleCreated;
+    } catch (error) {
+      return null;
+    }
   },
 };
 
