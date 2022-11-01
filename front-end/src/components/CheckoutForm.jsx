@@ -35,6 +35,7 @@ export default function CheckoutForm() {
       <label htmlFor="seller">
         P. Vendedora Responsável:
         <select
+          data-testid="customer_checkout__select-seller"
           name="seller"
           id="seller"
           value={ sellerId }
@@ -50,7 +51,7 @@ export default function CheckoutForm() {
         Endereço:
         <input
           type="text"
-          data-testid=""
+          data-testid="customer_checkout__input-address"
           value={ deliveryAddress }
           id="delivery_address"
           onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
@@ -61,13 +62,14 @@ export default function CheckoutForm() {
         Número:
         <input
           type="text"
-          data-testid=""
+          data-testid="customer_checkout__input-address-number"
           value={ deliveryNumber }
           id="delivery_number"
           onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
         />
       </label>
       <button
+        data-testid="customer_checkout__button-submit-order"
         type="button"
         onClick={ handleClick }
       >
