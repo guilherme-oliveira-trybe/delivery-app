@@ -1,9 +1,16 @@
 const { saleService } = require('../services');
 
 const saleController = {
-  getAllByUserId: async (req, res) => {
-    const { userId } = req.params;
-    const result = await saleService.getAllByUserId(userId);
+  getAll: async (req, res) => {
+    const result = await saleService.getAll();
+
+    return res.status(200).json(result);
+  },
+
+  getById: async (req, res) => {
+    const { id } = req.params;
+
+    const result = await saleService.getById(id);
 
     return res.status(200).json(result);
   },

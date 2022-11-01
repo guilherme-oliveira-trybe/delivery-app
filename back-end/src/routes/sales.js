@@ -4,7 +4,8 @@ const { saleController } = require('../controllers');
 
 const route = express.Router();
 
-route.get('/customer/orders/:userId', saleController.getAllByUserId);
+route.get('/customer/orders', saleController.getAll);
+route.get('/customer/orders/:id', saleController.getById);
 // route.use(Middleware.validateSale.validateUsers);
 // route.use(Middleware.validateSale.validateAddress);
 // route.use(Middleware.validateSale.validateOrder);
