@@ -22,7 +22,12 @@ const saleController = {
     return res.status(200).json(user);
   },
 
-  create: async () => null,
+  create: async () => {
+    const { name, email, password } = req.body;
+    await userService.create(name, email, password);
+
+    return res.status(201).json({ message: "Created" });
+  },
 };
 
 module.exports = saleController;

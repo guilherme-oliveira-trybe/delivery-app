@@ -29,7 +29,10 @@ const UserService = {
     return user;
   },
 
-  create: async () => null,
+  create: async (name, email, password) => {
+    const user = await User.create({ name, email, password });
+    return user;
+  },
 };
 
 module.exports = UserService;

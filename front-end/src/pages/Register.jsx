@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { registerAttempt } from '../services/api';
 import InvalidRegister from '../components/InvalidRegister';
 
 function Register() {
@@ -33,10 +34,6 @@ function Register() {
       return;
     }
     setIsAble(true);
-  };
-
-  const handleClick = () => {
-    history.push('/customer/products');
   };
 
   useEffect(() => {
@@ -85,7 +82,15 @@ function Register() {
           type="button"
           data-testid="common_register__button-register"
           disabled={ !isAble }
-          onClick={ handleClick }
+          onClick={ async () => {
+            console.log('oioioio');
+            try {
+              await registerAttempt({ name, email, password });
+              history.push('/customer/products');
+            } catch (error) {
+              console.log(error);
+            }
+          } }
         >
           Cadastrar
         </button>
