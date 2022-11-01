@@ -1,7 +1,7 @@
 const { userService } = require('../services');
 
 const saleController = {
-  getAll: async (_req, res) => {
+  getAll: async (_req, res, next) => {
     const users = await userService.getAll();
     if (users === null) {
       return next({ code: 404, message: 'Can\'t find users' });
@@ -18,7 +18,7 @@ const saleController = {
     return res.status(200).json(users);
   },
 
-  getById: async (req, res) => {
+  getById: async (req, res, next) => {
     const { id } = req.params;
     const user = await userService.getById(id);
     if (user === null) {
