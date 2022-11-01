@@ -36,7 +36,10 @@ export default function CheckoutForm() {
       body,
       { headers: { Authorization: `${token}` } },
     );
-    history.push(`/customer/orders/${orderId}`);
+    if (orderId) {
+      history.push(`/customer/orders/${orderId}`);
+    }
+    // alert('Não foi possível gerar o pedido');
   };
 
   return (
