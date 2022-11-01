@@ -1,8 +1,28 @@
-const { Sales, SalesProduct, sequelize } = require('../database/models');
+const { Sales, SalesProduct, sequelize, User, Product } = require('../database/models');
 
 const saleService = {
-  getAllByUserId: async (userId) => {
-    const sale = await Sales.findAll({ where: { userId } });
+  getAll: async () => {
+    const sales = await Sales.findAll();
+
+    return sales;
+  },
+
+  getById: async (id) => {
+    const sale = await Sales.findByPk(id, {
+      include: [{
+        model: User,
+        as: 'seller',
+        attributes: { exclude: ['password'] },
+      },
+      {
+        model: Product,
+        as: 'products',
+        through: {
+          attributes: ['quantity'],
+        },
+      },
+    ],
+    });
 
     return sale;
   },
