@@ -5,15 +5,17 @@ import OrderCard from '../components/customerOrders/OrderCard';
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [userId, setUserId] = useState();
 
   useEffect(() => {
-    const fetchCustomerOrders = async () => {
-      const url = 'http://www.localhost:3001/customer/orders/1'; // colocar userId de forma dinâmica
+    const fetchCustomerOrders = async (value) => {
+      const url = 'http://www.localhost:3001/customer/orders';
       const response = await fetch(url);
       const data = await response.json();
-      setCustomerOrder(data);
+      const orderByUserId = data.filter((order) => order.userId === value);
+      setCustomerOrder(orderByUserId);
     };
-    fetchCustomerOrders();
+    fetchCustomerOrders(1); // colocar ID do usuário de forma dinamica
     setLoading(false);
   }, []);
 
