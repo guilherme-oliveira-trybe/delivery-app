@@ -1,21 +1,20 @@
-const { User } = require('../database/models');
-
 const md5 = require('md5');
+const { User } = require('../database/models');
 
 const md5Decrypter = (password) => {
   const passwordDecrypted = md5(password);
   return passwordDecrypted;
-}
+};
 
 const UserService = {
   getAll: async () => {
-    const users = await Users.findAll();
+    const users = await User.findAll();
 
     return users;
   },
 
   getById: async (userId) => {
-    const user = await Users.findAll({ where: { userId } });
+    const user = await User.findAll({ where: { userId } });
 
     return user;
   },
