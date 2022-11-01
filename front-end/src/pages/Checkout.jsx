@@ -5,7 +5,7 @@ import DeliveryContext from '../context/DeliveryContext';
 import CheckoutForm from '../components/CheckoutForm';
 
 export default function Checkout() {
-  const { loading, setLoading, setOrders } = useContext(DeliveryContext);
+  const { loading, setLoading, setOrders, orders } = useContext(DeliveryContext);
 
   useEffect(() => {
     setOrders([
@@ -42,7 +42,12 @@ export default function Checkout() {
         {loading ? (
           <h2>Carregando...</h2>
         ) : (
-          <CheckoutTable needButton dateTest="element-order-table-name" />
+          <CheckoutTable
+            needButton
+            dateTest="customer_checkout__element-order-table"
+            dateTestTotal="customer_checkout"
+            orders={ orders }
+          />
         )}
       </section>
 
