@@ -1,10 +1,6 @@
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import DeliveryContext from '../context/DeliveryContext';
 
-export default function CheckoutTable({ needButton, dateTest }) {
-  const { orders, setOrders } = useContext(DeliveryContext);
-
+export default function CheckoutTable({ needButton, dateTest, dateTestTotal, orders }) {
   const handleRemove = (indexToRemove) => {
     const ordersFilter = orders.filter((_, index) => index !== indexToRemove);
     setOrders(ordersFilter);
@@ -29,14 +25,30 @@ export default function CheckoutTable({ needButton, dateTest }) {
           <tbody>
             {orders.map((order, index) => (
               <tr key={ index }>
-                <td>{ index + 1 }</td>
-                <td data-testid={ `${dateTest}-${index}` }>{ order.name }</td>
-                <td>{ order.quantity }</td>
-                <td>{ order.unitPrice }</td>
-                <td>{ order.subTotal }</td>
+                <td data-testid={ `${dateTest}-item-number-${index}` }>{ index + 1 }</td>
+                <td data-testid={ `${dateTest}-name-${index}` }>{ order.name }</td>
+                <td
+                  data-testid={ `${dateTest}-quantity-${index}` }
+                >
+                  { order.quantity }
+
+                </td>
+                <td
+                  data-testid={ `${dateTest}-unit-price-${index}` }
+                >
+                  { order.unitPrice }
+
+                </td>
+                <td
+                  data-testid={ `${dateTest}-sub-total-${index}` }
+                >
+                  { order.subTotal }
+
+                </td>
                 {needButton && (
                   <td>
                     <button
+                      data-testid={ `${dateTest}-remove-${index}` }
                       type="button"
                       onClick={ () => handleRemove(index) }
                     >
@@ -49,13 +61,19 @@ export default function CheckoutTable({ needButton, dateTest }) {
           </tbody>
         </table>
       )}
-      <h3>{`Total: R$${total.toFixed(2)}`}</h3>
+      <h3
+        data-testid={ `${dateTestTotal}__element-order-total-price` }
+      >
+        {`Total: R$${total.toFixed(2)}`}
+
+      </h3>
     </section>
   );
 }
 
 CheckoutTable.propTypes = {
-  // orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   needButton: PropTypes.bool.isRequired,
   dateTest: PropTypes.string.isRequired,
+  dateTestTotal: PropTypes.string.isRequired,
 };
