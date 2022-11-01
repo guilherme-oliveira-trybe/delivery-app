@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DeliveryContext from '../context/DeliveryContext';
@@ -8,8 +8,17 @@ export default function CheckoutForm() {
   const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [sellers, setSellers] = useState([]);
   const { orders } = useContext(DeliveryContext);
   const history = useHistory();
+
+  useEffect(() => {
+    const updateSellers = async () => {
+      const { data } = await axios.get('http://localhost:3001/user/role/seller');
+      setSellers(data);
+    };
+    updateSellers();
+  }, []);
 
   const handleClick = () => {
     console.log('envia o pedido, fazer axios.post');
@@ -41,9 +50,11 @@ export default function CheckoutForm() {
           value={ sellerId }
           onChange={ ({ target: { value } }) => setSellerId(value) }
         >
-          {/* TO_DO: Construir a lista de vendedores possíveis */}
-          <option value="V1">Vendedor 1</option>
-          <option value="V2">Vendedor 2</option>
+          {sellers.length > 0 && sellers.map(({ name, id }) => (
+            <option key={ `sellers-${id}` } value={ id }>
+              {name}
+            </option>
+          ))}
         </select>
       </label>
 
