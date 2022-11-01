@@ -1,15 +1,18 @@
-const { Users } = require('../database/models');
+const { User } = require('../database/models');
 
 const UserService = {
   getAll: async () => {
-    const users = await Users.findAll();
-
+    const users = await User.findAll();
     return users;
   },
 
-  getById: async (userId) => {
-    const user = await Users.findAll({ where: { userId } });
+  getByRole: async (role) => {
+    const users = await User.findAll({ where: { role } });
+    return users;
+  },
 
+  getById: async (id) => {
+    const user = await User.findAll({ where: { id } });
     return user;
   },
 
