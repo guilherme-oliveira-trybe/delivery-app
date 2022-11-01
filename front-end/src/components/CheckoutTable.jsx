@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function CheckoutTable({ needButton, dateTest, dateTestTotal, orders }) {
+  const { setOrders } = useContext(DeliveryContext);
+
   const handleRemove = (indexToRemove) => {
     const ordersFilter = orders.filter((_, index) => index !== indexToRemove);
     setOrders(ordersFilter);
