@@ -1,6 +1,6 @@
 const express = require('express');
 const { saleController } = require('../controllers');
-// const Middleware = require('../middleware'); 
+const Middleware = require('../middleware'); 
 
 const route = express.Router();
 

@@ -1,11 +1,16 @@
+const { userService, productsService } = require('../services');
+
 const validateUsers = async (req, _res, next) => {
   const { userId, sellerId } = req.body;
-  if (!userId) {
-    next({ code: 404, message: 'Must have a valid User Buying' });
+  const isValidUser = await userService.getById(userId);
+  if (!isValidUser || isValidUser.length === 0) {
+    next({ code: 404, message: 'Must have a valid User' });
   }
-  if (!sellerId) {
-    next({ code: 404, message: 'Must have a valid User Buying' });
+  const isValidSeller = await userService.getById(sellerId);
+  if (!isValidSeller || isValidSeller.length === 0) {
+    next({ code: 404, message: 'Must have a valid Seller' });
   }
+  next();
 };
 
 const validateAddress = async (req, _res, next) => {
@@ -16,6 +21,7 @@ const validateAddress = async (req, _res, next) => {
   if (!deliveryNumber || typeof deliveryNumber !== 'number') {
     next({ code: 404, message: 'Must have a valid Address number' });
   }
+  next();
 };
 
 const validateOrder = async (req, _res, next) => {
@@ -23,16 +29,15 @@ const validateOrder = async (req, _res, next) => {
   if (!orders) {
     next({ code: 404, message: 'Must have a array of products' });
   }
-  const validArray = orders.map((order) => {
-    const user = 'TO DO';
-    if (user !== null && typeof order.quantity !== 'number') {
-      return false;
-    }
-    return true;
-  });
-  if (!validArray.every((item) => item === true)) {
-    next({ code: 404, message: 'Must have a array of valid products and quantity' });
+  const productsArray = await Promise
+    .all(orders.map(({ productId }) => productsService.getProductById(productId)));
+  if (!productsArray.every((item) => item !== null)) {
+    next({ code: 404, message: 'Must have a array of valid products' });
   }
+  if (!orders.every(({ quantity }) => typeof quantity === 'number')) {
+    next({ code: 404, message: 'Must have a array with valid quantity' });
+  }
+  next();
 };
 
 module.exports = {
