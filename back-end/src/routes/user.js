@@ -9,4 +9,6 @@ route.get('/user/:id', userController.getById);
 route.get('/user', userController.getAll);
 route.post('/algo', userController.create);
 
+route.post('/', userController.login);
+
 module.exports = route;

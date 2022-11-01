@@ -14,11 +14,11 @@ app.use(cors());
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(salesRoute);
+app.use('/login', userRoute);
 app.use(userRoute);
+app.use(salesRoute);
 app.use('/products', productRoute);
 
-app.get('/login', (_req, res) => res.status(200).json({ message: 'Login attempt' }));
-app.post('/login', (_req, res) => res.status(404).json({ message: 'User not found' }));
 app.use(express.static('public'));
 
 app.use(Middleware.error);
