@@ -22,11 +22,11 @@ const saleController = {
     return res.status(200).json(user);
   },
 
-  create: async () => {
+  create: async (req, res) => {
     const { name, email, password } = req.body;
     await userService.create(name, email, password);
 
-    return res.status(201).json({ message: "Created" });
+    return res.status(201).json({ message: 'Created' });
   },
 };
 
