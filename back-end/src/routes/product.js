@@ -5,6 +5,6 @@ const { productsController } = require('../controllers');
 
 const route = Router();
 
-route.get('/', /*validateToken,*/ productsController.getAllProducts);
+route.get('/', productsController.getAllProducts);
 
 module.exports = route;
