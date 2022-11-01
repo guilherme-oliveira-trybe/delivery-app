@@ -21,9 +21,10 @@ const UserService = {
 
   login: async (email, password) => {
     const user = await User.findOne({ where: { email } });
+    if (!user) return null;
 
-    const providedPassowrd = md5Decrypter(password);
-    if (providedPassowrd !== user.password) return null;
+    const providedPassword = md5Decrypter(password);
+    if (providedPassword !== user.password) return null;
     
     return user;
   },
