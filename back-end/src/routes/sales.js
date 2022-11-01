@@ -9,5 +9,6 @@ route.get('/customer/orders/:userId', saleController.getAllByUserId);
 // route.use(Middleware.validateSale.validateAddress);
 // route.use(Middleware.validateSale.validateOrder);
 route.post('/customer/orders/', saleController.create);
+route.patch('/customer/orders/:id', saleController.updateStatus);
 
 module.exports = route;
