@@ -40,7 +40,7 @@ const saleService = {
     ],
     });
 
-    return sale;
+    return [sale];
   },
 
   create: async (sale, orders) => {
