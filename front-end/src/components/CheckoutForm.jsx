@@ -36,7 +36,13 @@ export default function CheckoutForm() {
       body,
       { headers: { Authorization: `${token}` } },
     );
-    history.push(`/customer/orders/${orderId}`);
+
+    if (orderId) {
+      history.push({
+        pathname: `/customer/orders/${orderId}`,
+        state: orderId,
+      });
+    }
   };
 
   return (
