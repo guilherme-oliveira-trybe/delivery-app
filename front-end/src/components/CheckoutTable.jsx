@@ -40,7 +40,7 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
                 <td
                   data-testid={ `${dateTest}-unit-price-${index}` }
                 >
-                  { order.unitPrice }
+                  { order.price }
 
                 </td>
                 <td
