@@ -3,25 +3,31 @@ import PropTypes from 'prop-types';
 
 export default function ProductCard(props) {
   const { id, name, price, urlImage } = props;
-
-  const [value, setValue] = useState(0);
+  const [qtyValue, setQtyValue] = useState(0);
 
   const sumValue = () => {
-    const sum = value + 1;
+    const sum = qtyValue + 1;
     setValue(sum);
   };
 
   const subValue = () => {
-    const sub = value - 1;
+    const sub = qtyValue - 1;
     setValue(sub);
   };
 
   return (
     <div
       className="cardProductContainer"
-      data-testid={ `customer_products__element-card-price-${id}` }
     >
-      <p>{ `R$${price}` }</p>
+      <span>
+        R$
+        {' '}
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          { price.replace('.', ',') }
+        </span>
+      </span>
       <img
         src={ urlImage }
         width="200"
@@ -43,13 +49,14 @@ export default function ProductCard(props) {
         </button>
         <input
           type="number"
+          id="productQtyValue"
           data-testid={ `customer_products__input-card-quantity-${id}` }
-          value={ value }
-          // onChange={ ({ target }) => handleOnChange(target) }
+          value={ qtyValue }
+          onChange={ ({ target }) => setQtyValue(target.value) }
         />
         <button
           type="button"
-          disabled={ (value === 0) }
+          disabled={ (qtyValue === 0) }
           onClick={ () => subValue() }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
