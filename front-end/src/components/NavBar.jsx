@@ -29,7 +29,7 @@ function NavBar() {
         <a
           href="/"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ localStorage.clear() }
+          onClick={ localStorage.clear }
         >
           Sair
         </a>
