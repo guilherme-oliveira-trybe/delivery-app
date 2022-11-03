@@ -30,7 +30,7 @@ const UserService = {
     const providedPassword = md5Decrypter(passwordParams);
     if (providedPassword !== user.password) return null;
     const { password, ...userFilter } = user;
-    const token = createToken(email);
+    const token = createToken(user);
     return { ...userFilter, token };
   },
 
