@@ -21,7 +21,10 @@ export default function OrderCard({
   };
 
   const onClick = (value) => {
-    history.push(`/customer/orders/${value}`);
+    history.push({
+      pathname: `/customer/orders/${value}`,
+      state: order,
+    });
   };
 
   return (
