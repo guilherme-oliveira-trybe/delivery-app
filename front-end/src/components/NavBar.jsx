@@ -24,7 +24,6 @@ function NavBar() {
           data-testid="customer_products__element-navbar-user-full-name"
         >
           { user.name }
-          Nome do usuário
         </p>
         <a
           href="/"
