@@ -24,13 +24,13 @@ const UserService = {
   },
 
   login: async (email, passwordParams) => {
-    const { dataValues: user } = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
     if (!user) return null;
-
+    const { dataValues } = user;
     const providedPassword = md5Decrypter(passwordParams);
-    if (providedPassword !== user.password) return null;
-    const { password, ...userFilter } = user;
-    const token = createToken(email);
+    if (providedPassword !== dataValues.password) return null;
+    const { password, ...userFilter } = dataValues;
+    const token = createToken(dataValues);
     return { ...userFilter, token };
   },
 

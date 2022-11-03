@@ -1,8 +1,6 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'meu_segredo';
-
+const jwtKey = require('fs').readFileSync('jwt.evaluation.key', { encoding: 'utf-8' });
 const { userService } = require('../services');
 
 // Middleware de autentificação proveniente da resolução do exercício
@@ -10,7 +8,7 @@ const validateToken = async (req, res, next) => {
   try {
     const { authorization: token } = req.headers;
     if (!token) return res.status(401).json({ message: 'Token not found' });
-    const { email } = jwt.verify(token, JWT_SECRET);
+    const { email } = jwt.verify(token, jwtKey);
 
     const { code, message } = await userService.findByEmail(email);
     if (message) return res.status(code).json({ message });
