@@ -27,17 +27,6 @@ export default function Login() {
     return (value.length < minLength);
   };
 
-  const handleLogin = async () => {
-    try {
-      const user = await loginAttempt({ email, password });
-      setLocalStorage('user', user);
-      history.push('/customer/products');
-    } catch (error) {
-      console.log(error);
-      setFailedLogin(true);
-    }
-  };
-
   return (
     <div>
       <h2>NOSSA_LOGO</h2>
@@ -75,7 +64,16 @@ export default function Login() {
           type="button"
           data-testid="common_login__button-login"
           disabled={ !!((errorEmail || errorPassword)) }
-          onClick={ handleLogin }
+          onClick={ async () => {
+            try {
+              const user = await loginAttempt({ email, password });
+              setLocalStorage('user', user);
+              history.push('/customer/products');
+            } catch (error) {
+              console.log(error);
+              setFailedLogin(true);
+            }
+          }}
         >
           Log In
         </button>
