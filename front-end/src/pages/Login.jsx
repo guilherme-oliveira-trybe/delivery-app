@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { loginAttempt } from '../services/api';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -8,8 +9,13 @@ export default function Login() {
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
   const [failedLogin, setFailedLogin] = useState(false);
+  const { setLocalStorage } = useContext(DeliveryContext);
 
   const history = useHistory();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const emailValidation = (value) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -19,6 +25,19 @@ export default function Login() {
   const passwordValidation = (value) => {
     const minLength = 6;
     return (value.length < minLength);
+  };
+
+  const handleLogin = async () => {
+    try {
+      const user = await loginAttempt({ email, password });
+      console.log(user);
+      setLocalStorage('user', user);
+      // localStorage.setItem('user', JSON.stringify(user));
+      history.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+      setFailedLogin(true);
+    }
   };
 
   return (
@@ -58,15 +77,7 @@ export default function Login() {
           type="button"
           data-testid="common_login__button-login"
           disabled={ !!((errorEmail || errorPassword)) }
-          onClick={ async () => {
-            try {
-              await loginAttempt({ email, password });
-              history.push('/customer/products');
-            } catch (error) {
-              console.log(error);
-              setFailedLogin(true);
-            }
-          } }
+          onClick={ handleLogin }
         >
           Log In
         </button>
