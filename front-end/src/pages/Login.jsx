@@ -30,9 +30,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const user = await loginAttempt({ email, password });
-      console.log(user);
       setLocalStorage('user', user);
-      // localStorage.setItem('user', JSON.stringify(user));
       history.push('/customer/products');
     } catch (error) {
       console.log(error);
