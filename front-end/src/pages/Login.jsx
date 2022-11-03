@@ -73,7 +73,7 @@ export default function Login() {
               console.log(error);
               setFailedLogin(true);
             }
-          }}
+          } }
         >
           Log In
         </button>
