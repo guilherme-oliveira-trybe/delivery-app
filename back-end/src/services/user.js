@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
+const createToken = require('../middleware/createToken');
 
 const md5Decrypter = (password) => {
   const passwordDecrypted = md5(password);
@@ -22,14 +23,15 @@ const UserService = {
     return user;
   },
 
-  login: async (email, password) => {
-    const user = await User.findOne({ where: { email } });
+  login: async (email, passwordParams) => {
+    const { dataValues: user } = await User.findOne({ where: { email } });
     if (!user) return null;
 
-    const providedPassword = md5Decrypter(password);
+    const providedPassword = md5Decrypter(passwordParams);
     if (providedPassword !== user.password) return null;
-
-    return user;
+    const { password, ...userFilter } = user;
+    const token = createToken(email);
+    return { ...userFilter, token };
   },
 
   create: async () => null,
