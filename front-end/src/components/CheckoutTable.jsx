@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function CheckoutTable({ needButton, dateTest, dateTestTotal, orders }) {
+  const { setOrders } = useContext(DeliveryContext);
+
   const handleRemove = (indexToRemove) => {
     const ordersFilter = orders.filter((_, index) => index !== indexToRemove);
     setOrders(ordersFilter);
@@ -36,7 +40,7 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
                 <td
                   data-testid={ `${dateTest}-unit-price-${index}` }
                 >
-                  { order.unitPrice }
+                  { order.price }
 
                 </td>
                 <td

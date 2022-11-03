@@ -9,13 +9,16 @@ const md5Decrypter = (password) => {
 const UserService = {
   getAll: async () => {
     const users = await User.findAll();
-
     return users;
   },
 
-  getById: async (userId) => {
-    const user = await User.findAll({ where: { userId } });
+  getByRole: async (role) => {
+    const users = await User.findAll({ where: { role } });
+    return users;
+  },
 
+  getById: async (id) => {
+    const user = await User.findAll({ where: { id } });
     return user;
   },
 
@@ -25,7 +28,7 @@ const UserService = {
 
     const providedPassword = md5Decrypter(password);
     if (providedPassword !== user.password) return null;
-    
+
     return user;
   },
 
