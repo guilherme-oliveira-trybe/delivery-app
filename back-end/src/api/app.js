@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cors());
 app.use(salesRoute);
-app.use('/login', userRoute);
+app.use('/', userRoute);
 app.use('/products', productRoute);
 
 app.use(express.static('public'));
