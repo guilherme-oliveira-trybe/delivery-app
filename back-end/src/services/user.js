@@ -39,7 +39,7 @@ const UserService = {
       const newUser = await User.create({ name, email, password: encryptedPassword });
   
       return newUser;
-    };
+    }
 
     return null;
   },
