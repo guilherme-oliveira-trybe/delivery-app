@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'meu_segredo';
+const JWT_SECRET = process.env.JWT_SECRET || 'secret_key';
 
 module.exports = (email) => {
   const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
