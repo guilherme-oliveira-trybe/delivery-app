@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import CheckoutTable from '../components/CheckoutTable';
 import DeliveryContext from '../context/DeliveryContext';
 import CheckoutForm from '../components/CheckoutForm';
+import NavBar from '../components/NavBar';
 
 export default function Checkout() {
   const { loading, setLoading, setOrders, orders } = useContext(DeliveryContext);
@@ -29,13 +29,7 @@ export default function Checkout() {
 
   return (
     <main>
-      <h1>Checkout</h1>
-      <header>
-        <Link to="/products">PRODUTOS</Link>
-        <Link to="/orders">MEUS PEDIDOS</Link>
-        <h3>Nome do usuário</h3>
-        <Link to="/">SAIR</Link>
-      </header>
+      <NavBar />
 
       <section>
         <h3>Finalizar Pedido</h3>

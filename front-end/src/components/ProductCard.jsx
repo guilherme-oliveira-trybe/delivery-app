@@ -29,7 +29,11 @@ export default function ProductCard(props) {
         alt={ name }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
-      <p>{name}</p>
+      <p
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        {name}
+      </p>
       <div>
         <button
           type="button"
@@ -38,7 +42,10 @@ export default function ProductCard(props) {
         >
           +
         </button>
-        <p>{value}</p>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ value }
+        />
         <button
           type="button"
           disabled={ (value === 0) }
