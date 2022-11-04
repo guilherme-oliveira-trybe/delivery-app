@@ -23,12 +23,11 @@ export default function CheckoutForm({ cart }) {
     const body = {
       userId: id,
       sellerId,
-      totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0),
+      totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0).toFixed(2),
       deliveryAddress,
       deliveryNumber,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
-    console.log(body, token);
     const { data } = await axios.post(
       'http://localhost:3001/customer/orders',
       body,
