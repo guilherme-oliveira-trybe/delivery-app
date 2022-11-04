@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.STRING(255),
+      defaultValue: 'custumer',
     }
   }, {
     timestamps: false,

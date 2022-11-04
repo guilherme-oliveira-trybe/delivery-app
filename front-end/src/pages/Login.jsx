@@ -1,17 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-// require('dotenv').config();
-
-// const {
-//   REACT_APP_HOSTNAME,
-//   REACT_APP_BACKEND_PORT,
-// } = process.env;
-
-// [TO-DO]: [Iasmin] resolver problema ao utilizar variáveis de ambiente no Front;
-// const loginURL = `http://${REACT_APP_HOSTNAME}:${REACT_APP_BACKEND_PORT}/login`;
-const loginURL = 'http://localhost:3001/login';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { loginAttempt } from '../services/api';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -19,6 +9,13 @@ export default function Login() {
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
   const [failedLogin, setFailedLogin] = useState(false);
+  const { setLocalStorage } = useContext(DeliveryContext);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const emailValidation = (value) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -68,10 +65,14 @@ export default function Login() {
           data-testid="common_login__button-login"
           disabled={ !!((errorEmail || errorPassword)) }
           onClick={ async () => {
-            setFailedLogin(true);
-            const response = await axios.post(loginURL);
-            const result = await response.json();
-            console.log(result.message);
+            try {
+              const user = await loginAttempt({ email, password });
+              setLocalStorage('user', user);
+              history.push('/customer/products');
+            } catch (error) {
+              console.log(error);
+              setFailedLogin(true);
+            }
           } }
         >
           Log In
