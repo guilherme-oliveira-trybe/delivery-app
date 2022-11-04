@@ -19,23 +19,24 @@ export default function SellerOrders() {
       const { id, token } = JSON.parse(localStorage.getItem('user'));
       setIdUser(id);
       setUserToken(token);
+      return token;
     };
-    const fetchSellerOrders = async (value) => {
+    const fetchSellerOrders = async (token, value) => {
       const url = 'http://www.localhost:3001/seller/orders';
-      const header = { headers: { Authorization: `${userToken}` } };
+      const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const orderByUserId = data.filter((order) => order.sellerId === value);
       console.log(orderByUserId);
       setSellerOrder(orderByUserId);
     };
-    getUserId();
-    fetchSellerOrders(idUser);
+    const token = getUserId();
+    fetchSellerOrders(token, idUser);
     setLoading(false);
   }, [idUser, history, userToken]);
 
   return (
     <div>
-      { loading && <span>Loading</span>}
+      {/* { loading && <span>Loading</span>} */}
       <NavBar />
       { !loading
       && sellerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
