@@ -15,7 +15,8 @@ export const registerAttempt = async (body) => {
 };
 
 const getAllProducts = async () => {
-  const data = await api.get('/products')
+  const user = JSON.parse(localStorage.getItem('user'));
+  const data = await api.get('/products', { headers: { Authorization: `${user.token}` } })
     .then((response) => response.data);
   return data;
 };
