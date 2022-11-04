@@ -6,43 +6,60 @@ import getAllProducts from '../services/api';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    const AllProducts = await getAllProducts();
-    setProducts(AllProducts.products);
-  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const AllProducts = await getAllProducts();
+      setProducts(AllProducts.products);
+    };
+    fetchProducts();
+    setLoading(false);
+  }, [setCart]);
+
+  const total = cart.reduce((acc, curr) => acc + (curr.quantity * curr.unitPrice), 0);
 
   const history = useHistory();
   function handleOnClick() {
     history.push('/customer/checkout');
   }
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
   return (
-    <div>
+    <section>
       <NavBar />
-      <div>
-        <button
-          type="submit"
-          data-testid="customer_products__button-cart"
-          onClick={ handleOnClick }
-          // disabled={ cart.length === 0 }
-        >
-          Ver Carrinho:
-          {/* <p data-testid="customer_products__checkout-bottom-value">{ total }</p> */}
-        </button>
-        { products.map((product) => (
-          <ProductCard
-            key={ product.id }
-            id={ product.id }
-            name={ product.name }
-            price={ product.price }
-            urlImage={ product.urlImage }
-          />)) }
-      </div>
-    </div>
+      {loading ? (
+        <h2>Carregando...</h2>
+      ) : (
+        <div>
+          <div>
+            { products.map((product) => (
+              <ProductCard
+                key={ product.id }
+                id={ product.id }
+                name={ product.name }
+                price={ product.price }
+                urlImage={ product.urlImage }
+                cart={ cart }
+                setCart={ setCart }
+              />)) }
+          </div>
+          <button
+            type="submit"
+            data-testid="customer_products__button-cart"
+            onClick={ handleOnClick }
+            disabled={ cart.length === 0 }
+          >
+            Ver Carrinho: R$
+            {' '}
+            <span
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              { total.toFixed(2).replace('.', ',') }
+            </span>
+          </button>
+        </div>
+      )}
+    </section>
   );
 }
