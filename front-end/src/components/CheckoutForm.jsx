@@ -1,15 +1,13 @@
-// import PropTypes from 'prop-types';
-import { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import DeliveryContext from '../context/DeliveryContext';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ cart }) {
   const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
-  const { orders } = useContext(DeliveryContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -20,28 +18,26 @@ export default function CheckoutForm() {
     updateSellers();
   }, []);
 
-  const handleClick = () => {
-    console.log('envia o pedido, fazer axios.post');
-    const token = localStorage.getItem('token');
+  const handleClick = async () => {
+    const { id, token } = JSON.parse(localStorage.getItem('user'));
     const body = {
-      userId: 'deve vir do token', // VALIDAR SITUAÇÃO
+      userId: id,
       sellerId,
-      totalPrice: orders.reduce((acc, curr) => acc + Number(curr.subTotal), 0),
+      totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0),
       deliveryAddress,
       deliveryNumber,
-      orders: [{ productId: 1, quantity: 2 }],
+      orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
-    const { id: orderId } = axios.post(
+    const { id: orderId } = await axios.post(
       'http://localhost:3001/customer/orders',
       body,
       { headers: { Authorization: `${token}` } },
     );
-    // if (orderId) {
+    console.log(orderId);
     history.push({
       pathname: `/customer/orders/${orderId}`,
       state: orderId,
     });
-    // }
   };
 
   return (
@@ -55,6 +51,7 @@ export default function CheckoutForm() {
           value={ sellerId }
           onChange={ ({ target: { value } }) => setSellerId(value) }
         >
+          <option value="default">Selecionar</option>
           {sellers.length > 0 && sellers.map(({ name, id }) => (
             <option key={ `sellers-${id}` } value={ id }>
               {name}
@@ -95,4 +92,6 @@ export default function CheckoutForm() {
   );
 }
 
-// CheckoutForm.propTypes = {};
+CheckoutForm.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+};

@@ -34,7 +34,7 @@ export default function Checkout() {
 
       <section>
         <h3>Detalhes e Endereço para Entrega</h3>
-        <CheckoutForm />
+        <CheckoutForm cart={ cart } />
       </section>
     </main>
   );
