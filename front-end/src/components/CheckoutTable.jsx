@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import DeliveryContext from '../context/DeliveryContext';
 
-export default function CheckoutTable({ needButton, dateTest, dateTestTotal, orders }) {
-  const { setOrders } = useContext(DeliveryContext);
-
+export default function CheckoutTable({
+  needButton,
+  dateTest,
+  dateTestTotal,
+  cart,
+  setCart,
+}) {
   const handleRemove = (indexToRemove) => {
-    const ordersFilter = orders.filter((_, index) => index !== indexToRemove);
-    setOrders(ordersFilter);
+    const cartFilter = cart.filter((_, index) => index !== indexToRemove);
+    localStorage.setItem('carrinho', JSON.stringify(cartFilter));
+    setCart(cartFilter);
   };
 
-  const total = orders.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
+  const total = cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
 
   return (
     <section>
-      { orders.length === 0 ? (<h3>Nenhum produto</h3>) : (
+      { cart.length === 0 ? (<h3>Nenhum produto</h3>) : (
         <table>
           <thead>
             <tr>
@@ -27,7 +30,7 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
+            {cart.map((order, index) => (
               <tr key={ index }>
                 <td data-testid={ `${dateTest}-item-number-${index}` }>{ index + 1 }</td>
                 <td data-testid={ `${dateTest}-name-${index}` }>{ order.name }</td>
@@ -40,13 +43,13 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
                 <td
                   data-testid={ `${dateTest}-unit-price-${index}` }
                 >
-                  { order.price }
+                  { order.unitPrice.replace('.', ',') }
 
                 </td>
                 <td
                   data-testid={ `${dateTest}-sub-total-${index}` }
                 >
-                  { order.subTotal }
+                  { order.subTotal.toFixed(2).replace('.', ',') }
 
                 </td>
                 {needButton && (
@@ -68,7 +71,7 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
       <h3
         data-testid={ `${dateTestTotal}__element-order-total-price` }
       >
-        {`Total: R$${total.toFixed(2)}`}
+        {`Total: R$${total.toFixed(2).replace('.', ',')}`}
 
       </h3>
     </section>
@@ -76,8 +79,9 @@ export default function CheckoutTable({ needButton, dateTest, dateTestTotal, ord
 }
 
 CheckoutTable.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  cart: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   needButton: PropTypes.bool.isRequired,
   dateTest: PropTypes.string.isRequired,
   dateTestTotal: PropTypes.string.isRequired,
+  setCart: PropTypes.func.isRequired,
 };

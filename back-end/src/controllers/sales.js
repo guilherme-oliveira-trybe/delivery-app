@@ -29,7 +29,7 @@ const saleController = {
     const saleCreated = await saleService.create({
       userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
     }, orders);
-    console.log(saleCreated);
+    // console.log(saleCreated);
     if (saleCreated === null) return next({ code: 404, message: 'Can\'t create sale' });
     return res.status(201).json(saleCreated);
   },

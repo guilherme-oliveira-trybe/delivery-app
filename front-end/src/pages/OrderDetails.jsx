@@ -14,20 +14,30 @@ export default function OrderDetails() {
   const history = useHistory();
   const { location: { state } } = history;
   const dataTest = 'customer_order_details__element-order-details-label';
+  const [userToken, setUserToken] = useState();
 
   useEffect(() => {
+    const getUserInfo = () => {
+      if (!localStorage.getItem('user')) {
+        return history.push('/login');
+      }
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      setUserToken(token);
+    };
     const fetchOrderDetail = async (value) => {
       const url = `http://www.localhost:3001/customer/orders/${value}`;
-      const { data } = await axios.get(url);
+      const header = { headers: { Authorization: `${userToken}` } };
+      const { data } = await axios.get(url, header);
       const [{ products, saleDate, seller: { name }, status }] = data;
       setOrder(products);
       setDate(saleDate);
       setSeller(name);
       setSaleStatus(status);
     };
+    getUserInfo();
     fetchOrderDetail(id);
     setLoading(false);
-  }, [id]);
+  }, [id, history, userToken]);
 
   const handleSaleDate = (value) => {
     if (value) {
@@ -102,7 +112,8 @@ export default function OrderDetails() {
         needButton={ false }
         dateTest="customer_order_details__element-order-table"
         dateTestTotal="customer_order_details"
-        orders={ handleOrder(order) }
+        cart={ handleOrder(order) }
+        setCart={ () => {} }
       />}
     </div>
   );

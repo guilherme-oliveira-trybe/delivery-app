@@ -8,6 +8,7 @@ const productsService = {
 
   getProductById: async (id) => {
     const products = await Product.findAll({ where: { id } });
+    if (!products || products.length === 0) return null;
     return products;
   },
 };
