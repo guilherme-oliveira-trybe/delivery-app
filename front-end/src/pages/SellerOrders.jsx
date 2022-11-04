@@ -36,7 +36,7 @@ export default function SellerOrders() {
   return (
     <div>
       { loading && <span>Loading</span>}
-      { !loading && <NavBar />}
+      <NavBar />
       { !loading
       && sellerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
         <OrderCard

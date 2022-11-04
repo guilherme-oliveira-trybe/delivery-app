@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function OrderCard({
   saleId,
-  userId,
+  // userId,
   order,
   status,
   saleDate,
@@ -29,16 +29,16 @@ export default function OrderCard({
 
   return (
     <div onClick={ () => onClick(saleId) } aria-hidden="true">
-      <section data-testid={ `seller_orders__element-order-id-${userId}` }>
+      <section data-testid={ `seller_orders__element-order-id-${saleId}` }>
         <span>{`Pedido: ${order}`}</span>
       </section>
-      <section data-testid={ `seller_orders__element-delivery-status-${userId}` }>
+      <section data-testid={ `seller_orders__element-delivery-status-${saleId}` }>
         <span>{status}</span>
       </section>
-      <section data-testid={ `seller_orders__element-order-date-${userId}` }>
+      <section data-testid={ `seller_orders__element-order-date-${saleId}` }>
         <span>{handleSaleDate(saleDate)}</span>
       </section>
-      <section data-testid={ `seller_orders__element-card-price-${userId}` }>
+      <section data-testid={ `seller_orders__element-card-price-${saleId}` }>
         <span>{totalPrice}</span>
       </section>
     </div>
