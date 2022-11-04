@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { loginAttempt } from '../services/api';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -8,8 +9,13 @@ export default function Login() {
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
   const [failedLogin, setFailedLogin] = useState(false);
+  const { setLocalStorage } = useContext(DeliveryContext);
 
   const history = useHistory();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const emailValidation = (value) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -60,7 +66,8 @@ export default function Login() {
           disabled={ !!((errorEmail || errorPassword)) }
           onClick={ async () => {
             try {
-              await loginAttempt({ email, password });
+              const user = await loginAttempt({ email, password });
+              setLocalStorage('user', user);
               history.push('/customer/products');
             } catch (error) {
               console.log(error);

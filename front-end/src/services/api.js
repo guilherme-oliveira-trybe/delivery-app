@@ -8,8 +8,15 @@ export const loginAttempt = async (body) => {
   return data;
 };
 
+export const registerAttempt = async (body) => {
+  const data = await api.post('/register', body)
+    .then((response) => response.data);
+  return data;
+};
+
 const getAllProducts = async () => {
-  const data = await api.get('/products')
+  const user = JSON.parse(localStorage.getItem('user'));
+  const data = await api.get('/products', { headers: { Authorization: `${user.token}` } })
     .then((response) => response.data);
   return data;
 };

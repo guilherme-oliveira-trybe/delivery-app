@@ -7,6 +7,15 @@ function DeliveryProvider({ children }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const setLocalStorage = (key, info) => {
+    localStorage.setItem(key, JSON.stringify(info));
+  };
+
+  const getLocalStorage = (key) => {
+    const info = localStorage.getItem(key);
+    return JSON.parse(info);
+  };
+
   const contextValue = useMemo(() => ({
     loading,
     setLoading,
@@ -14,6 +23,8 @@ function DeliveryProvider({ children }) {
     setOrders,
     user,
     setUser,
+    setLocalStorage,
+    getLocalStorage,
   }), [orders, loading, user]);
 
   return (

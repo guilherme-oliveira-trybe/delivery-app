@@ -30,12 +30,16 @@ const userController = {
   login: async (req, res) => {
     const { email, password } = req.body;
     const user = await userService.login(email, password);
-
     if (!user) return res.status(404).json({ error: 'User not found' });
     return res.status(200).json(user);
   },
 
-  create: async () => null,
+  create: async (req, res) => {
+    const { name, email, password } = req.body;
+    const user = await userService.create(name, email, password);
+    if (!user) return res.status(409).json({ error: 'Conflict' });
+    return res.status(201).json({ message: 'Created' });
+  },
 };
 
 module.exports = userController;
