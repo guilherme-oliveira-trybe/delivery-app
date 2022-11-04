@@ -6,9 +6,10 @@ const { validateToken } = require('../middleware/auth');
 const route = express.Router();
 
 route.get('/customer/orders', validateToken, saleController.getAll);
-route.get('/customer/orders/:id', saleController.getById);
-route.patch('/customer/orders/:id', saleController.updateStatus);
+// route.get('/customer/orders/:id', saleController.getById);
+route.get('/customer/orders/:id', validateToken, saleController.getById);
 
+route.patch('/customer/orders/:id', saleController.updateStatus);
 route.post(
   '/customer/orders',
   validateToken,

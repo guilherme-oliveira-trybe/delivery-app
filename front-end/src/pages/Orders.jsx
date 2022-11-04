@@ -12,7 +12,7 @@ export default function Orders() {
   const [userToken, setUserToken] = useState();
 
   useEffect(() => {
-    const getUserId = () => {
+    const getUserInfo = () => {
       if (!localStorage.getItem('user')) {
         return history.push('/login');
       }
@@ -27,7 +27,7 @@ export default function Orders() {
       const orderByUserId = data.filter((order) => order.userId === value);
       setCustomerOrder(orderByUserId);
     };
-    getUserId();
+    getUserInfo();
     fetchCustomerOrders(idUser); // colocar ID do usuário de forma dinamica
     setLoading(false);
   }, [idUser, history, userToken]);
