@@ -34,12 +34,19 @@ const UserService = {
     return { ...userFilter, token };
   },
 
-  create: async () => null,
-
   findByEmail: async (email) => {
     const user = await User.findOne({ where: { email } });
 
     return user;
+  },
+  create: async (name, email, password) => {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      const encryptedPassword = md5Decrypter(password);
+      const newUser = await User.create({ name, email, password: encryptedPassword });
+      return newUser;
+    }
+    return null;
   },
 };
 

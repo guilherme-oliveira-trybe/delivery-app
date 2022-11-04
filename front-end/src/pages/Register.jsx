@@ -1,67 +1,103 @@
-import { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-import Input from '../components/Input';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { registerAttempt } from '../services/api';
+import InvalidRegister from '../components/InvalidRegister';
 
-export default function Register() {
-  // const history = useHistory();
+function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [invalidUserMessage, setInvalidUserMessage] = useState(false);
-  const NOT_FOUND = 404;
-  const registerUser = async () => {
-    const { status } = await fetch('http://localhost:3001/register', {
-      method: 'POST',
-      headers: {},
-      body: JSON.stringify({ name, email, password }),
-    });
+  const [isAble, setIsAble] = useState(false);
+  const history = useHistory();
 
-    if (status === NOT_FOUND) {
-      setInvalidUserMessage(true);
-    } else {
-      navigateTo('/customer/products');
-    }
+  const handleChange = (e) => {
+    if (e.name === 'name') setName(e.value);
+    if (e.name === 'email') setEmail(e.value);
+    if (e.name === 'password') setPassword(e.value);
   };
+
+  const verifyButton = (state) => {
+    const { name: n, email: e, password: p } = state;
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const MIN_LENGTH_NAME = 12;
+    const MIN_LENGTH_PASSWORD = 6;
+    if (n.length < MIN_LENGTH_NAME) {
+      setIsAble(false);
+      return;
+    }
+    if (!regex.test(e)) {
+      setIsAble(false);
+      return;
+    }
+    if (p.length < MIN_LENGTH_PASSWORD) {
+      setIsAble(false);
+      return;
+    }
+    setIsAble(true);
+  };
+
+  useEffect(() => {
+    console.log(name, email, password);
+    verifyButton({ name, email, password });
+  });
+
   return (
     <div>
-      <h1>Cadastro</h1>
-
-      <Input
-        testId="common_register__input-name"
-        type="text"
-        labelText="Name"
-        onChange={ setName }
-      />
-
-      <Input
-        testId="common_register__input-email"
-        type="text"
-        labelText="Email"
-        onChange={ setEmail }
-      />
-
-      <Input
-        testId="common_register__input-password"
-        type="text"
-        labelText="Password"
-        onChange={ setPassword }
-      />
-
-      <button
-        data-testid="common_register__button-register"
-        type="button"
-        onClick={ registerUser }
-      >
-        Casdatrar
-      </button>
-
-      {invalidUserMessage && (
-        <p
-          data-testid="common_register__element-invalid_register"
+      <h2>Cadastro</h2>
+      <form>
+        <label htmlFor="register-name">
+          Nome
+          <input
+            name="name"
+            type="text"
+            placeholder="Seu Nome"
+            id="register-name"
+            data-testid="common_register__input-name"
+            onChange={ (e) => handleChange(e.target) }
+          />
+        </label>
+        <label htmlFor="register-email">
+          Email
+          <input
+            name="email"
+            type="email"
+            placeholder="seu-email@site.com.br"
+            id="register-email"
+            data-testid="common_register__input-email"
+            onChange={ (e) => handleChange(e.target) }
+          />
+        </label>
+        <label htmlFor="register-password">
+          Senha
+          <input
+            name="password"
+            type="password"
+            placeholder="*********"
+            id="register-password"
+            data-testid="common_register__input-password"
+            onChange={ (e) => handleChange(e.target) }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="common_register__button-register"
+          disabled={ !isAble }
+          onClick={ async () => {
+            console.log('oioioio');
+            try {
+              await registerAttempt({ name, email, password });
+              history.push('/customer/products');
+            } catch (error) {
+              console.log(error);
+            }
+          } }
         >
-          Usuário inválido.
-        </p>
-      )}
+          Cadastrar
+        </button>
+      </form>
+      <InvalidRegister />
     </div>
   );
 }
+
+export default Register;
