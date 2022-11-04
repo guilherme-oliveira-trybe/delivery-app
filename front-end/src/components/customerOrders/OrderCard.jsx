@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export default function OrderCard({
   saleId,
-  userId,
   order,
   status,
   saleDate,
@@ -27,24 +26,49 @@ export default function OrderCard({
     });
   };
 
+  const changeTotalPrice = (value) => {
+    const result = value.replace(/\./, ',');
+    return result;
+  };
+
   return (
     <div onClick={ () => onClick(saleId) } aria-hidden="true">
-      <section data-testid={ `customer_orders__element-order-id-${userId}` }>
-        <span>{`Pedido: ${order}`}</span>
+      <section>
+        <span
+          data-testid={ `customer_orders__element-order-id-${saleId}` }
+        >
+          {`Pedido: ${order}`}
+        </span>
       </section>
-      <section data-testid={ `customer_orders__element-delivery-status-${userId}` }>
-        <span>{status}</span>
+      <section>
+        <span
+          data-testid={ `customer_orders__element-delivery-status-${saleId}` }
+        >
+          {status}
+        </span>
       </section>
-      <section data-testid={ `customer_orders__element-order-date-${userId}` }>
-        <span>{handleSaleDate(saleDate)}</span>
+      <section>
+        <span
+          data-testid={ `customer_orders__element-order-date-${saleId}` }
+        >
+          {handleSaleDate(saleDate)}
+        </span>
       </section>
-      <section data-testid={ `customer_orders__element-card-price-${userId}` }>
-        <span>{totalPrice}</span>
+      <section>
+        <span
+          data-testid={ `customer_orders__element-card-price-${saleId}` }
+        >
+          {changeTotalPrice(totalPrice)}
+        </span>
       </section>
     </div>
   );
 }
 
 OrderCard.propTypes = {
-  saleId: PropTypes.string,
+  saleId: PropTypes.number,
+  order: PropTypes.string,
+  status: PropTypes.string,
+  saleDate: PropTypes.string,
+  totalPrice: PropTypes.string,
 }.isRequired;
