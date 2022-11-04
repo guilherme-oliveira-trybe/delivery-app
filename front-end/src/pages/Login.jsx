@@ -71,7 +71,10 @@ export default function Login() {
               if (user.role === 'seller') {
                 return history.push('/seller/orders');
               }
-              history.push('/customer/products');
+              if (user.role === 'administrator') {
+                return history.push('/admin/manage');
+              }
+              return history.push('/customer/products');
             } catch (error) {
               console.log(error);
               setFailedLogin(true);

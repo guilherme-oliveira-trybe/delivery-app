@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import NavBar from '../components/NavBar';
-import UserTable from '../components/UserTable';
+// import UserTable from '../components/UserTable';
+import { registerAttempt } from '../services/api';
 
 export default function UserManager() {
   const [name, setName] = useState('');
@@ -8,6 +10,25 @@ export default function UserManager() {
   const [password, setPassword] = useState('');
   // const [userRole, setUserRole] = useState('');
   const [isAble, setIsAble] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      console.log('olaaa');
+      const { data } = await axios.get('http://localhost:3001/user');
+      console.log(data);
+      const userFilter = data.filter(({ role }) => role !== 'administrator');
+      setUsers(userFilter);
+    };
+    fetchUsers();
+    setLoading(false);
+  }, [loading]);
+
+  const dateTest = 'admin_manage__element-user-table';
+  const handleRemove = (indexToRemove) => {
+    console.log(indexToRemove);
+  };
 
   const handleChange = (e) => {
     if (e.name === 'name') setName(e.value);
@@ -81,7 +102,7 @@ export default function UserManager() {
         </label>
         <label htmlFor="select-role">
           Tipo
-          <select id="select-role">
+          <select id="select-role" data-testid="admin_manage__select-role">
             <option value="customer">Cliente</option>
             <option value="seller">Vendedor</option>
           </select>
@@ -93,6 +114,7 @@ export default function UserManager() {
           onClick={ async () => {
             try {
               await registerAttempt({ name, email, password });
+              setLoading(true);
             } catch (error) {
               console.log(error);
             }
@@ -100,7 +122,46 @@ export default function UserManager() {
         >
           Cadastrar
         </button>
-        <UserTable />
+        <section>
+          { loading ? (
+            <h3>Carregando...</h3>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Tipo</th>
+                  <th>Excluir</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={ index }>
+                    <td
+                      data-testid={ `${dateTest}-item-number-${index}` }
+                    >
+                      { index + 1 }
+                    </td>
+                    <td data-testid={ `${dateTest}-name-${index}` }>{ user.name }</td>
+                    <td data-testid={ `${dateTest}-email-${index}` }>{ user.email }</td>
+                    <td data-testid={ `${dateTest}-role-${index}` }>{ user.role }</td>
+                    <td>
+                      <button
+                        data-testid={ `${dateTest}-remove-${index}` }
+                        type="button"
+                        onClick={ () => handleRemove(index) }
+                      >
+                        Excluir
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
       </form>
     </div>
   );

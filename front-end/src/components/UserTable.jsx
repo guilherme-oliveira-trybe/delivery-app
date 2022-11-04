@@ -10,12 +10,14 @@ export default function UserTable() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = axios.get('http://localhost:3001/user');
+      console.log('olaaa');
+      const { data } = await axios.get('http://localhost:3001/user');
+      console.log(data);
       const userFilter = data.filter(({ role }) => role !== 'administrator');
       setUsers(userFilter);
     };
     fetchUsers();
-  }, []);
+  }, [setUsers]);
 
   const dateTest = 'admin_manage__element-user-table';
 
