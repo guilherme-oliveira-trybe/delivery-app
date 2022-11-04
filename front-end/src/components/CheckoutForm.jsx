@@ -36,12 +36,12 @@ export default function CheckoutForm() {
       body,
       { headers: { Authorization: `${token}` } },
     );
-    if (orderId) {
-      history.push({
-        pathname: `/customer/orders/${orderId}`,
-        state: orderId,
-      });
-    }
+    // if (orderId) {
+    history.push({
+      pathname: `/customer/orders/${orderId}`,
+      state: orderId,
+    });
+    // }
   };
 
   return (

@@ -1,31 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CheckoutTable from '../components/CheckoutTable';
-import DeliveryContext from '../context/DeliveryContext';
 import CheckoutForm from '../components/CheckoutForm';
 import NavBar from '../components/NavBar';
 
 export default function Checkout() {
-  const { loading, setLoading, setOrders, orders } = useContext(DeliveryContext);
+  const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    setOrders([
-      {
-        productId: 1,
-        name: 'Skol Lata 250ml',
-        quantity: 2,
-        unitPrice: 2.20,
-        subTotal: 4.40,
-      },
-      {
-        productId: 2,
-        name: 'Heineken 600ml',
-        quantity: 4,
-        unitPrice: 7.50,
-        subTotal: 30.00,
-      },
-    ]);
+    const storage = JSON.parse(localStorage.getItem('carrinho'));
+    setCart(storage);
     setLoading(false);
-  }, [setOrders, setLoading]);
+  }, [setCart]);
 
   return (
     <main>
@@ -40,7 +26,8 @@ export default function Checkout() {
             needButton
             dateTest="customer_checkout__element-order-table"
             dateTestTotal="customer_checkout"
-            orders={ orders }
+            cart={ cart }
+            setCart={ setCart }
           />
         )}
       </section>
