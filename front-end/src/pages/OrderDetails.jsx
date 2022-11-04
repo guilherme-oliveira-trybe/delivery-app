@@ -112,7 +112,8 @@ export default function OrderDetails() {
         needButton={ false }
         dateTest="customer_order_details__element-order-table"
         dateTestTotal="customer_order_details"
-        orders={ handleOrder(order) }
+        cart={ handleOrder(order) }
+        setCart={ () => {} }
       />}
     </div>
   );
