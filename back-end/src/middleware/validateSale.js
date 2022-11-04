@@ -18,8 +18,8 @@ const validateAddress = async (req, _res, next) => {
   if (!deliveryAddress || typeof deliveryAddress !== 'string') {
     next({ code: 404, message: 'Must have a valid Address info' });
   }
-  if (!deliveryNumber || typeof deliveryNumber !== 'number') {
-    next({ code: 404, message: 'Must have a valid Address number' });
+  if (!deliveryNumber) {
+    next({ code: 404, message: 'Must have a Address number' });
   }
   next();
 };

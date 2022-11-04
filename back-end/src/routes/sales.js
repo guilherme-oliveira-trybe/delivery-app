@@ -10,7 +10,8 @@ route.get('/customer/orders/:id', saleController.getById);
 route.patch('/customer/orders/:id', saleController.updateStatus);
 
 route.post(
-  '/customer/orders/',
+  '/customer/orders',
+  validateToken,
   Middleware.validateSale.validateUsers,
   Middleware.validateSale.validateAddress,
   Middleware.validateSale.validateOrder,

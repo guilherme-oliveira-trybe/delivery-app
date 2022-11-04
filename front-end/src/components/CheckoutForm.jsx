@@ -28,15 +28,16 @@ export default function CheckoutForm({ cart }) {
       deliveryNumber,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
-    const { id: orderId } = await axios.post(
+    console.log(body, token);
+    const { data } = await axios.post(
       'http://localhost:3001/customer/orders',
       body,
       { headers: { Authorization: `${token}` } },
     );
-    console.log(orderId);
+    console.log(data);
     history.push({
-      pathname: `/customer/orders/${orderId}`,
-      state: orderId,
+      pathname: `/customer/orders/${data.id}`,
+      state: data.id,
     });
   };
 
