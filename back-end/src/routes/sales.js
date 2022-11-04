@@ -19,4 +19,6 @@ route.post(
   saleController.create,
 );
 
+route.get('/seller/orders', validateToken, saleController.getAll);
+
 module.exports = route;

@@ -68,6 +68,9 @@ export default function Login() {
             try {
               const user = await loginAttempt({ email, password });
               setLocalStorage('user', user);
+              if (user.role === 'seller') {
+                return history.push('/seller/orders');
+              }
               history.push('/customer/products');
             } catch (error) {
               console.log(error);
