@@ -1,10 +1,11 @@
 const express = require('express');
 const { saleController } = require('../controllers');
+const { validateToken } = require('../middleware/auth');
 // const Middleware = require('../middleware'); 
 
 const route = express.Router();
 
-route.get('/customer/orders', saleController.getAll);
+route.get('/customer/orders', validateToken, saleController.getAll);
 route.get('/customer/orders/:id', saleController.getById);
 // route.use(Middleware.validateSale.validateUsers);
 // route.use(Middleware.validateSale.validateAddress);
