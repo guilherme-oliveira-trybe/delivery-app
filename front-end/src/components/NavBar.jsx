@@ -7,13 +7,13 @@ function NavBar() {
     <nav className="nav-bar">
       <div className="box">
         <a
-          href="/customer/products/"
+          href="/customer/products"
           data-testid="customer_products__element-navbar-link-products"
         >
           PRODUTOS
         </a>
         <a
-          href="/customer/orders/"
+          href="/customer/orders"
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
