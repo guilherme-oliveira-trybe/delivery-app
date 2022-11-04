@@ -68,8 +68,10 @@ export default function Login() {
             try {
               const user = await loginAttempt({ email, password });
               setLocalStorage('user', user);
-              if (user.role === 'customer') history.push('/customer/products');
-              if (user.role === 'seller') history.push('/seller/orders');
+              if (user.role === 'seller') {
+                return history.push('/seller/orders');
+              }
+              history.push('/customer/products');
             } catch (error) {
               console.log(error);
               setFailedLogin(true);

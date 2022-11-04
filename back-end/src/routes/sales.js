@@ -13,4 +13,6 @@ route.get('/customer/orders/:id', saleController.getById);
 route.post('/customer/orders/', saleController.create);
 route.patch('/customer/orders/:id', saleController.updateStatus);
 
+route.get('/seller/orders', validateToken, saleController.getAll);
+
 module.exports = route;
