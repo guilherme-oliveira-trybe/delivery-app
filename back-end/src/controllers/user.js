@@ -40,6 +40,14 @@ const userController = {
     if (!user) return res.status(409).json({ error: 'Conflict' });
     return res.status(201).json({ message: 'Created' });
   },
+
+  delete: async (req, res) => {
+    console.log('Testa deleteeee');
+    const { email } = req.body;
+    console.log(email);
+    await userService.delete(email);
+    return res.status(204).end();
+  }
 };
 
 module.exports = userController;
