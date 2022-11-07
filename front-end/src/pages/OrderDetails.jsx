@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 import CheckoutTable from '../components/CheckoutTable';
 
 export default function OrderDetails() {
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState([]);
   const [date, setDate] = useState();
   const [seller, setSeller] = useState();
   const [saleStatus, setSaleStatus] = useState();
@@ -29,15 +29,26 @@ export default function OrderDetails() {
       const header = { headers: { Authorization: `${userToken}` } };
       const { data } = await axios.get(url, header);
       const [{ products, saleDate, seller: { name }, status }] = data;
-      setOrder(products);
+      const handleOrder = () => {
+        const newOrder = [];
+        if (products) {
+          products.forEach((el) => {
+            const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
+            const subTotal = (quantity * unitPrice);
+            newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
+          });
+        }
+        return newOrder;
+      };
+      setOrder(handleOrder());
       setDate(saleDate);
       setSeller(name);
       setSaleStatus(status);
     };
     getUserInfo();
     fetchOrderDetail(id);
-    setLoading(false);
-  }, [id, history, userToken]);
+    if (order.length > 0) setLoading(false);
+  }, [id, history, userToken, order]);
 
   const handleSaleDate = (value) => {
     if (value) {
@@ -50,17 +61,17 @@ export default function OrderDetails() {
     }
   };
 
-  const handleOrder = (arr) => {
-    const newOrder = [];
-    if (arr) {
-      arr.forEach((el) => {
-        const { SalesProduct: { quantity }, ...remaingInfo } = el;
-        const subTotal = (quantity * el.price).toFixed(2);
-        newOrder.push({ quantity, subTotal, ...remaingInfo });
-      });
-    }
-    return newOrder;
-  };
+  // const handleOrder = (arr) => {
+  //   const newOrder = [];
+  //   if (arr) {
+  //     arr.forEach((el) => {
+  //       const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
+  //       const subTotal = (quantity * unitPrice).toFixed(2);
+  //       newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
+  //     });
+  //   }
+  //   return newOrder;
+  // };
 
   const handleOnClick = async () => {
     const url = `http://localhost:3001/customer/orders/${id}`;
@@ -97,13 +108,15 @@ export default function OrderDetails() {
             >
               {saleStatus}
             </th>
-            <th
+            <button
               data-testid="customer_order_details__button-delivery-check"
+              type="button"
               onClick={ handleOnClick }
+              disabled="true"
             >
-              Marcar Como Entregue
+              MARCAR COMO ENTREGUE
 
-            </th>
+            </button>
           </tr>
         </thead>
       </table>
@@ -112,7 +125,7 @@ export default function OrderDetails() {
         needButton={ false }
         dateTest="customer_order_details__element-order-table"
         dateTestTotal="customer_order_details"
-        cart={ handleOrder(order) }
+        cart={ order }
         setCart={ () => {} }
       />}
     </div>
