@@ -48,6 +48,11 @@ const UserService = {
     }
     return null;
   },
+  delete: async (email) => {
+    console.log('verifica o service')
+    await User.destroy({ where: { email } });
+    return null;
+  }
 };
 
 module.exports = UserService;
