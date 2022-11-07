@@ -97,7 +97,7 @@ export default function SellOrderDetails() {
               {handleSaleDate(date)}
             </th>
             <th
-              data-testid={ `${dataTest}-delivery-status` }
+              data-testid={ `${dataTest}-delivery-status-${id}` }
             >
               {saleStatus}
             </th>
