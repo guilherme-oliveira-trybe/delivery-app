@@ -9,6 +9,7 @@ export const loginAttempt = async (body) => {
 };
 
 export const registerAttempt = async (body) => {
+  console.log(body);
   const data = await api.post('/register', body)
     .then((response) => response.data);
   return data;
@@ -18,6 +19,13 @@ const getAllProducts = async () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const data = await api.get('/products', { headers: { Authorization: `${user.token}` } })
     .then((response) => response.data);
+  return data;
+};
+
+export const deleteUser = async (body) => {
+  const data = await api.post('/delete', body)
+    .then((response) => response.data);
+  console.log(body);
   return data;
 };
 

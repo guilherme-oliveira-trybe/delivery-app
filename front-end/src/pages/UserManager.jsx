@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 // import UserTable from '../components/UserTable';
-import { registerAttempt } from '../services/api';
+import { deleteUser, registerAttempt } from '../services/api';
 
 export default function UserManager() {
   const [name, setName] = useState('');
@@ -26,9 +26,9 @@ export default function UserManager() {
   }, [loading]);
 
   const dateTest = 'admin_manage__element-user-table';
-  const handleRemove = (indexToRemove) => {
-    console.log(indexToRemove);
-  };
+  // const handleRemove = (indexToRemove) => {
+  //   console.log(indexToRemove);
+  // };
 
   const handleChange = (e) => {
     if (e.name === 'name') setName(e.value);
@@ -151,7 +151,16 @@ export default function UserManager() {
                       <button
                         data-testid={ `${dateTest}-remove-${index}` }
                         type="button"
-                        onClick={ () => handleRemove(index) }
+                        // onClick={ () => handleRemove(index) }
+                        onClick={ async () => {
+                          console.log('Testa o botao de excluir');
+                          try {
+                            console.log('Testa se entrou no try');
+                            await deleteUser({ email });
+                          } catch (error) {
+                            console.log(error);
+                          }
+                        } }
                       >
                         Excluir
                       </button>
