@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export default function OrderCard({
   saleId,
-  sellerId,
   order,
   status,
   saleDate,
@@ -39,16 +38,16 @@ export default function OrderCard({
       <section>
         <span>{`Pedido: ${order}`}</span>
       </section>
-      <section data-testid={ `seller_orders__element-delivery-status-${sellerId}` }>
+      <section data-testid={ `seller_orders__element-delivery-status-${saleId}` }>
         <span>{status}</span>
       </section>
-      <section data-testid={ `seller_orders__element-order-date-${sellerId}` }>
+      <section data-testid={ `seller_orders__element-order-date-${saleId}` }>
         <span>{handleSaleDate(saleDate)}</span>
       </section>
-      <section data-testid={ `seller_orders__element-card-price-${sellerId}` }>
+      <section data-testid={ `seller_orders__element-card-price-${saleId}` }>
         <span>{totalPrice.replace(/\./, ',')}</span>
       </section>
-      <section data-testid={ `seller_orders__element-card-address-${sellerId}` }>
+      <section data-testid={ `seller_orders__element-card-address-${saleId}` }>
         <span>{ `${deliveryAddress}, ${deliveryNumber}`}</span>
       </section>
     </div>
