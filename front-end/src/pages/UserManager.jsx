@@ -2,23 +2,24 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 // import UserTable from '../components/UserTable';
-import { deleteUser, registerAttempt } from '../services/api';
+import { admRegister, deleteUser } from '../services/api';
 
 export default function UserManager() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [userRole, setUserRole] = useState('');
+  const [role, setRole] = useState('');
   const [isAble, setIsAble] = useState(false);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [failedCreate, setFailedCreate] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       console.log('olaaa');
       const { data } = await axios.get('http://localhost:3001/user');
       console.log(data);
-      const userFilter = data.filter(({ role }) => role !== 'administrator');
+      const userFilter = data.filter((item) => item.role !== 'administrator');
       setUsers(userFilter);
     };
     fetchUsers();
@@ -34,7 +35,7 @@ export default function UserManager() {
     if (e.name === 'name') setName(e.value);
     if (e.name === 'email') setEmail(e.value);
     if (e.name === 'password') setPassword(e.value);
-    // if (e.name === 'userRole') setUserRole(e.value);
+    if (e.name === 'role') setRole(e.value);
   };
 
   const verifyButton = (state) => {
@@ -102,7 +103,13 @@ export default function UserManager() {
         </label>
         <label htmlFor="select-role">
           Tipo
-          <select id="select-role" data-testid="admin_manage__select-role">
+          <select
+            id="select-role"
+            data-testid="admin_manage__select-role"
+            value={ role }
+            onChange={ ({ target: { value } }) => setRole(value) }
+          >
+            <option value="default">Selecionar</option>
             <option value="customer">Cliente</option>
             <option value="seller">Vendedor</option>
           </select>
@@ -113,10 +120,12 @@ export default function UserManager() {
           disabled={ !isAble }
           onClick={ async () => {
             try {
-              await registerAttempt({ name, email, password });
+              setFailedCreate(false);
+              await admRegister({ name, email, password, role });
               setLoading(true);
             } catch (error) {
               console.log(error);
+              setFailedCreate(true);
             }
           } }
         >
@@ -156,7 +165,8 @@ export default function UserManager() {
                           console.log('Testa o botao de excluir');
                           try {
                             console.log('Testa se entrou no try');
-                            await deleteUser({ email });
+                            await deleteUser(user.id);
+                            setLoading(true);
                           } catch (error) {
                             console.log(error);
                           }
@@ -172,6 +182,11 @@ export default function UserManager() {
           )}
         </section>
       </form>
+      { failedCreate && (
+        <p data-testid="admin_manage__element-invalid-register">
+          User already exists.
+        </p>
+      )}
     </div>
   );
 }
