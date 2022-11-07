@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
-import OrderCard from '../components/customerOrders/OrderCard';
+import OrderCard from '../components/sellerOrders/SellerOrderCard';
 
 export default function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
@@ -36,18 +36,27 @@ export default function SellerOrders() {
 
   return (
     <div>
-      {/* { loading && <span>Loading</span>} */}
       <NavBar />
       { !loading
-      && sellerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
+      && sellerOrder.map(({
+        id,
+        userId,
+        status,
+        saleDate,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+      }, index) => (
         <OrderCard
           key={ id }
-          userId={ id }
+          saleId={ id }
           sellerId={ userId }
           order={ `${index + 1}` }
           status={ status }
           saleDate={ saleDate }
           totalPrice={ totalPrice }
+          deliveryAddress={ deliveryAddress }
+          deliveryNumber={ deliveryNumber }
         />
       ))}
     </div>

@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 
 export default function OrderCard({
   saleId,
-  // userId,
+  sellerId,
   order,
   status,
   saleDate,
-  totalPrice }) {
+  totalPrice,
+  deliveryAddress,
+  deliveryNumber,
+}) {
   const history = useHistory();
 
   const handleSaleDate = (date) => {
@@ -28,18 +31,25 @@ export default function OrderCard({
   };
 
   return (
-    <div onClick={ () => onClick(saleId) } aria-hidden="true">
-      <section data-testid={ `seller_orders__element-order-id-${saleId}` }>
+    <div
+      onClick={ () => onClick(saleId) }
+      aria-hidden="true"
+      data-testid={ `seller_orders__element-order-id-${saleId}` }
+    >
+      <section>
         <span>{`Pedido: ${order}`}</span>
       </section>
-      <section data-testid={ `seller_orders__element-delivery-status-${saleId}` }>
+      <section data-testid={ `seller_orders__element-delivery-status-${sellerId}` }>
         <span>{status}</span>
       </section>
-      <section data-testid={ `seller_orders__element-order-date-${saleId}` }>
+      <section data-testid={ `seller_orders__element-order-date-${sellerId}` }>
         <span>{handleSaleDate(saleDate)}</span>
       </section>
-      <section data-testid={ `seller_orders__element-card-price-${saleId}` }>
-        <span>{totalPrice}</span>
+      <section data-testid={ `seller_orders__element-card-price-${sellerId}` }>
+        <span>{totalPrice.replace(/\./, ',')}</span>
+      </section>
+      <section data-testid={ `seller_orders__element-card-address-${sellerId}` }>
+        <span>{ `${deliveryAddress}, ${deliveryNumber}`}</span>
       </section>
     </div>
   );
