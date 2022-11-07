@@ -40,10 +40,10 @@ const userController = {
     return res.status(201).json({ message: 'Created' });
   },
 
-  createUserByAdm: async(req, res) => {
+  createUserByAdm: async (req, res) => {
     const { role: roleVerify } = req.user;
     if (roleVerify !== 'administrator') {
-      return res.status(401).json({ message: 'User is not Adm' })
+      return res.status(401).json({ message: 'User is not Adm' });
     }
     const user = await userService.create(req.body);
     if (!user) return res.status(409).json({ error: 'Conflict' });
@@ -56,7 +56,7 @@ const userController = {
     const user = await userService.delete(id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
-    };
+    }
     return res.status(204).end();
   },
 };
