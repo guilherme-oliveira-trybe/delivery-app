@@ -1,7 +1,123 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import SellerNavBar from '../components/SellerNavBar';
+import CheckoutTable from '../components/CheckoutTable';
+
 export default function SellOrderDetails() {
+  const [order, setOrder] = useState([]);
+  const [date, setDate] = useState();
+  const [saleStatus, setSaleStatus] = useState();
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const history = useHistory();
+  const { location: { state } } = history;
+  const dataTest = 'seller_order_details__element-order-details-label';
+  const [userToken, setUserToken] = useState();
+
+  useEffect(() => {
+    const getUserInfo = () => {
+      if (!localStorage.getItem('user')) {
+        return history.push('/login');
+      }
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      setUserToken(token);
+    };
+    const fetchOrderDetail = async (value) => {
+      const url = `http://www.localhost:3001/seller/orders/${value}`;
+      const header = { headers: { Authorization: `${userToken}` } };
+      const { data } = await axios.get(url, header);
+      const [{ products, saleDate, status }] = data;
+      const handleOrder = () => {
+        const newOrder = [];
+        if (products) {
+          products.forEach((el) => {
+            const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
+            const subTotal = (quantity * unitPrice);
+            newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
+          });
+        }
+        return newOrder;
+      };
+      setOrder(handleOrder());
+      setDate(saleDate);
+      setSaleStatus(status);
+    };
+    getUserInfo();
+    fetchOrderDetail(id);
+    if (order.length > 0) setLoading(false);
+  }, [id, history, userToken, order]);
+
+  const handleSaleDate = (value) => {
+    if (value) {
+      const newDate = value.split('-');
+      const day = newDate[2].split('T');
+      const mounth = newDate[1];
+      const year = newDate[0];
+
+      return `${day[0]}/${mounth}/${year}`;
+    }
+  };
+
+  const handleOnClick = async (statusToUpdate) => {
+    const url = `http://localhost:3001/customer/orders/${id}`;
+    const body = { status: `${statusToUpdate}` };
+    const { data } = await axios.patch(url, body);
+    const [{ status }] = data;
+    setSaleStatus(status);
+  };
+
   return (
     <div>
-      <h1>Seller Order Details</h1>
+      <SellerNavBar />
+      {loading && <span>Carregando...</span>}
+      <table>
+        <thead>
+          <tr>
+            <th
+              data-testid={ `${dataTest}-order-id` }
+            >
+              {`Pedido: ${state}`}
+            </th>
+            <th
+              data-testid={ `${dataTest}-order-date` }
+            >
+              {handleSaleDate(date)}
+            </th>
+            <th
+              data-testid={ `${dataTest}-delivery-status` }
+            >
+              {saleStatus}
+            </th>
+            <button
+              data-testid="seller_order_details__button-preparing-check"
+              type="button"
+              onClick={ () => handleOnClick('Preparando') }
+              disabled="true"
+            >
+              PREPARAR PEDIDO
+
+            </button>
+            <button
+              data-testid="seller_order_details__button-dispatch-check"
+              type="button"
+              onClick={ () => handleOnClick('Em Trânsito') }
+              disabled="true"
+            >
+              SAIU PARA ENTREGA
+
+            </button>
+          </tr>
+        </thead>
+      </table>
+      {!loading
+      && <CheckoutTable
+        needButton={ false }
+        dateTest="seller_order_details__element-order-table"
+        dateTestTotal="seller_order_details"
+        cart={ order }
+        setCart={ () => {} }
+      />}
     </div>
   );
 }
