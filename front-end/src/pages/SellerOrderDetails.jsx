@@ -14,6 +14,8 @@ export default function SellOrderDetails() {
   const { location: { state } } = history;
   const dataTest = 'seller_order_details__element-order-details-label';
   const [userToken, setUserToken] = useState();
+  const [preparingIsDisabled, setPreparingIsDisabled] = useState(false);
+  const [dispatchIsDisabled, setDispatchIsDisabled] = useState(false);
 
   useEffect(() => {
     const getUserInfo = () => {
@@ -47,6 +49,16 @@ export default function SellOrderDetails() {
     fetchOrderDetail(id);
     if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
+
+  useEffect(() => {
+    const verifySaleStatus = (value) => {
+      const preparing = value !== 'Pendente';
+      const dispatch = value !== 'Preparando';
+      setPreparingIsDisabled(preparing);
+      setDispatchIsDisabled(dispatch);
+    };
+    verifySaleStatus(saleStatus);
+  }, [saleStatus]);
 
   const handleSaleDate = (value) => {
     if (value) {
@@ -89,27 +101,27 @@ export default function SellOrderDetails() {
             >
               {saleStatus}
             </th>
-            <button
-              data-testid="seller_order_details__button-preparing-check"
-              type="button"
-              onClick={ () => handleOnClick('Preparando') }
-              disabled="true"
-            >
-              PREPARAR PEDIDO
-
-            </button>
-            <button
-              data-testid="seller_order_details__button-dispatch-check"
-              type="button"
-              onClick={ () => handleOnClick('Em Trânsito') }
-              disabled="true"
-            >
-              SAIU PARA ENTREGA
-
-            </button>
           </tr>
         </thead>
       </table>
+      <button
+        data-testid="seller_order_details__button-preparing-check"
+        type="button"
+        onClick={ () => handleOnClick('Preparando') }
+        disabled={ preparingIsDisabled }
+      >
+        PREPARAR PEDIDO
+
+      </button>
+      <button
+        data-testid="seller_order_details__button-dispatch-check"
+        type="button"
+        onClick={ () => handleOnClick('Em Trânsito') }
+        disabled={ dispatchIsDisabled }
+      >
+        SAIU PARA ENTREGA
+
+      </button>
       {!loading
       && <CheckoutTable
         needButton={ false }
