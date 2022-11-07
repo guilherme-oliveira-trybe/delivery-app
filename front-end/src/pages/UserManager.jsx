@@ -160,11 +160,8 @@ export default function UserManager() {
                       <button
                         data-testid={ `${dateTest}-remove-${index}` }
                         type="button"
-                        // onClick={ () => handleRemove(index) }
                         onClick={ async () => {
-                          console.log('Testa o botao de excluir');
                           try {
-                            console.log('Testa se entrou no try');
                             await deleteUser(user.id);
                             setLoading(true);
                           } catch (error) {
