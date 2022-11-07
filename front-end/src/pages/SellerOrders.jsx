@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
-import OrderCard from '../components/customerOrders/OrderCard';
+import OrderCard from '../components/sellerOrders/SellerOrderCard';
 
 export default function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
@@ -19,34 +19,44 @@ export default function SellerOrders() {
       const { id, token } = JSON.parse(localStorage.getItem('user'));
       setIdUser(id);
       setUserToken(token);
+      return token;
     };
-    const fetchSellerOrders = async (value) => {
+    const fetchSellerOrders = async (token, value) => {
       const url = 'http://www.localhost:3001/seller/orders';
-      const header = { headers: { Authorization: `${userToken}` } };
+      const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const orderByUserId = data.filter((order) => order.sellerId === value);
       console.log(orderByUserId);
       setSellerOrder(orderByUserId);
     };
-    getUserId();
-    fetchSellerOrders(idUser);
+    const token = getUserId();
+    fetchSellerOrders(token, idUser);
     setLoading(false);
   }, [idUser, history, userToken]);
 
   return (
     <div>
-      { loading && <span>Loading</span>}
       <NavBar />
       { !loading
-      && sellerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
+      && sellerOrder.map(({
+        id,
+        userId,
+        status,
+        saleDate,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+      }, index) => (
         <OrderCard
           key={ id }
-          userId={ id }
+          saleId={ id }
           sellerId={ userId }
           order={ `${index + 1}` }
           status={ status }
           saleDate={ saleDate }
           totalPrice={ totalPrice }
+          deliveryAddress={ deliveryAddress }
+          deliveryNumber={ deliveryNumber }
         />
       ))}
     </div>
