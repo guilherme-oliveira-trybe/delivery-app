@@ -11,5 +11,6 @@ route.post('/algo', userController.create);
 
 route.post('/login', userController.login);
 route.post('/register', userController.create);
+route.post('/delete', userController.delete);
 
 module.exports = route;
