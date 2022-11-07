@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import NavBar from '../components/NavBar';
 import OrderCard from '../components/sellerOrders/SellerOrderCard';
+import SellerNavBar from '../components/SellerNavBar';
 
 export default function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
@@ -36,7 +36,7 @@ export default function SellerOrders() {
 
   return (
     <div>
-      <NavBar />
+      <SellerNavBar />
       { !loading
       && sellerOrder.map(({
         id,
