@@ -20,5 +20,6 @@ route.post(
 );
 
 route.get('/seller/orders', validateToken, saleController.getAll);
+route.get('/seller/orders/:id', validateToken, saleController.getById);
 
 module.exports = route;
