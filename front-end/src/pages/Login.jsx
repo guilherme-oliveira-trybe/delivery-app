@@ -14,8 +14,16 @@ export default function Login() {
   const history = useHistory();
 
   useEffect(() => {
-    localStorage.clear();
-  }, []);
+    const getUserInfo = () => {
+      if (localStorage.getItem('user')) {
+        const { role } = JSON.parse(localStorage.getItem('user'));
+        if (role === 'customer') {
+          return history.push('/customer/products');
+        }
+      }
+    };
+    getUserInfo();
+  }, [history]);
 
   const emailValidation = (value) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -68,6 +76,9 @@ export default function Login() {
             try {
               const user = await loginAttempt({ email, password });
               setLocalStorage('user', user);
+              if (user.role === 'seller') {
+                return history.push('/seller/orders');
+              }
               history.push('/customer/products');
             } catch (error) {
               console.log(error);

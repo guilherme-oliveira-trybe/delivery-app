@@ -1,7 +1,7 @@
 export default function SellOrderDetails() {
   return (
     <div>
-      <h1>SellOrderDetails</h1>
+      <h1>Seller Order Details</h1>
     </div>
   );
 }

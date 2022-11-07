@@ -33,7 +33,6 @@ export default function CheckoutForm({ cart }) {
       body,
       { headers: { Authorization: `${token}` } },
     );
-    console.log(data);
     history.push({
       pathname: `/customer/orders/${data.id}`,
       state: data.id,
