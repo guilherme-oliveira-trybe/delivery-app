@@ -24,10 +24,11 @@ export default function OrderDetails() {
       }
       const { token } = JSON.parse(localStorage.getItem('user'));
       setUserToken(token);
+      return token;
     };
-    const fetchOrderDetail = async (value) => {
+    const fetchOrderDetail = async (token, value) => {
       const url = `http://www.localhost:3001/customer/orders/${value}`;
-      const header = { headers: { Authorization: `${userToken}` } };
+      const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const [{ products, saleDate, seller: { name }, status }] = data;
       const handleOrder = () => {
@@ -46,8 +47,8 @@ export default function OrderDetails() {
       setSeller(name);
       setSaleStatus(status);
     };
-    getUserInfo();
-    fetchOrderDetail(id);
+    const token = getUserInfo();
+    fetchOrderDetail(token, id);
     if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
 
@@ -105,18 +106,17 @@ export default function OrderDetails() {
             >
               {saleStatus}
             </th>
-            <button
-              data-testid="customer_order_details__button-delivery-check"
-              type="button"
-              onClick={ handleOnClick }
-              disabled={ deliveryIsDisabled }
-            >
-              MARCAR COMO ENTREGUE
-
-            </button>
           </tr>
         </thead>
       </table>
+      <button
+        data-testid="customer_order_details__button-delivery-check"
+        type="button"
+        onClick={ handleOnClick }
+        disabled={ deliveryIsDisabled }
+      >
+        MARCAR COMO ENTREGUE
+      </button>
       {!loading
       && <CheckoutTable
         needButton={ false }
