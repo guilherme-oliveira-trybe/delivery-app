@@ -3,11 +3,6 @@ import React from 'react';
 function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
 
-  // const logout = () => {
-  //   localStorage.removeItem('user');
-  //   navigateTo('/login');
-  // };
-
   return (
     <nav className="nav-bar">
       <div className="box">
@@ -30,13 +25,6 @@ function NavBar() {
         >
           { user.name }
         </p>
-        {/* <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ logout }
-        >
-          Logout
-        </button> */}
         <a
           href="/"
           data-testid="customer_products__element-navbar-link-logout"

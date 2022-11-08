@@ -85,7 +85,7 @@ export default function Login() {
               }
               return history.push('/customer/products');
             } catch (error) {
-              console.log(error);
+              // console.log(error);
               setFailedLogin(true);
             }
           } }

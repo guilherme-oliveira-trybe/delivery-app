@@ -16,9 +16,7 @@ export default function UserManager() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      console.log('olaaa');
       const { data } = await axios.get('http://localhost:3001/user');
-      console.log(data);
       const userFilter = data.filter((item) => item.role !== 'administrator');
       setUsers(userFilter);
     };
@@ -27,9 +25,6 @@ export default function UserManager() {
   }, [loading]);
 
   const dateTest = 'admin_manage__element-user-table';
-  // const handleRemove = (indexToRemove) => {
-  //   console.log(indexToRemove);
-  // };
 
   const handleChange = (e) => {
     if (e.name === 'name') setName(e.value);
@@ -59,7 +54,6 @@ export default function UserManager() {
   };
 
   useEffect(() => {
-    console.log(name, email, password);
     verifyButton({ name, email, password });
   });
 
@@ -124,7 +118,7 @@ export default function UserManager() {
               await admRegister({ name, email, password, role });
               setLoading(true);
             } catch (error) {
-              console.log(error);
+              // console.log(error);
               setFailedCreate(true);
             }
           } }
@@ -165,7 +159,8 @@ export default function UserManager() {
                             await deleteUser(user.id);
                             setLoading(true);
                           } catch (error) {
-                            console.log(error);
+                            // console.log(error);
+                            return error;
                           }
                         } }
                       >

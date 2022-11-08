@@ -37,7 +37,6 @@ function Register() {
   };
 
   useEffect(() => {
-    console.log(name, email, password);
     verifyButton({ name, email, password });
   });
 
@@ -83,12 +82,12 @@ function Register() {
           data-testid="common_register__button-register"
           disabled={ !isAble }
           onClick={ async () => {
-            console.log('oioioio');
             try {
               await registerAttempt({ name, email, password });
               history.push('/customer/products');
             } catch (error) {
-              console.log(error);
+              // console.log(error);
+              return error;
             }
           } }
         >
