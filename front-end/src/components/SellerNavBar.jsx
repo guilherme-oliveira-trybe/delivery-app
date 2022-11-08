@@ -8,7 +8,7 @@ function SellerNavBar() {
       <div className="box">
         <a
           href="/seller/orders"
-          data-testid="customer_products__element-navbar-link-products"
+          data-testid="customer_products__element-navbar-link-orders"
         >
           PEDIDOS
         </a>
