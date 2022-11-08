@@ -23,7 +23,7 @@ export default function DeliveryRoutes() {
       <Route exact path="/customer/orders/:id" component={ OrderDetails } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
-      <Route exact path="/8" component={ UserManager } />
+      <Route exact path="/admin/manage" component={ UserManager } />
     </Switch>
   );
 }

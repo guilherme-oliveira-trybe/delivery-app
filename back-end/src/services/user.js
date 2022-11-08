@@ -39,15 +39,25 @@ const UserService = {
 
     return user;
   },
-  create: async (name, email, password) => {
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      const encryptedPassword = md5Decrypter(password);
-      const newUser = await User.create({ name, email, password: encryptedPassword });
+  create: async (user) => {
+    const userFound = await User.findOne({ where: { email: user.email } });
+    if (!userFound) {
+      const encryptedPassword = md5Decrypter(user.password);
+      const newUser = await User.create({ ...user, password: encryptedPassword });
       return newUser;
     }
     return null;
   },
+
+  delete: async (id) => {
+    const user = await User.findAll({ where: { id } });
+    if (user) {
+      await User.destroy({ where: { id } });
+      return user;
+    }
+    return null;
+  },
+
 };
 
 module.exports = UserService;
