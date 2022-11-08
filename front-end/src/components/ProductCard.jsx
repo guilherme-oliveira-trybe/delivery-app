@@ -78,8 +78,8 @@ export default function ProductCard({ id, name, price, urlImage, setCart }) {
   };
 
   const handleInputChange = ({ target }) => {
-    updateToCartInput(target.value);
-    setQtyValue(target.value);
+    updateToCartInput(Number(target.value));
+    setQtyValue(Number(target.value));
   };
 
   return (
