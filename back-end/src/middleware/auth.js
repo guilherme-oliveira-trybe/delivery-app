@@ -6,7 +6,8 @@ const validateToken = async (req, res, next) => {
   try {
     const { authorization: token } = req.headers;
     if (!token) return res.status(401).json({ message: 'Token not found' });
-    jwt.verify(token, jwtKey);
+    const data = jwt.verify(token, jwtKey);
+    req.user = data;
 
     next();
   } catch (err) {
