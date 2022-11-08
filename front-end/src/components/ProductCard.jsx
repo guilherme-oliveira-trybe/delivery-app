@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import replaceHelper from '../services/replaceHelper';
 
 export default function ProductCard({ id, name, price, urlImage, setCart }) {
   const [qtyValue, setQtyValue] = useState(0);
@@ -92,7 +93,7 @@ export default function ProductCard({ id, name, price, urlImage, setCart }) {
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          { price.replace('.', ',') }
+          { replaceHelper(price) }
         </span>
       </span>
       <img

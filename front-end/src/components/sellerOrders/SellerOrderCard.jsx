@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import replaceHelper from '../../services/replaceHelper';
 
 export default function OrderCard({
   saleId,
@@ -45,7 +46,7 @@ export default function OrderCard({
         <span>{handleSaleDate(saleDate)}</span>
       </section>
       <section data-testid={ `seller_orders__element-card-price-${saleId}` }>
-        <span>{totalPrice.replace(/\./, ',')}</span>
+        <span>{replaceHelper(totalPrice)}</span>
       </section>
       <section data-testid={ `seller_orders__element-card-address-${saleId}` }>
         <span>{ `${deliveryAddress}, ${deliveryNumber}`}</span>
