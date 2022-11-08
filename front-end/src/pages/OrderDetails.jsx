@@ -15,6 +15,7 @@ export default function OrderDetails() {
   const { location: { state } } = history;
   const dataTest = 'customer_order_details__element-order-details-label';
   const [userToken, setUserToken] = useState();
+  const [deliveryIsDisabled, setDeliveryIsDisabled] = useState(false);
 
   useEffect(() => {
     const getUserInfo = () => {
@@ -50,6 +51,14 @@ export default function OrderDetails() {
     if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
 
+  useEffect(() => {
+    const verifySaleStatus = (value) => {
+      const delivery = value !== 'Em Trânsito';
+      setDeliveryIsDisabled(delivery);
+    };
+    verifySaleStatus(saleStatus);
+  }, [saleStatus]);
+
   const handleSaleDate = (value) => {
     if (value) {
       const newDate = value.split('-');
@@ -60,18 +69,6 @@ export default function OrderDetails() {
       return `${day[0]}/${mounth}/${year}`;
     }
   };
-
-  // const handleOrder = (arr) => {
-  //   const newOrder = [];
-  //   if (arr) {
-  //     arr.forEach((el) => {
-  //       const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
-  //       const subTotal = (quantity * unitPrice).toFixed(2);
-  //       newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
-  //     });
-  //   }
-  //   return newOrder;
-  // };
 
   const handleOnClick = async () => {
     const url = `http://localhost:3001/customer/orders/${id}`;
@@ -112,7 +109,7 @@ export default function OrderDetails() {
               data-testid="customer_order_details__button-delivery-check"
               type="button"
               onClick={ handleOnClick }
-              disabled="true"
+              disabled={ deliveryIsDisabled }
             >
               MARCAR COMO ENTREGUE
 
