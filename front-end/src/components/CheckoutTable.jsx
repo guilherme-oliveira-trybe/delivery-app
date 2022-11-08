@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import replaceHelper from '../services/replaceHelper';
 
 export default function CheckoutTable({
   needButton,
@@ -43,13 +44,13 @@ export default function CheckoutTable({
                 <td
                   data-testid={ `${dateTest}-unit-price-${index}` }
                 >
-                  { order.unitPrice.replace('.', ',') }
+                  { replaceHelper(order.unitPrice) }
 
                 </td>
                 <td
                   data-testid={ `${dateTest}-sub-total-${index}` }
                 >
-                  { order.subTotal.toFixed(2).replace('.', ',') }
+                  { replaceHelper(order.subTotal.toFixed(2)) }
 
                 </td>
                 {needButton && (
@@ -71,7 +72,7 @@ export default function CheckoutTable({
       <h3
         data-testid={ `${dateTestTotal}__element-order-total-price` }
       >
-        {`Total: R$${total.toFixed(2).replace('.', ',')}`}
+        {`Total: R$${replaceHelper(total.toFixed(2))}`}
 
       </h3>
     </section>

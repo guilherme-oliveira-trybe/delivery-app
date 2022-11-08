@@ -9,14 +9,12 @@ export const loginAttempt = async (body) => {
 };
 
 export const registerAttempt = async (body) => {
-  console.log(body);
   const data = await api.post('/register', body)
     .then((response) => response.data);
   return data;
 };
 
 export const admRegister = async (body) => {
-  console.log(body);
   const user = JSON.parse(localStorage.getItem('user'));
   const data = await api
     .post('/registerAdm', body, { headers: { Authorization: `${user.token}` } })

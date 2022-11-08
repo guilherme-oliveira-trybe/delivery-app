@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import getAllProducts from '../services/api';
+import replaceHelper from '../services/replaceHelper';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -55,7 +56,7 @@ export default function Products() {
             <span
               data-testid="customer_products__checkout-bottom-value"
             >
-              { total.toFixed(2).replace('.', ',') }
+              { replaceHelper(total.toFixed(2)) }
             </span>
           </button>
         </div>

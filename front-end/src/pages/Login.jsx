@@ -63,7 +63,8 @@ export default function Login() {
             setErrorPassword(passwordValidation(value));
           } }
         />
-        {!!((errorEmail || errorPassword)) && (
+        {!!((errorEmail || errorPassword))
+        && (email.length > 0 || password.length > 0) && (
           <p data-testid="login__input_invalid_login_alert">
             * Please, provide a valid email and password *
           </p>)}
@@ -84,7 +85,7 @@ export default function Login() {
               }
               return history.push('/customer/products');
             } catch (error) {
-              console.log(error);
+              // console.log(error);
               setFailedLogin(true);
             }
           } }

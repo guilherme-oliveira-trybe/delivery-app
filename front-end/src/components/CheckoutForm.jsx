@@ -37,6 +37,7 @@ export default function CheckoutForm({ cart }) {
       pathname: `/customer/orders/${data.id}`,
       state: data.id,
     });
+    localStorage.setItem('carrinho', JSON.stringify([]));
   };
 
   return (

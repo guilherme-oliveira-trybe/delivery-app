@@ -19,16 +19,17 @@ export default function Orders() {
       const { id, token } = JSON.parse(localStorage.getItem('user'));
       setIdUser(id);
       setUserToken(token);
+      return token;
     };
-    const fetchCustomerOrders = async (value) => {
+    const fetchCustomerOrders = async (token, value) => {
       const url = 'http://www.localhost:3001/customer/orders';
-      const header = { headers: { Authorization: `${userToken}` } };
+      const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const orderByUserId = data.filter((order) => order.userId === value);
       setCustomerOrder(orderByUserId);
     };
-    getUserInfo();
-    fetchCustomerOrders(idUser); // colocar ID do usuário de forma dinamica
+    const token = getUserInfo();
+    fetchCustomerOrders(token, idUser); // colocar ID do usuário de forma dinamica
     setLoading(false);
   }, [idUser, history, userToken]);
 

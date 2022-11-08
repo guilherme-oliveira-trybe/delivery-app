@@ -4,7 +4,6 @@ import DeliveryProvider from './context/DeliveryProvider';
 import './App.css';
 
 function App() {
-  console.log('oi');
   return (
     <DeliveryProvider>
       <DeliveryRoutes />

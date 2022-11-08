@@ -26,7 +26,6 @@ export default function SellerOrders() {
       const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const orderByUserId = data.filter((order) => order.sellerId === value);
-      console.log(orderByUserId);
       setSellerOrder(orderByUserId);
     };
     const token = getUserId();

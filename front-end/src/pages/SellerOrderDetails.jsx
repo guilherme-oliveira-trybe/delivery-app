@@ -24,10 +24,11 @@ export default function SellOrderDetails() {
       }
       const { token } = JSON.parse(localStorage.getItem('user'));
       setUserToken(token);
+      return token;
     };
-    const fetchOrderDetail = async (value) => {
+    const fetchOrderDetail = async (token, value) => {
       const url = `http://www.localhost:3001/seller/orders/${value}`;
-      const header = { headers: { Authorization: `${userToken}` } };
+      const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
       const [{ products, saleDate, status }] = data;
       const handleOrder = () => {
@@ -45,8 +46,8 @@ export default function SellOrderDetails() {
       setDate(saleDate);
       setSaleStatus(status);
     };
-    getUserInfo();
-    fetchOrderDetail(id);
+    const token = getUserInfo();
+    fetchOrderDetail(token, id);
     if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
 
