@@ -34,28 +34,21 @@ const UserService = {
     return { ...userFilter, token };
   },
 
-  findByEmail: async (email) => {
-    const user = await User.findOne({ where: { email } });
-
-    return user;
-  },
   create: async (user) => {
     const userFound = await User.findOne({ where: { email: user.email } });
-    if (!userFound) {
-      const encryptedPassword = md5Decrypter(user.password);
-      const newUser = await User.create({ ...user, password: encryptedPassword });
-      return newUser;
-    }
-    return null;
+    if (userFound) return null;
+
+    const encryptedPassword = md5Decrypter(user.password);
+    const newUser = await User.create({ ...user, password: encryptedPassword });
+    return newUser;
   },
 
   delete: async (id) => {
     const user = await User.findAll({ where: { id } });
-    if (user) {
-      await User.destroy({ where: { id } });
-      return user;
-    }
-    return null;
+    if (!user) return null;
+
+    await User.destroy({ where: { id } });
+    return user;
   },
 
 };
