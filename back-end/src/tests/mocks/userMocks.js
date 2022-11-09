@@ -33,5 +33,20 @@ const userRegisterByAdmMock = {
   role: 'seller'
 }
 
-module.exports = { loginMock, userMock, userRegisterBodyMock, admRegisterBodyMock, userRegisterByAdmMock }
+const allUsersMock = [
+  {
+    id: 1,
+    name: 'Delivery App Admin',
+    email: 'adm@deliveryapp.com',
+    role: 'administrator'
+  },
+  {
+    id: 2,
+    name: 'Fulana Pereira',
+    email: 'fulana@deliveryapp.com',
+    role: 'seller'
+  }
+]
+
+module.exports = { loginMock, userMock, userRegisterBodyMock, admRegisterBodyMock, userRegisterByAdmMock, allUsersMock }
 
