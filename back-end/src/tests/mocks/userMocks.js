@@ -1,3 +1,4 @@
+
 const loginMock = {
   email: 'adm@deliveryapp.com',
   password: '--adm2@21!!--'
@@ -11,4 +12,26 @@ const userMock = {
   role: 'administrator'
 }
 
-module.exports = { loginMock, userMock }
+const userRegisterBodyMock = {
+  name: 'Delivery App Admin',
+  email: 'adm@deliveryapp.com',
+  password: '--adm2@21!!--'
+}
+
+const admRegisterBodyMock = {
+  name: 'Fulana Pereira',
+  email: 'fulana@deliveryapp.com',
+  password: 'fulana@123',
+  role: 'seller'
+}
+
+const userRegisterByAdmMock = {
+  id: 2,
+  name: 'Fulana Pereira',
+  email: 'fulana@deliveryapp.com',
+  password: '3c28d2b0881bf46457a853e0b07531c6',
+  role: 'seller'
+}
+
+module.exports = { loginMock, userMock, userRegisterBodyMock, admRegisterBodyMock, userRegisterByAdmMock }
+
