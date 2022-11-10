@@ -4,6 +4,11 @@ const loginMock = {
   password: '--adm2@21!!--'
 }
 
+const loginWrongPasswordMock = {
+  email: 'adm@deliveryapp.com',
+  password: 'passwordErrado'
+}
+
 const userMock = {
   id: 1,
   name: 'Delivery App Admin',
@@ -48,5 +53,5 @@ const allUsersMock = [
   }
 ]
 
-module.exports = { loginMock, userMock, userRegisterBodyMock, admRegisterBodyMock, userRegisterByAdmMock, allUsersMock }
+module.exports = { loginMock, userMock, userRegisterBodyMock, admRegisterBodyMock, userRegisterByAdmMock, allUsersMock, loginWrongPasswordMock }
 
