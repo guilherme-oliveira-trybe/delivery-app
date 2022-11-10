@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 import URLS from './mocks/urls';
-import { usersLogin } from './mocks/users.mock';
+import { userAdmin, usersLogin } from './mocks/users.mock';
 
 // Data-TestIds
 const INPUT_LOGIN_EMAIL = 'common_login__input-email';
@@ -31,7 +31,6 @@ expect.extend({
     if (validator[received]) {
       return { message: () => 'URL mockada', pass: true };
     }
-    console.log(validator[received], '<-------------------');
     return { message: () => 'URL não mockada', pass: false };
   },
 });
@@ -62,11 +61,13 @@ describe('Teste da Tela de Login', () => {
   });
 
   it('Realiza o login da pessoa administradora', async () => {
-    const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(async (URL) => ({
-        json: async () => URLS[URL] || expect(URL).validURL(URLS),
-      }));
+    // const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(async (URL) => ({
+    //     json: async () => URLS[URL] || expect(URL).validURL(URLS),
+    //   }));
+    const fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(userAdmin) }))
     
-    jest.useFakeTimers();
     const { history, debug } = renderWithRouter(<App />);
 
     const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
@@ -89,7 +90,7 @@ describe('Teste da Tela de Login', () => {
 
     debug();
     
-    // await waitFor(() => expect(fetchMock).toBeCalled())
+    await waitFor(() => expect(fetchMock).toBeCalled())
     console.log(history.location.pathname);
     
     await waitForElementToBeRemoved(() => screen.findByTestId(INPUT_LOGIN_EMAIL))

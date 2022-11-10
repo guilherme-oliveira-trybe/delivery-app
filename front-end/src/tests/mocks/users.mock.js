@@ -1,4 +1,4 @@
-export const userOne = [
+export const userAdmin = [
   {
     id: 1,
     name: 'Delivery App Admin',
@@ -8,7 +8,7 @@ export const userOne = [
   },
 ];
 
-export const userTwo = [
+export const userSeller = [
   {
     id: 2,
     name: 'Fulana Pereira',
@@ -18,7 +18,7 @@ export const userTwo = [
   },
 ];
 
-export const userThree = [
+export const userCustomer = [
   {
     id: 3,
     name: 'Cliente Zé Birita',
@@ -43,6 +43,6 @@ export const usersLogin = [
   },
 ];
 
-export const allUsers = [userOne, userTwo, userThree];
+export const allUsers = [userAdmin, userSeller, userCustomer];
 
-export const allUsersSellers = [userTwo];
+export const allUsersSellers = [userSeller];

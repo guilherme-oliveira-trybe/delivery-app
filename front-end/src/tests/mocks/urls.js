@@ -3,17 +3,17 @@ import sales from './sales.mock';
 import {
   allUsers,
   allUsersSellers,
-  userOne,
-  userThree,
-  userTwo,
+  userAdmin,
+  userSeller,
+  userCustomer,
 } from './users.mock';
 
 const URLS = {
   'http://localhost:3001/user': allUsers,
   'http://localhost:3001/user/role/seller': allUsersSellers,
-  'http://localhost:3001/user/1': userOne,
-  'http://localhost:3001/user/2': userTwo,
-  'http://localhost:3001/user/3': userThree,
+  'http://localhost:3001/user/1': userAdmin,
+  'http://localhost:3001/user/2': userSeller,
+  'http://localhost:3001/user/3': userCustomer,
   'http://localhost:3001/products': allProducts,
   'http://localhost:3001/products/1': { product: [allProducts[0]] },
   'http://localhost:3001/products/2': { product: [allProducts[1]] },
