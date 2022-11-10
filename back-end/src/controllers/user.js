@@ -52,7 +52,6 @@ const userController = {
 
   delete: async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     const user = await userService.delete(id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
