@@ -39,8 +39,12 @@ const UserService = {
     if (userFound) return null;
 
     const encryptedPassword = md5Decrypter(user.password);
-    const newUser = await User.create({ ...user, password: encryptedPassword });
-    return newUser;
+    
+    await User.create({ ...user, password: encryptedPassword });
+
+    const { password, ...userFilter } = user;
+    const token = createToken(userFilter);
+    return { ...userFilter, token };
   },
 
   delete: async (id) => {

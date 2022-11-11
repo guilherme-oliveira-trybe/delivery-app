@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerAttempt } from '../services/api';
 import InvalidRegister from '../components/InvalidRegister';
+import DeliveryContext from '../context/DeliveryContext';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAble, setIsAble] = useState(false);
+  const { setLocalStorage } = useContext(DeliveryContext);
   const history = useHistory();
 
   const handleChange = (e) => {
