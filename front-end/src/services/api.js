@@ -22,7 +22,7 @@ export const admRegister = async (body) => {
   return data;
 };
 
-const getAllProducts = async () => {
+export const getAllProducts = async () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const data = await api.get('/products', { headers: { Authorization: `${user.token}` } })
     .then((response) => response.data);
@@ -35,4 +35,4 @@ export const deleteUser = async (id) => {
   return data;
 };
 
-export default getAllProducts;
+export default api;
