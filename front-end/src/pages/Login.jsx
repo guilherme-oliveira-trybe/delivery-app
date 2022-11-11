@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { loginAttempt } from '../services/api';
 import DeliveryContext from '../context/DeliveryContext';
+import './styles/Login.css';
+import logo from '../images/logo-drink.gif';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -36,77 +38,86 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>NOSSA_LOGO</h2>
-      <h1>NOME_DO_APP</h1>
+    <div className="login-background">
+      <div className="login-container">
+        <img
+          src={ logo }
+          alt="app-logo"
+          className="logo"
+          data-testid="login_logo"
+        />
 
-      <form>
-        <input
-          type="email"
-          id="inputEmail"
-          placeholder="Email"
-          data-testid="common_login__input-email"
-          value={ email }
-          onChange={ ({ target: { value } }) => {
-            setEmail(value);
-            setErrorEmail(emailValidation(value));
-          } }
-        />
-        <input
-          type="password"
-          id="inputPassword"
-          placeholder="Password"
-          data-testid="common_login__input-password"
-          value={ password }
-          onChange={ ({ target: { value } }) => {
-            setPassword(value);
-            setErrorPassword(passwordValidation(value));
-          } }
-        />
-        {!!((errorEmail || errorPassword))
-        && (email.length > 0 || password.length > 0) && (
+        <h1 data-testid="login_title">App de Delivery</h1>
+
+        <form>
+          <input
+            type="email"
+            id="inputEmail"
+            placeholder="Email"
+            data-testid="common_login__input-email"
+            value={ email }
+            onChange={ ({ target: { value } }) => {
+              setEmail(value);
+              setErrorEmail(emailValidation(value));
+            } }
+          />
+          <input
+            type="password"
+            id="inputPassword"
+            placeholder="Password"
+            data-testid="common_login__input-password"
+            value={ password }
+            onChange={ ({ target: { value } }) => {
+              setPassword(value);
+              setErrorPassword(passwordValidation(value));
+            } }
+          />
+          {!!((errorEmail || errorPassword))
+        && (email.length > 0 || password.length > 0)
+        && (
           <p data-testid="login__input_invalid_login_alert">
             * Please, provide a valid email and password *
           </p>)}
 
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={ !!((errorEmail || errorPassword)) }
-          onClick={ async () => {
-            try {
-              const user = await loginAttempt({ email, password });
-              setLocalStorage('user', user);
-              if (user.role === 'seller') {
-                return history.push('/seller/orders');
-              }
-              if (user.role === 'administrator') {
-                return history.push('/admin/manage');
-              }
-              return history.push('/customer/products');
-            } catch (error) {
-              // console.log(error);
-              setFailedLogin(true);
-            }
-          } }
-        >
-          Log In
-        </button>
-
-        <Link to="/register">
           <button
             type="button"
-            data-testid="common_login__button-register"
+            data-testid="common_login__button-login"
+            disabled={ !!((errorEmail || errorPassword)) }
+            onClick={ async () => {
+              try {
+                const user = await loginAttempt({ email, password });
+                setLocalStorage('user', user);
+                if (user.role === 'seller') {
+                  return history.push('/seller/orders');
+                }
+                if (user.role === 'administrator') {
+                  return history.push('/admin/manage');
+                }
+                return history.push('/customer/products');
+              } catch (error) {
+              // console.log(error);
+                setFailedLogin(true);
+              }
+            } }
           >
-            Sign Up
+            Log In
           </button>
-        </Link>
-      </form>
-      { failedLogin && (
-        <p data-testid="common_login__element-invalid-email">
-          Login attempt failed. User not found.
-        </p>
-      )}
+
+          <Link to="/register">
+            <button
+              type="button"
+              data-testid="common_login__button-register"
+            >
+              Sign Up
+            </button>
+          </Link>
+        </form>
+        { failedLogin && (
+          <p data-testid="common_login__element-invalid-email">
+            Login attempt failed. User not found.
+          </p>
+        )}
+      </div>
     </div>
   );
 }
