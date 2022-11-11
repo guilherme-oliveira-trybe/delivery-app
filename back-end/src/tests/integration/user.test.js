@@ -62,7 +62,7 @@ describe('UserRoute', () => {
       it('Successfully created', async () => {
         const result = await chai.request(app).post('/register').send(userRegisterBodyMock);
         expect(result.status).to.be.equal(201);
-        expect(result.body).to.deep.equal({ message: 'Created' });
+        expect(result.body.name).to.equal(userRegisterBodyMock.name);
       });
 
       it('Failure', async () => {
