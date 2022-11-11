@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerAttempt } from '../services/api';
 import InvalidRegister from '../components/InvalidRegister';
+import './styles/Register.css';
+import logo from '../images/logo-drink.gif';
 
 function Register() {
   const [name, setName] = useState('');
@@ -41,7 +43,14 @@ function Register() {
   });
 
   return (
-    <div>
+    <div className="register-container">
+      <img
+        src={ logo }
+        alt="app-logo"
+        className="logo"
+        data-testid="login_logo"
+      />
+      <h1 data-testid="login_title">App de Delivery</h1>
       <h2>Cadastro</h2>
       <form>
         <label htmlFor="register-name">
