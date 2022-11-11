@@ -33,31 +33,35 @@ export default function Products() {
       {loading ? (
         <h2>Carregando...</h2>
       ) : (
-        <div className="products-background">
-          { products.map((product) => (
-            <ProductCard
-              key={ product.id }
-              id={ product.id }
-              name={ product.name }
-              price={ product.price }
-              urlImage={ product.urlImage }
-              cart={ cart }
-              setCart={ setCart }
-            />)) }
-          <button
-            type="submit"
-            data-testid="customer_products__button-cart"
-            onClick={ handleOnClick }
-            disabled={ cart.length === 0 }
-          >
-            Ver Carrinho: R$
-            {' '}
-            <span
-              data-testid="customer_products__checkout-bottom-value"
+        <div>
+          <div className="shopping-cart">
+            <button
+              type="submit"
+              data-testid="customer_products__button-cart"
+              onClick={ handleOnClick }
+              disabled={ cart.length === 0 }
             >
-              { replaceHelper(total.toFixed(2)) }
-            </span>
-          </button>
+              Ver Carrinho: R$
+              {' '}
+              <span
+                data-testid="customer_products__checkout-bottom-value"
+              >
+                { replaceHelper(total.toFixed(2)) }
+              </span>
+            </button>
+          </div>
+          <div className="products-background">
+            { products.map((product) => (
+              <ProductCard
+                key={ product.id }
+                id={ product.id }
+                name={ product.name }
+                price={ product.price }
+                urlImage={ product.urlImage }
+                cart={ cart }
+                setCart={ setCart }
+              />)) }
+          </div>
         </div>
       )}
     </section>
