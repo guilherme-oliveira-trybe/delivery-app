@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  screen,
-  waitFor,
-  waitForElement,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
-// import axios from 'axios';
-// import { userAdminAcess } from './mocks/users.mock';
 import usersLogin from './mocks/usersInfo.mock';
 import { allUsers } from './mocks/users.mock';
 import API from '../services/api';
@@ -20,7 +13,9 @@ const INPUT_LOGIN_PASSWORD = 'common_login__input-password';
 const INVALID_LOGIN_ALERT = 'login__input_invalid_login_alert';
 const LOGIN_BUTTON = 'common_login__button-login';
 const REGISTER_BUTTON = 'common_login__button-register';
-const INVALID_LOGIN_EMAIL = 'common_login__element-invalid-email';
+
+// Data-TestIds (NavBar)
+const NAVBAR_ADMIN_NAME = "customer_products__element-navbar-user-full-name";
 
 // Data-TestIds (UserManager)
 const ADMIN_INPUT_NAME = 'admin_manage__input-name';
@@ -42,6 +37,14 @@ const ARRAY_LOGIN_FIXED_ELEMENTS = [
   INPUT_LOGIN_PASSWORD,
   LOGIN_BUTTON,
   REGISTER_BUTTON,
+];
+
+const ARRAY_ADMIN_FORM_ELEMENTS = [
+  ADMIN_INPUT_NAME,
+  ADMIN_INPUT_EMAIL,
+  ADMIN_INPUT_PASSWORD,
+  ADMIN_INPUT_ROLE,
+  ADMIN_BUTTON_REGISTER,
 ];
 
 describe('Teste da Tela de Login', () => {
@@ -80,20 +83,15 @@ describe('Teste da Tela de Login', () => {
       },
     });
 
-    jest.spyOn(API, 'get').mockResolvedValue({
-      data: allUsers,
-    });
+    jest.spyOn(API, 'get').mockResolvedValue({ data: [...allUsers] });
 
-    const { history, debug } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
 
     const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
     const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
-    expect(loginButton).toBeDisabled();
 
-    userEvent.type(emailInput, 'a');
-    expect(screen.getByTestId(INVALID_LOGIN_ALERT)).toBeInTheDocument();
-    userEvent.type(emailInput, 'dm@deliveryapp.com');
+    userEvent.type(emailInput, 'adm@deliveryapp.com');
     userEvent.type(passwordInput, '--adm2@21!!--');
 
     expect(screen.queryByTestId(INVALID_LOGIN_ALERT)).not.toBeInTheDocument();
@@ -101,9 +99,206 @@ describe('Teste da Tela de Login', () => {
     userEvent.click(loginButton);
 
     await waitFor(() =>
-      expect(screen.findByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
+      expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
     );
-    console.log(history.location.pathname);
-    debug();
+
+    expect(history.location.pathname).toBe('/admin/manage');
+
+    const adminName = screen.getByTestId(NAVBAR_ADMIN_NAME);
+    expect(adminName).toBeInTheDocument();
+    expect(adminName.innerHTML).toBe('Delivery App Admin');
+  });
+
+  it('Avalia a renderização dos usuários cadastrados na tela da pessoa administradora', async () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        id: 1,
+        name: 'Delivery App Admin',
+        email: 'adm@deliveryapp.com',
+        role: 'administrator',
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: [...allUsers],
+    });
+
+    const { history } = renderWithRouter(<App />);
+
+    const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
+    const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
+    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+
+    userEvent.type(emailInput, 'adm@deliveryapp.com');
+    userEvent.type(passwordInput, '--adm2@21!!--');
+    userEvent.click(loginButton);
+
+    await waitFor(() =>
+      expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
+    );
+
+    expect(history.location.pathname).toBe('/admin/manage');
+
+    allUsers.filter((item) => item.role !== 'administrator').forEach((_, index) => {
+      expect(screen.getByTestId(`${ADMIN_TABLE_ITEM}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_NAME}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_EMAIL}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_ROLE}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_REMOVE}${index}`)).toBeInTheDocument();
+    });
+  });
+
+  it('Avalia a renderização do formulário para cadastro de novo usuário', async () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        id: 1,
+        name: 'Delivery App Admin',
+        email: 'adm@deliveryapp.com',
+        role: 'administrator',
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: [...allUsers],
+    });
+
+    const { history } = renderWithRouter(<App />);
+
+    const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
+    const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
+    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+
+    userEvent.type(emailInput, 'adm@deliveryapp.com');
+    userEvent.type(passwordInput, '--adm2@21!!--');
+    userEvent.click(loginButton);
+
+    await waitFor(() =>
+      expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
+    );
+
+    expect(history.location.pathname).toBe('/admin/manage');
+
+    ARRAY_ADMIN_FORM_ELEMENTS.forEach((dataTestId) => {
+      expect(screen.getByTestId(dataTestId)).toBeInTheDocument();
+    });
+
+
+
+    it('Avalia a criação de um novo usuário', async () => {
+      jest.spyOn(API, 'post').mockImplementationOnce({
+        data: {
+          id: 1,
+          name: 'Delivery App Admin',
+          email: 'adm@deliveryapp.com',
+          role: 'administrator',
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+        },
+      }).mockImplementationOnce({
+        data: {},
+      });
+  
+      jest.spyOn(API, 'get').mockResolvedValue({
+        data: [...allUsers],
+      });
+  
+      const { history } = renderWithRouter(<App />);
+  
+      const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
+      const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
+      const loginButton = screen.getByTestId(LOGIN_BUTTON);
+  
+      userEvent.type(emailInput, 'adm@deliveryapp.com');
+      userEvent.type(passwordInput, '--adm2@21!!--');
+      userEvent.click(loginButton);
+  
+      await waitFor(() =>
+        expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
+      );
+  
+      expect(history.location.pathname).toBe('/admin/manage');
+
+
+      const newUserNameInput = screen.getByTestId(ADMIN_INPUT_NAME);
+      const newUserEmailInput = screen.getByTestId(ADMIN_INPUT_EMAIL);
+      const newUserPasswordInput = screen.getByTestId(ADMIN_INPUT_PASSWORD);
+      const newUserRoleInput = screen.getByTestId(ADMIN_INPUT_ROLE);
+
+      const newUser = {
+        name: 'Maria Biritinha',
+        email: 'maria_biritinha@gmail.com',
+        password: '$bmiarriitai1n2h3a$',
+        role: 'customer',
+        roleOption: 'Cliente',
+      }
+  
+      userEvent.type(newUserNameInput, newUser.name);
+      userEvent.type(newUserEmailInput, newUser.email);
+      userEvent.type(newUserPasswordInput, newUser.password);
+      userEvent.selectOptions(newUserRoleInput, [newUser.roleOption]);
+    
+    });
+  });
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  it('Avalia a renderização dos usuários na tela da pessoa administradora', async () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        id: 1,
+        name: 'Delivery App Admin',
+        email: 'adm@deliveryapp.com',
+        role: 'administrator',
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: [...allUsers],
+    });
+
+    const { history } = renderWithRouter(<App />);
+
+    const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
+    const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
+    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+
+    userEvent.type(emailInput, 'adm@deliveryapp.com');
+    userEvent.type(passwordInput, '--adm2@21!!--');
+    userEvent.click(loginButton);
+
+    await waitFor(() =>
+      expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
+    );
+
+    expect(history.location.pathname).toBe('/admin/manage');
+
+    allUsers.filter((item) => item.role !== 'administrator').forEach((_, index) => {
+      expect(screen.getByTestId(`${ADMIN_TABLE_ITEM}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_NAME}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_EMAIL}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_ROLE}${index}`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${ADMIN_TABLE_REMOVE}${index}`)).toBeInTheDocument();
+    });
   });
 });
