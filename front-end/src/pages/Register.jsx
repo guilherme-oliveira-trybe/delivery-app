@@ -83,7 +83,8 @@ function Register() {
           disabled={ !isAble }
           onClick={ async () => {
             try {
-              await registerAttempt({ name, email, password });
+              const user = await registerAttempt({ name, email, password });
+              setLocalStorage('user', user);
               history.push('/customer/products');
             } catch (error) {
               // console.log(error);
