@@ -1,7 +1,7 @@
-// import meals from './meals';
+import validUser from './validUser';
 
 const URLS = {
-  key: 1,
+  'http://localhost:3000/login': validUser,
 };
 
 export default URLS;
