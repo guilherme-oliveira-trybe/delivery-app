@@ -11,10 +11,10 @@ import usersLogin from './mocks/usersInfo.mock';
 import validUser from './mocks/validUser';
 
 // Data-TestIds-Products
-// const navbarLinkProducts = 'customer_products__element-navbar-link-products';
-// const navbarLinkOrders = 'customer_products__element-navbar-link-orders';
-// const navbarUserFullName = 'customer_products__element-navbar-user-full-name';
-// const navbarLinkLogout = 'customer_products__element-navbar-link-logout';
+const navbarLinkProducts = 'customer_products__element-navbar-link-products';
+const navbarLinkOrders = 'customer_products__element-navbar-link-orders';
+const navbarUserFullName = 'customer_products__element-navbar-user-full-name';
+const navbarLinkLogout = 'customer_products__element-navbar-link-logout';
 // const cardTitleId = 'customer_products__element-card-title-<id>';
 // const cardPriceId = 'customer_products__element-card-price-<id>';
 // const cardBgImageId = 'customer_products__img-card-bg-image-<id>';
@@ -22,6 +22,11 @@ import validUser from './mocks/validUser';
 // const cardRmItemId = 'customer_products__button-card-rm-item-<id>';
 // const cardQuantityId = 'customer_products__input-card-quantity-<id>';
 // const checkoutBottomValue = 'customer_products__checkout-bottom-value';
+
+// Data-TestIds-Login
+const inputEmail = 'common_login__input-email';
+const inputPassword = 'common_login__input-password';
+const buttonLogin = 'common_login__button-login';
 
 describe('Teste da Tela de Products', () => {
   it('Testa se a tela de products é renderizada na rota esperada', async () => {
@@ -40,9 +45,9 @@ describe('Teste da Tela de Products', () => {
 
     const { history } = renderWithRouter(<App />);
 
-    const loginInputEmail = screen.getByTestId('common_login__input-email');
-    const loginInputPassword = screen.getByTestId('common_login__input-password');
-    const logInButton = screen.getByTestId('common_login__button-login');
+    const loginInputEmail = screen.getByTestId(inputEmail);
+    const loginInputPassword = screen.getByTestId(inputPassword);
+    const logInButton = screen.getByTestId(buttonLogin);
 
     userEvent.type(loginInputEmail, usersLogin[2].email);
     userEvent.type(loginInputPassword, usersLogin[2].senha);
@@ -52,6 +57,40 @@ describe('Teste da Tela de Products', () => {
       const { location: { pathname } } = history;
       expect(pathname).not.toBe('/login');
       expect(pathname).toBe('/customer/products');
+    });
+    const logoutButton = screen.getByTestId(navbarLinkLogout);
+    userEvent.click(logoutButton);
+  });
+
+  it('Testa se a tela de products é renderizada com a navbar', async () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        ...validUser,
+        token:
+        // eslint-disable-next-line max-len
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: allProducts,
+    });
+
+    renderWithRouter(<App />);
+
+    const loginInputEmail = screen.getByTestId(inputEmail);
+    const loginInputPassword = screen.getByTestId(inputPassword);
+    const logInButton = screen.getByTestId(buttonLogin);
+
+    userEvent.type(loginInputEmail, usersLogin[2].email);
+    userEvent.type(loginInputPassword, usersLogin[2].senha);
+    userEvent.click(logInButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId(navbarLinkProducts)).toBeInTheDocument();
+      expect(screen.getByTestId(navbarLinkOrders)).toBeInTheDocument();
+      expect(screen.getByTestId(navbarUserFullName)).toBeInTheDocument();
+      expect(screen.getByTestId(navbarLinkLogout)).toBeInTheDocument();
     });
   });
 });
