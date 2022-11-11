@@ -19,6 +19,7 @@ img.logo {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  font-size: large;
 }
 
 .login-container button {

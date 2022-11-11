@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import getAllProducts from '../services/api';
 import replaceHelper from '../services/replaceHelper';
+import './styles/Products.css';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -32,19 +33,17 @@ export default function Products() {
       {loading ? (
         <h2>Carregando...</h2>
       ) : (
-        <div>
-          <div>
-            { products.map((product) => (
-              <ProductCard
-                key={ product.id }
-                id={ product.id }
-                name={ product.name }
-                price={ product.price }
-                urlImage={ product.urlImage }
-                cart={ cart }
-                setCart={ setCart }
-              />)) }
-          </div>
+        <div className="products-background">
+          { products.map((product) => (
+            <ProductCard
+              key={ product.id }
+              id={ product.id }
+              name={ product.name }
+              price={ product.price }
+              urlImage={ product.urlImage }
+              cart={ cart }
+              setCart={ setCart }
+            />)) }
           <button
             type="submit"
             data-testid="customer_products__button-cart"

@@ -8,13 +8,14 @@ ul {
   top: 0;
   width: 100%;
   display: flex;
+  text-align: center;
 }
 
 li {
   flex-grow: 1;
 }
 
-li a, span {
+li a, li span {
   display: block;
   color: white;
   padding: 14px 16px;
