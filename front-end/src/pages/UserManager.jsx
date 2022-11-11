@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 // import UserTable from '../components/UserTable';
-import { admRegister, deleteUser } from '../services/api';
+import api, { admRegister, deleteUser } from '../services/api';
 
 export default function UserManager() {
   const [name, setName] = useState('');
@@ -16,7 +15,7 @@ export default function UserManager() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = await axios.get('http://localhost:3001/user');
+      const { data } = await api.get('/user');
       const userFilter = data.filter((item) => item.role !== 'administrator');
       setUsers(userFilter);
     };
