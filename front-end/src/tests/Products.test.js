@@ -1,14 +1,14 @@
-// import React from 'react';
-// import {
-//   screen,
-//   waitForElement,
-//   waitForElementToBeRemoved,
-// } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-// import renderWithRouter from '../renderWithRouter';
-// import App from '../App';
+import {
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import renderWithRouter from '../renderWithRouter';
+import App from '../App';
 import API from '../services/api';
-import URLS from './mocks/urls';
+import allProducts from './mocks/products.mock';
+import usersLogin from './mocks/usersInfo.mock';
+import validUser from './mocks/validUser';
 
 // Data-TestIds-Products
 // const navbarLinkProducts = 'customer_products__element-navbar-link-products';
@@ -23,33 +23,39 @@ import URLS from './mocks/urls';
 // const cardQuantityId = 'customer_products__input-card-quantity-<id>';
 // const checkoutBottomValue = 'customer_products__checkout-bottom-value';
 
-jest.spyOn(API, 'post').mockResolvedValue({
-  data: {
-    id: 1,
-    name: 'Delivery App Admin',
-    email: 'adm@deliveryapp.com',
-    role: 'administrator',
-    token:
-      // eslint-disable-next-line max-len
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
-  },
-});
-
-expect.extend({
-  validURL: (received, validator) => {
-    if (validator[received]) return { message: () => 'URL mockada', pass: true };
-    return { message: () => 'URL não mockada', pass: false };
-  },
-});
-
 describe('Teste da Tela de Products', () => {
-  it('', async () => {
-    const fetchMock = jest
-      .spyOn(global, 'fetch').mockImplementation(async (URL) => (
-        { json: async () => URLS[URL] || expect(URL).validURL(URLS) }
-      ));
-    // const { history } = renderWithRouter(<App />);
-    expect(fetchMock).toBeCalled();
-    // history.push(DRINKS_PATH);
+  beforeEach(async () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        ...validUser,
+        token:
+        // eslint-disable-next-line max-len
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxYzM3NDY2YzE1OTc1NWNlMWZhMTgxYmQyNDdjYjkyNSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTY2ODE5NjE5NiwiZXhwIjoxNjY4MTk4ODk2fQ',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: allProducts,
+    });
+
+    renderWithRouter(<App />);
+
+    const loginInputEmail = screen.getByTestId('common_login__input-email');
+    const loginInputPassword = screen.getByTestId('common_login__input-password');
+    const logInButton = screen.getByTestId('common_login__button-login');
+
+    userEvent.type(loginInputEmail, usersLogin[2].email);
+    userEvent.type(loginInputPassword, usersLogin[2].senha);
+    userEvent.click(logInButton);
+  });
+
+  it('Testa se a tela de products é renderizada na rota esperada', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    await waitFor(() => {
+      const { location: { pathname } } = history;
+      expect(pathname).not.toBe('/login');
+      expect(pathname).toBe('/customer/products');
+    });
   });
 });
