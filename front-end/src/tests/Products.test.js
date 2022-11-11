@@ -24,13 +24,13 @@ import validUser from './mocks/validUser';
 // const checkoutBottomValue = 'customer_products__checkout-bottom-value';
 
 describe('Teste da Tela de Products', () => {
-  beforeEach(async () => {
+  it('Testa se a tela de products é renderizada na rota esperada', async () => {
     jest.spyOn(API, 'post').mockResolvedValue({
       data: {
         ...validUser,
         token:
         // eslint-disable-next-line max-len
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxYzM3NDY2YzE1OTc1NWNlMWZhMTgxYmQyNDdjYjkyNSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTY2ODE5NjE5NiwiZXhwIjoxNjY4MTk4ODk2fQ',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
       },
     });
 
@@ -38,7 +38,7 @@ describe('Teste da Tela de Products', () => {
       data: allProducts,
     });
 
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
 
     const loginInputEmail = screen.getByTestId('common_login__input-email');
     const loginInputPassword = screen.getByTestId('common_login__input-password');
@@ -47,10 +47,6 @@ describe('Teste da Tela de Products', () => {
     userEvent.type(loginInputEmail, usersLogin[2].email);
     userEvent.type(loginInputPassword, usersLogin[2].senha);
     userEvent.click(logInButton);
-  });
-
-  it('Testa se a tela de products é renderizada na rota esperada', async () => {
-    const { history } = renderWithRouter(<App />);
 
     await waitFor(() => {
       const { location: { pathname } } = history;
