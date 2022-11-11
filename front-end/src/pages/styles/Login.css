@@ -12,7 +12,7 @@ img.logo {
   box-shadow: 0 0 0 6px rgb(255, 255, 255), 0 20px 25px #015939;
 }
 
-input {
+.login-container input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -21,7 +21,7 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.login-container button {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -31,6 +31,6 @@ button {
   width: 100%;
 }
 
-button:hover {
+.login-container button:hover {
   opacity: 0.8;
 }
