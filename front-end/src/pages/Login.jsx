@@ -37,8 +37,8 @@ export default function Login() {
 
   return (
     <div>
-      <h2>NOSSA_LOGO</h2>
-      <h1>NOME_DO_APP</h1>
+      <h1 data-testid="login_logo">NOSSA_LOGO</h1>
+      <h1 data-testid="login_title">NOME_DO_APP</h1>
 
       <form>
         <input

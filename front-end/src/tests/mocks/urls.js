@@ -1,3 +1,4 @@
+import validUser from './validUser';
 import allProducts from './products.mock';
 import sales from './sales.mock';
 import {
@@ -27,6 +28,7 @@ const URLS = {
   'http://localhost:3001/products/10': { product: [allProducts[9]] },
   'http://localhost:3001/products/11': { product: [allProducts[10]] },
   'url sales aqui': sales,
+  'http://localhost:3000/login': validUser,
 };
 
 export default URLS;

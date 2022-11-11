@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export const userAdmin = [
   {
     id: 1,
@@ -7,6 +8,14 @@ export const userAdmin = [
     role: 'administrator',
   },
 ];
+
+export const userAdminAcess = {
+  id: 1,
+  name: 'Delivery App Admin',
+  email: 'adm@deliveryapp.com',
+  role: 'administrator',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+};
 
 export const userSeller = [
   {
@@ -25,21 +34,6 @@ export const userCustomer = [
     email: 'zebirita@email.com',
     password: '1c37466c159755ce1fa181bd247cb925',
     role: 'customer',
-  },
-];
-
-export const usersLogin = [
-  {
-    email: 'adm@deliveryapp.com',
-    senha: '--adm2@21!!--',
-  },
-  {
-    email: 'fulana@deliveryapp.com',
-    senha: 'fulana@123',
-  },
-  {
-    email: 'zebirita@email.com',
-    senha: '$#zebirita#$',
   },
 ];
 
