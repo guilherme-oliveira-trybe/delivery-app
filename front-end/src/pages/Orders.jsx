@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
-import OrderCard from '../components/customerOrders/OrderCard';
+import OrderCard from '../components/OrderCard';
 
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);

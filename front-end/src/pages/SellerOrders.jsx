@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import OrderCard from '../components/sellerOrders/SellerOrderCard';
+import SellerOrderCard from '../components/SellerOrderCard';
 import SellerNavBar from '../components/SellerNavBar';
 
 export default function SellerOrders() {
@@ -46,7 +46,7 @@ export default function SellerOrders() {
         deliveryAddress,
         deliveryNumber,
       }, index) => (
-        <OrderCard
+        <SellerOrderCard
           key={ id }
           saleId={ id }
           sellerId={ userId }
