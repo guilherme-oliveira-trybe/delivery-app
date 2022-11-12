@@ -6,7 +6,7 @@ import App from '../App';
 import usersLogin from './mocks/usersInfo.mock';
 import {
   allUsers,
-  userAdminAcess,
+  userAdminAccess,
   newUser,
   userSeller,
 } from './mocks/users.mock';
@@ -78,7 +78,7 @@ describe('Teste da Rota do Administrador', () => {
 
   it('Realiza o login da pessoa administradora', async () => {
     jest.spyOn(API, 'post').mockResolvedValue({
-      data: userAdminAcess,
+      data: userAdminAccess,
     });
 
     jest.spyOn(API, 'get').mockResolvedValue({ data: [...allUsers] });
@@ -106,7 +106,7 @@ describe('Teste da Rota do Administrador', () => {
 
   it('Avalia a renderização dos usuários cadastrados na tela da pessoa administradora', async () => {
     jest.spyOn(API, 'post').mockResolvedValue({
-      data: userAdminAcess,
+      data: userAdminAccess,
     });
 
     jest.spyOn(API, 'get').mockResolvedValue({
@@ -138,7 +138,7 @@ describe('Teste da Rota do Administrador', () => {
 
   it('Avalia a renderização do formulário para cadastro de novo usuário', async () => {
     jest.spyOn(API, 'post').mockResolvedValue({
-      data: userAdminAcess,
+      data: userAdminAccess,
     });
 
     jest.spyOn(API, 'get').mockResolvedValue({ data: [...allUsers] });
@@ -165,7 +165,7 @@ describe('Teste da Rota do Administrador', () => {
 
   it('Avalia o comportamento da validação do formulário', async () => {
     jest.spyOn(API, 'post').mockResolvedValue({
-      data: userAdminAcess,
+      data: userAdminAccess,
     });
 
     jest.spyOn(API, 'get').mockResolvedValue({ data: [...allUsers] });
@@ -203,7 +203,7 @@ describe('Teste da Rota do Administrador', () => {
     jest
       .spyOn(API, 'post')
       .mockResolvedValueOnce({
-        data: userAdminAcess,
+        data: userAdminAccess,
       })
       .mockResolvedValue({
         data: {
@@ -255,7 +255,7 @@ describe('Teste da Rota do Administrador', () => {
   //   jest
   //     .spyOn(API, 'post')
   //     .mockResolvedValueOnce({
-  //       data: userAdminAcess,
+  //       data: userAdminAccess,
   //     })
   //     .mockResolvedValue(() => {
   //       throw new Error('Request failed with status code 409')

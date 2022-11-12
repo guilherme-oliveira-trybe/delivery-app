@@ -1,8 +1,16 @@
-export const userAdminAcess = {
+export const userAdminAccess = {
   id: 1,
   name: 'Delivery App Admin',
   email: 'adm@deliveryapp.com',
   role: 'administrator',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+};
+
+export const userSellerAccess = {
+  id: 2,
+  name: 'Fulana Pereira',
+  email: 'fulana@deliveryapp.com',
+  role: 'seller',
   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
 };
 
