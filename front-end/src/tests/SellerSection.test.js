@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from '../services/renderWithRouter';
 import App from '../App';
 import usersLogin from './mocks/usersInfo.mock';
 import { userSellerAccess } from './mocks/users.mock';
