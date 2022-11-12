@@ -33,9 +33,7 @@ describe('Teste da Tela de Products', () => {
     jest.spyOn(API, 'post').mockResolvedValue({
       data: {
         ...validUser,
-        token:
-        // eslint-disable-next-line max-len
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
       },
     });
 
@@ -66,9 +64,7 @@ describe('Teste da Tela de Products', () => {
     jest.spyOn(API, 'post').mockResolvedValue({
       data: {
         ...validUser,
-        token:
-        // eslint-disable-next-line max-len
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
       },
     });
 
@@ -91,6 +87,38 @@ describe('Teste da Tela de Products', () => {
       expect(screen.getByTestId(navbarLinkOrders)).toBeInTheDocument();
       expect(screen.getByTestId(navbarUserFullName)).toBeInTheDocument();
       expect(screen.getByTestId(navbarLinkLogout)).toBeInTheDocument();
+    });
+    const logoutButton = screen.getByTestId(navbarLinkLogout);
+    userEvent.click(logoutButton);
+  });
+
+  it('Testa se o botão meus pedidos é redirecionado da forma esperada', () => {
+    jest.spyOn(API, 'post').mockResolvedValue({
+      data: {
+        ...validUser,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+      },
+    });
+
+    jest.spyOn(API, 'get').mockResolvedValue({
+      data: allProducts,
+    });
+
+    const { history } = renderWithRouter(<App />);
+
+    const loginInputEmail = screen.getByTestId(inputEmail);
+    const loginInputPassword = screen.getByTestId(inputPassword);
+    const logInButton = screen.getByTestId(buttonLogin);
+
+    userEvent.type(loginInputEmail, usersLogin[2].email);
+    userEvent.type(loginInputPassword, usersLogin[2].senha);
+    userEvent.click(logInButton);
+
+    waitFor(() => {
+      const { location: { pathname } } = history;
+      userEvent.click(screen.getByTestId(navbarLinkOrders));
+      expect(pathname).not.toBe('/customer/products');
+      expect(pathname).toBe('/customer/orders');
     });
   });
 });
