@@ -14,7 +14,7 @@ export const userAdminAcess = {
   name: 'Delivery App Admin',
   email: 'adm@deliveryapp.com',
   role: 'administrator',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwib…TE5fQ.RGmLTRoW4j4ud5kQ940XbfpT9zWvRiJTQEFeuPLIR58',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
 };
 
 export const userSeller = [
