@@ -47,9 +47,11 @@ export default function SellOrderDetails() {
       setDate(saleDate);
       setSaleStatus(status);
     };
+    if (order.length > 0) {
+      return setLoading(false);
+    }
     const token = getUserInfo();
     fetchOrderDetail(token, id);
-    if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
 
   useEffect(() => {
