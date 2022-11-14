@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import SellerNavBar from '../components/SellerNavBar';
 import CheckoutTable from '../components/CheckoutTable';
+import api from '../services/api';
 
 export default function SellOrderDetails() {
   const [order, setOrder] = useState([]);
@@ -12,10 +12,11 @@ export default function SellOrderDetails() {
   const { id } = useParams();
   const history = useHistory();
   const { location: { state } } = history;
-  const dataTest = 'seller_order_details__element-order-details-label';
   const [userToken, setUserToken] = useState();
   const [preparingIsDisabled, setPreparingIsDisabled] = useState(false);
   const [dispatchIsDisabled, setDispatchIsDisabled] = useState(false);
+
+  const dataTest = 'seller_order_details__element-order-details-label';
 
   useEffect(() => {
     const getUserInfo = () => {
@@ -29,7 +30,7 @@ export default function SellOrderDetails() {
     const fetchOrderDetail = async (token, value) => {
       const url = `http://www.localhost:3001/seller/orders/${value}`;
       const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
+      const { data } = await api.get(url, header);
       const [{ products, saleDate, status }] = data;
       const handleOrder = () => {
         const newOrder = [];
@@ -75,7 +76,7 @@ export default function SellOrderDetails() {
   const handleOnClick = async (statusToUpdate) => {
     const url = `http://localhost:3001/customer/orders/${id}`;
     const body = { status: `${statusToUpdate}` };
-    const { data } = await axios.patch(url, body);
+    const { data } = await api.patch(url, body);
     const [{ status }] = data;
     setSaleStatus(status);
   };
