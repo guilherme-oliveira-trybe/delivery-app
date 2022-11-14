@@ -1,3 +1,5 @@
+const saleDate = '2022-11-14T02:23:35.000Z';
+
 export const firstOrder = {
   id: 1,
   userId: 3,
@@ -5,7 +7,7 @@ export const firstOrder = {
   totalPrice: '9.70',
   deliveryAddress: 'Rio um',
   deliveryNumber: '1',
-  saleDate: '2022-11-14T02:23:35.000Z',
+  saleDate,
   status: 'Pendente',
 };
 
@@ -16,7 +18,7 @@ export const secondOrder = {
   totalPrice: '17.78',
   deliveryAddress: 'Rua Dois',
   deliveryNumber: '2',
-  saleDate: '2022-11-14T02:24:01.000Z',
+  saleDate,
   status: 'Pendente',
 };
 
@@ -27,8 +29,73 @@ export const thirdOrder = {
   totalPrice: '17.85',
   deliveryAddress: 'Rua Três',
   deliveryNumber: '3',
-  saleDate: '2022-11-14T02:24:26.000Z',
+  saleDate,
   status: 'Pendente',
 };
 
 export const ordersMock = [firstOrder, secondOrder, thirdOrder];
+
+export const firstOrderDetails = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '9.70',
+    deliveryAddress: 'Rio um',
+    deliveryNumber: '1',
+    saleDate,
+    status: 'Pendente',
+    seller: {
+      id: 2,
+      name: 'Fulana Pereira',
+      email: 'fulana@deliveryapp.com',
+      role: 'seller',
+    },
+    products: [
+      {
+        id: 1,
+        name: 'Skol Lata 250ml',
+        price: '2.20',
+        urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+        SalesProduct: {
+          quantity: 1,
+        },
+      },
+      {
+        id: 2,
+        name: 'Heineken 600ml',
+        price: '7.50',
+        urlImage: 'http://localhost:3001/images/heineken_600ml.jpg',
+        SalesProduct: {
+          quantity: 1,
+        },
+      },
+    ],
+  },
+];
+
+export const orderPreparingPatch = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '9.70',
+    deliveryAddress: 'Rio um',
+    deliveryNumber: '1',
+    saleDate,
+    status: 'Preparando',
+  },
+];
+
+export const orderDispatchPatch = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '9.70',
+    deliveryAddress: 'Rio um',
+    deliveryNumber: '1',
+    saleDate: '2022-11-14T02:23:35.000Z',
+    status: 'Em Trânsito',
+  },
+];
