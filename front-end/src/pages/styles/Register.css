@@ -3,7 +3,11 @@
   text-align: center;
   margin: 25px;
   padding: 25px;
-  font-size: larger;
+  font-size: large;
+  max-width: 500px;
+  margin: auto;
+  vertical-align: baseline;
+  margin-top: 30px;
 }
 
 img.logo {

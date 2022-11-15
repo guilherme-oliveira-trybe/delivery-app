@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import replaceHelper from '../../services/replaceHelper';
+import '../styles/OrderCard.css';
 
 export default function OrderCard({
   saleId,
@@ -32,6 +33,7 @@ export default function OrderCard({
 
   return (
     <div
+      className="order-card-container"
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
       data-testid={ `seller_orders__element-order-id-${saleId}` }
