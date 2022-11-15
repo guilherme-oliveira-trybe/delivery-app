@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/OrderCard';
+import api from '../services/api';
 
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);
@@ -24,7 +24,7 @@ export default function Orders() {
     const fetchCustomerOrders = async (token, value) => {
       const url = 'http://www.localhost:3001/customer/orders';
       const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
+      const { data } = await api.get(url, header);
       const orderByUserId = data.filter((order) => order.userId === value);
       setCustomerOrder(orderByUserId);
     };
