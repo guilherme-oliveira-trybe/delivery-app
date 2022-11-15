@@ -1,7 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
+  const history = useHistory();
 
   return (
     <nav className="nav-bar">
@@ -28,7 +30,10 @@ function NavBar() {
         <a
           href="/"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => localStorage.clear() }
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/login');
+          } }
         >
           Sair
         </a>
