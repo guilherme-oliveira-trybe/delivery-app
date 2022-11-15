@@ -29,7 +29,11 @@ export default function OrderCard({
   };
 
   return (
-    <div onClick={ () => onClick(saleId) } aria-hidden="true">
+    <div
+      className="order-card-container"
+      onClick={ () => onClick(saleId) }
+      aria-hidden="true"
+    >
       <section>
         <span
           data-testid={ `customer_orders__element-order-id-${saleId}` }

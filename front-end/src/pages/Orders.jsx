@@ -35,10 +35,11 @@ export default function Orders() {
   }, [idUser, history, userToken]);
 
   return (
-    <div className="orders-background">
-      { loading && <span>Loading</span>}
+    <>
       { !loading && <NavBar />}
-      { !loading
+
+      <div className="orders-background">
+        { !loading
       && customerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
         <OrderCard
           key={ id }
@@ -50,6 +51,7 @@ export default function Orders() {
           totalPrice={ totalPrice }
         />
       ))}
-    </div>
+      </div>
+    </>
   );
 }

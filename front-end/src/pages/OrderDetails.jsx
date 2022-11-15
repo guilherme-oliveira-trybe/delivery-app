@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import CheckoutTable from '../components/CheckoutTable';
+import './styles/OrderDetails.css';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState([]);
@@ -80,7 +81,7 @@ export default function OrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <NavBar />
       {loading && <span>Carregando...</span>}
       <table>
@@ -125,6 +126,6 @@ export default function OrderDetails() {
         cart={ order }
         setCart={ () => {} }
       />}
-    </div>
+    </>
   );
 }
