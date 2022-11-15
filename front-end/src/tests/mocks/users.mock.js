@@ -14,6 +14,14 @@ export const userSellerAccess = {
   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
 };
 
+export const userCustomerAccess = {
+  id: 3,
+  name: 'Cliente Zé Birita',
+  email: 'zebirita@email.com',
+  role: 'customer',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+};
+
 export const userAdmin = {
   id: 1,
   name: 'Delivery App Admin',
