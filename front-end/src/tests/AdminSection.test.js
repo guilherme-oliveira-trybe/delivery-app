@@ -265,7 +265,7 @@ describe('Teste da Rota do Administrador', () => {
     jest.spyOn(API, 'get')
       .mockResolvedValue({ data: [...allUsers] });
 
-    const { debug } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
 
     const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
     const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
@@ -291,8 +291,6 @@ describe('Teste da Rota do Administrador', () => {
     userEvent.selectOptions(newUserRoleInput, [userSeller.role]);
     userEvent.click(newUserButton);
 
-    debug();
-
     await waitFor(() => expect(screen.getByTestId(ADMIN_ALERT_ERRO_CREATE_USER)).toBeInTheDocument());
 
   });
@@ -312,7 +310,7 @@ describe('Teste da Rota do Administrador', () => {
       .mockResolvedValueOnce({ data: [...allUsers] })
       .mockResolvedValue({ data: [...userRemove] });
 
-    const { debug } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
 
     const emailInput = screen.getByTestId(INPUT_LOGIN_EMAIL);
     const passwordInput = screen.getByTestId(INPUT_LOGIN_PASSWORD);
@@ -330,12 +328,7 @@ describe('Teste da Rota do Administrador', () => {
     userEvent.click(customerToRemove);
 
     await waitForElementToBeRemoved(() => expect(screen.getByText('Cliente Zé Birita')));
-    debug()
 
     expect(screen.queryByText('Cliente Zé Birita')).not.toBeInTheDocument();
-
-
-
-
   });
 });
