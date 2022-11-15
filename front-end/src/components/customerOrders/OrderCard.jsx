@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import replaceHelper from '../../services/replaceHelper';
+import '../styles/OrderCard.css';
 
 export default function OrderCard({
   saleId,

@@ -1,0 +1,18 @@
+th, td {
+  border: 0.5px solid;
+  padding: 10px;
+}
+
+table button {
+  background-color: #02613e;
+  opacity: 0.8;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+table button:hover {
+  opacity: 1;
+}

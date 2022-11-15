@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import replaceHelper from '../services/replaceHelper';
+import './styles/CheckoutTable.css';
 
 export default function CheckoutTable({
   needButton,
@@ -70,6 +71,7 @@ export default function CheckoutTable({
         </table>
       )}
       <h3
+        className="total-price"
         data-testid={ `${dateTestTotal}__element-order-total-price` }
       >
         {`Total: R$${replaceHelper(total.toFixed(2))}`}

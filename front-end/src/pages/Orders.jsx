@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/customerOrders/OrderCard';
+import './styles/Orders.css';
 
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);
@@ -34,7 +35,7 @@ export default function Orders() {
   }, [idUser, history, userToken]);
 
   return (
-    <div>
+    <div className="orders-background">
       { loading && <span>Loading</span>}
       { !loading && <NavBar />}
       { !loading
