@@ -99,3 +99,16 @@ export const orderDispatchPatch = [
     status: 'Em Trânsito',
   },
 ];
+
+export const orderDisplay = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '16.59',
+    deliveryAddress: 'Rua Teste',
+    deliveryNumber: '123',
+    saleDate: '2022-11-15T20:56:50.000Z',
+    status: 'Pendente',
+  },
+];
