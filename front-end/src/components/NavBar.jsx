@@ -17,6 +17,9 @@ function NavBar() {
         <a
           href="/customer/orders"
           data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => {
+            history.push('/customer/orders');
+          } }
         >
           MEUS PEDIDOS
         </a>
