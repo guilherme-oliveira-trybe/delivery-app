@@ -3,6 +3,7 @@ import axios from 'axios';
 import NavBar from '../components/NavBar';
 // import UserTable from '../components/UserTable';
 import { admRegister, deleteUser } from '../services/api';
+import './styles/UserManager.css';
 
 export default function UserManager() {
   const [name, setName] = useState('');
@@ -59,9 +60,9 @@ export default function UserManager() {
 
   return (
     <div>
-      <h1>UserManager</h1>
       <NavBar />
-      <form>
+      <form className="user-manager-form">
+        <h1>Gerenciar usuários</h1>
         <label htmlFor="register-name">
           Nome
           <input
@@ -176,7 +177,7 @@ export default function UserManager() {
       </form>
       { failedCreate && (
         <p data-testid="admin_manage__element-invalid-register">
-          User already exists.
+          Usuário já existe.
         </p>
       )}
     </div>

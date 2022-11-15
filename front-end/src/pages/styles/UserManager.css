@@ -1,0 +1,30 @@
+.user-manager-form {
+  border: 3px solid #f1f1f1;
+  text-align: center;
+  margin: auto;
+  padding: 25px;
+  margin-top: 80px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.user-manager-form input, .user-manager-form select{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: large;
+}
+
+.user-manager-form button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+

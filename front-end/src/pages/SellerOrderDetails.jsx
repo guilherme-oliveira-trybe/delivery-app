@@ -81,7 +81,7 @@ export default function SellOrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <SellerNavBar />
       {loading && <span>Carregando...</span>}
       <table>
@@ -131,6 +131,6 @@ export default function SellOrderDetails() {
         cart={ order }
         setCart={ () => {} }
       />}
-    </div>
+    </>
   );
 }
