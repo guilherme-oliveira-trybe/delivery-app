@@ -33,35 +33,26 @@ export default function OrderCard({
       className="order-card-container"
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
+      data-testid={ `customer_orders__element-order-id-${saleId}` }
     >
-      <section>
-        <span
-          data-testid={ `customer_orders__element-order-id-${saleId}` }
-        >
-          {`Pedido: ${order}`}
-        </span>
-      </section>
-      <section>
-        <span
-          data-testid={ `customer_orders__element-delivery-status-${saleId}` }
-        >
-          {status}
-        </span>
-      </section>
-      <section>
-        <span
+      <h3>{`Pedido ${order}`}</h3>
+      <ul>
+        <li
           data-testid={ `customer_orders__element-order-date-${saleId}` }
         >
           {handleSaleDate(saleDate)}
-        </span>
-      </section>
-      <section>
-        <span
+        </li>
+        <li
           data-testid={ `customer_orders__element-card-price-${saleId}` }
         >
           {replaceHelper(totalPrice)}
-        </span>
-      </section>
+        </li>
+      </ul>
+      <span
+        data-testid={ `customer_orders__element-delivery-status-${saleId}` }
+      >
+        {status}
+      </span>
     </div>
   );
 }

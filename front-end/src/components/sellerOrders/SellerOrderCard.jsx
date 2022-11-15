@@ -38,21 +38,24 @@ export default function OrderCard({
       aria-hidden="true"
       data-testid={ `seller_orders__element-order-id-${saleId}` }
     >
-      <section>
-        <span>{`Pedido: ${order}`}</span>
-      </section>
-      <section data-testid={ `seller_orders__element-delivery-status-${saleId}` }>
-        <span>{status}</span>
-      </section>
-      <section data-testid={ `seller_orders__element-order-date-${saleId}` }>
-        <span>{handleSaleDate(saleDate)}</span>
-      </section>
-      <section data-testid={ `seller_orders__element-card-price-${saleId}` }>
-        <span>{replaceHelper(totalPrice)}</span>
-      </section>
-      <section data-testid={ `seller_orders__element-card-address-${saleId}` }>
-        <span>{ `${deliveryAddress}, ${deliveryNumber}`}</span>
-      </section>
+      <h3>{`Pedido ${order}`}</h3>
+      <ul>
+        <li data-testid={ `seller_orders__element-order-date-${saleId}` }>
+          {handleSaleDate(saleDate)}
+        </li>
+        <li data-testid={ `seller_orders__element-card-price-${saleId}` }>
+          {`R$ ${replaceHelper(totalPrice)}`}
+        </li>
+        <li data-testid={ `seller_orders__element-card-address-${saleId}` }>
+          { `Endereço: ${deliveryAddress}, ${deliveryNumber}`}
+        </li>
+      </ul>
+      <span
+        className="order-status"
+        data-testid={ `seller_orders__element-delivery-status-${saleId}` }
+      >
+        {status}
+      </span>
     </div>
   );
 }

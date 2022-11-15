@@ -81,7 +81,7 @@ export default function OrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <NavBar />
       <div className="order-details-container">
         {loading && <span>Carregando...</span>}
@@ -130,6 +130,6 @@ export default function OrderDetails() {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
