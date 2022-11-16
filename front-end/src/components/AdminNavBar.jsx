@@ -9,7 +9,7 @@ function AdminNavBar() {
       <ul>
         <li>
           <a
-            href="/customer/products"
+            href="/admin/manage"
             data-testid="customer_products__element-navbar-link-products"
           >
             GERENCIAR USUÁRIOS

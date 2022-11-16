@@ -37,7 +37,7 @@ const userController = {
   create: async (req, res) => {
     const user = await userService.create(req.body);
     if (!user) return res.status(409).json({ error: 'Conflict' });
-    return res.status(201).json({ message: 'Created' });
+    return res.status(201).json(user);
   },
 
   createUserByAdm: async (req, res) => {

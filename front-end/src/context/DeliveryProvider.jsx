@@ -11,11 +11,6 @@ function DeliveryProvider({ children }) {
     localStorage.setItem(key, JSON.stringify(info));
   };
 
-  const getLocalStorage = (key) => {
-    const info = localStorage.getItem(key);
-    return JSON.parse(info);
-  };
-
   const contextValue = useMemo(() => ({
     loading,
     setLoading,
@@ -24,7 +19,6 @@ function DeliveryProvider({ children }) {
     user,
     setUser,
     setLocalStorage,
-    getLocalStorage,
   }), [orders, loading, user]);
 
   return (

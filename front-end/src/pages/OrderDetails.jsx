@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 import CheckoutTable from '../components/CheckoutTable';
+import api from '../services/api';
 import './styles/OrderDetails.css';
 
 export default function OrderDetails() {
@@ -30,7 +30,7 @@ export default function OrderDetails() {
     const fetchOrderDetail = async (token, value) => {
       const url = `http://www.localhost:3001/customer/orders/${value}`;
       const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
+      const { data } = await api.get(url, header);
       const [{ products, saleDate, seller: { name }, status }] = data;
       const handleOrder = () => {
         const newOrder = [];
@@ -48,9 +48,11 @@ export default function OrderDetails() {
       setSeller(name);
       setSaleStatus(status);
     };
+    if (order.length > 0) {
+      return setLoading(false);
+    }
     const token = getUserInfo();
     fetchOrderDetail(token, id);
-    if (order.length > 0) setLoading(false);
   }, [id, history, userToken, order]);
 
   useEffect(() => {
@@ -75,7 +77,8 @@ export default function OrderDetails() {
   const handleOnClick = async () => {
     const url = `http://localhost:3001/customer/orders/${id}`;
     const body = { status: 'Entregue' };
-    const { data } = await axios.patch(url, body);
+    const { data } = await api.patch(url, body);
+    console.log(data);
     const [{ status }] = data;
     setSaleStatus(status);
   };

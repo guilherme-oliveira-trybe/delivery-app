@@ -1,11 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import './styles/SellerNavBar.css';
 
 function SellerNavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
+  const history = useHistory();
 
   return (
     <nav className="nav-bar">
-      <ul>
+      <ul className="box">
         <li>
           <a
             href="/seller/orders"
@@ -15,17 +18,18 @@ function SellerNavBar() {
           </a>
         </li>
         <li>
-          <span
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { user.name }
-          </span>
+          <p data-testid="customer_products__element-navbar-user-full-name">
+            {user.name}
+          </p>
         </li>
         <li>
           <a
             href="/"
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => localStorage.clear() }
+            onClick={ () => {
+              localStorage.clear();
+              history.push('/login');
+            } }
           >
             Sair
           </a>

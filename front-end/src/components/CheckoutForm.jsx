@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import './styles/CheckoutForm.css';
+import api from '../services/api';
 
 export default function CheckoutForm({ cart }) {
   const [sellerId, setSellerId] = useState('');
@@ -13,7 +13,7 @@ export default function CheckoutForm({ cart }) {
 
   useEffect(() => {
     const updateSellers = async () => {
-      const { data } = await axios.get('http://localhost:3001/user/role/seller');
+      const { data } = await api.get('http://localhost:3001/user/role/seller');
       setSellers(data);
     };
     updateSellers();
@@ -29,7 +29,7 @@ export default function CheckoutForm({ cart }) {
       deliveryNumber,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
-    const { data } = await axios.post(
+    const { data } = await api.post(
       'http://localhost:3001/customer/orders',
       body,
       { headers: { Authorization: `${token}` } },
