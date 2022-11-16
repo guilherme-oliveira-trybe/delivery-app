@@ -12,6 +12,16 @@ export default function OrderCard({
   totalPrice }) {
   const history = useHistory();
 
+  let statusClass = '';
+
+  if (status === 'Preparando') {
+    statusClass = 'order-status-preparando';
+  }
+
+  if (status === 'Entregue') {
+    statusClass = 'order-status-entregue';
+  }
+
   const handleSaleDate = (date) => {
     const newDate = date.split('-');
     const day = newDate[2].split('T');
@@ -35,24 +45,31 @@ export default function OrderCard({
       aria-hidden="true"
       data-testid={ `customer_orders__element-order-id-${saleId}` }
     >
-      <h3>{`Pedido ${order}`}</h3>
-      <ul>
+      <h3 className="order-title">{`Pedido ${order}`}</h3>
+      <div className={ `order-status ${statusClass}` }>
+        <div
+          data-testid={ `customer_orders__element-delivery-status-${saleId}` }
+        >
+          {status}
+        </div>
+      </div>
+      <ul className="order-date-price">
         <li
           data-testid={ `customer_orders__element-order-date-${saleId}` }
         >
           {handleSaleDate(saleDate)}
         </li>
-        <li
-          data-testid={ `customer_orders__element-card-price-${saleId}` }
-        >
-          {replaceHelper(totalPrice)}
+        <li>
+          R$
+          {' '}
+          {' '}
+          <span
+            data-testid={ `customer_orders__element-card-price-${saleId}` }
+          >
+            {replaceHelper(totalPrice)}
+          </span>
         </li>
       </ul>
-      <span
-        data-testid={ `customer_orders__element-delivery-status-${saleId}` }
-      >
-        {status}
-      </span>
     </div>
   );
 }
