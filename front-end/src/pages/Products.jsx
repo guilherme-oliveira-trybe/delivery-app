@@ -28,12 +28,12 @@ export default function Products() {
   }
 
   return (
-    <section>
+    <>
       <NavBar />
       {loading ? (
         <h2>Carregando...</h2>
       ) : (
-        <div>
+        <div className="products-container">
           <div className="shopping-cart">
             <button
               type="submit"
@@ -64,6 +64,6 @@ export default function Products() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }
