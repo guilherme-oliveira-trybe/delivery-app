@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { loginAttempt } from '../services/api';
 import DeliveryContext from '../context/DeliveryContext';
 import './styles/Login.css';
-import logo from '../images/logo-drink.gif';
+import logo from '../images/logo-beer.gif';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -56,7 +56,7 @@ export default function Login() {
           <input
             type="email"
             id="inputEmail"
-            placeholder="Email"
+            placeholder="Usuário"
             data-testid="common_login__input-email"
             value={ email }
             onChange={ ({ target: { value } }) => {
@@ -67,7 +67,7 @@ export default function Login() {
           <input
             type="password"
             id="inputPassword"
-            placeholder="Password"
+            placeholder="Senha"
             data-testid="common_login__input-password"
             value={ password }
             onChange={ ({ target: { value } }) => {
@@ -106,7 +106,7 @@ export default function Login() {
               }
             } }
           >
-            Log In
+            Entrar
           </button>
 
           <Link to="/register">
@@ -114,13 +114,13 @@ export default function Login() {
               type="button"
               data-testid="common_login__button-register"
             >
-              Sign Up
+              Registre-se
             </button>
           </Link>
         </form>
         { failedLogin && (
           <p data-testid="common_login__element-invalid-email">
-            Login attempt failed. User not found.
+            Erro! Usuário não encontrado.
           </p>
         )}
       </div>

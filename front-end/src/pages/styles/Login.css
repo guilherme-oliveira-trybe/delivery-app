@@ -12,7 +12,8 @@
 .logo {
   border-radius: 100%;
   box-shadow: 0 0 0 6px white , 0 20px 25px #015939;
-  width: 40%;
+  width: 100%;
+  transform: scale(1.5);
 }
 
 .login_title {

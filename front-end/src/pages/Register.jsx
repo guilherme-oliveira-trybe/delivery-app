@@ -61,7 +61,6 @@ function Register() {
       </h1>
       <form>
         <label htmlFor="register-name">
-          {/* Nome */}
           <input
             name="name"
             type="text"
@@ -72,7 +71,6 @@ function Register() {
           />
         </label>
         <label htmlFor="register-email">
-          {/* Email */}
           <input
             name="email"
             type="email"
@@ -83,11 +81,10 @@ function Register() {
           />
         </label>
         <label htmlFor="register-password">
-          {/* Senha */}
           <input
             name="password"
             type="password"
-            placeholder="*********"
+            placeholder="Senha"
             id="register-password"
             data-testid="common_register__input-password"
             onChange={ (e) => handleChange(e.target) }
