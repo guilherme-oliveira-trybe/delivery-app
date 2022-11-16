@@ -37,7 +37,6 @@ export default function Orders() {
   return (
     <>
       { !loading && <NavBar />}
-
       <div className="orders-background">
         { !loading
       && customerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
