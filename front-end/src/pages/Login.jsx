@@ -119,7 +119,10 @@ export default function Login() {
           </Link>
         </form>
         { failedLogin && (
-          <p data-testid="common_login__element-invalid-email">
+          <p
+            className="login-alert"
+            data-testid="common_login__element-invalid-email"
+          >
             Erro! Usuário não encontrado.
           </p>
         )}
