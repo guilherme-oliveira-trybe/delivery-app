@@ -148,7 +148,12 @@ export default function UserManager() {
                   <td data-testid={ `${dateTest}-email-${index}` }>
                     {user.email}
                   </td>
-                  <td data-testid={ `${dateTest}-role-${index}` }>{user.role}</td>
+                  <td
+                    data-testid={ `${dateTest}-role-${index}` }
+                  >
+                    {user.role === 'seller' ? 'Vendedor' : 'Cliente'}
+
+                  </td>
                   <td>
                     <button
                       data-testid={ `${dateTest}-remove-${index}` }

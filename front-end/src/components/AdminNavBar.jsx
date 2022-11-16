@@ -17,11 +17,11 @@ function AdminNavBar() {
         </li>
         <li />
         <li>
-          <span
+          <p
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { user.name }
-          </span>
+          </p>
         </li>
         <li>
           <a
