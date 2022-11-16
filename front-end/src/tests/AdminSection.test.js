@@ -230,9 +230,8 @@ describe('Teste da Rota do Administrador', () => {
     userEvent.type(passwordInput, '--adm2@21!!--');
     userEvent.click(loginButton);
 
-    await waitFor(() =>
-      expect(screen.getByTestId(ADMIN_INPUT_NAME)).toBeInTheDocument()
-    );
+    await waitFor(() => expect(screen.getByTestId(ADMIN_INPUT_NAME))
+      .toBeInTheDocument());
 
     const newUserNameInput = screen.getByTestId(ADMIN_INPUT_NAME);
     const newUserEmailInput = screen.getByTestId(ADMIN_INPUT_EMAIL);
