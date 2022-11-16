@@ -15,10 +15,19 @@
   width: 40%;
 }
 
+.register_title {
+  margin-top: 30px;
+}
+
+.register-container form {
+  margin-top: 30px;
+}
+
 .register-container input {
   border: 1px solid #ccc;
   box-sizing: border-box;
   display: inline-block;
+  font-size: large;
   margin: 8px 0;
   padding: 12px 20px;
   width: 100%;

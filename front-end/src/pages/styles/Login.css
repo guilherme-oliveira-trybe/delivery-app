@@ -35,6 +35,7 @@
 
 .login-alert {
   color: red;
+  padding-block: 8px;
 }
 
 .login-container button {

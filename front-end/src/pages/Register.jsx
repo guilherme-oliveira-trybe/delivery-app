@@ -52,22 +52,27 @@ function Register() {
         className="logo"
         data-testid="login_logo"
       />
-      <h1 data-testid="login_title">Maria Delivery</h1>
-      <h2>Cadastro</h2>
+      <h1
+        className="register_title"
+        data-testid="login_title"
+      >
+        Maria Delivery
+
+      </h1>
       <form>
         <label htmlFor="register-name">
-          Nome
+          {/* Nome */}
           <input
             name="name"
             type="text"
-            placeholder="Seu Nome"
+            placeholder="Nome e Sobrenome"
             id="register-name"
             data-testid="common_register__input-name"
             onChange={ (e) => handleChange(e.target) }
           />
         </label>
         <label htmlFor="register-email">
-          Email
+          {/* Email */}
           <input
             name="email"
             type="email"
@@ -78,7 +83,7 @@ function Register() {
           />
         </label>
         <label htmlFor="register-password">
-          Senha
+          {/* Senha */}
           <input
             name="password"
             type="password"
@@ -88,6 +93,9 @@ function Register() {
             onChange={ (e) => handleChange(e.target) }
           />
         </label>
+        {(name.length > 0
+          || email.length > 0
+          || password.length > 0) && <InvalidRegister />}
         <button
           type="button"
           data-testid="common_register__button-register"
@@ -106,7 +114,6 @@ function Register() {
           Cadastrar
         </button>
       </form>
-      <InvalidRegister />
     </div>
   );
 }
