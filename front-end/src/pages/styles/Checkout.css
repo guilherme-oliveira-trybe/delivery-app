@@ -11,13 +11,13 @@
 .checkout-table-container {
   border: 3px solid #f1f1f1;
   margin: 25px;
-  padding: 25px;
   max-height: 80vh;
   max-width: 700px;
   min-height: 80vh;
   min-width: 700px;
-  text-align: center;
+  padding: 25px;
   overflow-x: scroll;
+  text-align: center;
 }
 
 .checkout-form-container {
@@ -25,6 +25,6 @@
 }
 
 .checkout-table-title {
-  text-align: start;
   padding-bottom: 20px;
+  text-align: start;
 }
