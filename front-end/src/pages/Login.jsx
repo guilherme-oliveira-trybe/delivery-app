@@ -47,7 +47,7 @@ export default function Login() {
           data-testid="login_logo"
         />
 
-        <h1 data-testid="login_title">App de Delivery</h1>
+        <h1 data-testid="login_title">Maria Delivery</h1>
 
         <form>
           <input

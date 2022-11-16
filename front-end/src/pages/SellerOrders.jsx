@@ -34,30 +34,27 @@ export default function SellerOrders() {
   }, [idUser, history, userToken]);
 
   return (
-    <div>
+    <>
       <SellerNavBar />
-      { !loading
-      && sellerOrder.map(({
-        id,
-        userId,
-        status,
-        saleDate,
-        totalPrice,
-        deliveryAddress,
-        deliveryNumber,
-      }, index) => (
-        <OrderCard
-          key={ id }
-          saleId={ id }
-          sellerId={ userId }
-          order={ `${index + 1}` }
-          status={ status }
-          saleDate={ saleDate }
-          totalPrice={ totalPrice }
-          deliveryAddress={ deliveryAddress }
-          deliveryNumber={ deliveryNumber }
-        />
-      ))}
-    </div>
+      <div className="orders-background">
+        {!loading
+        && sellerOrder.map(({
+          id, userId, status, saleDate, totalPrice, deliveryAddress, deliveryNumber,
+        }, index) => (
+          <OrderCard
+            key={ id }
+            saleId={ id }
+            sellerId={ userId }
+            order={ `${index + 1}` }
+            status={ status }
+            saleDate={ saleDate }
+            totalPrice={ totalPrice }
+            deliveryAddress={ deliveryAddress }
+            deliveryNumber={ deliveryNumber }
+          />
+        ))}
+      </div>
+
+    </>
   );
 }

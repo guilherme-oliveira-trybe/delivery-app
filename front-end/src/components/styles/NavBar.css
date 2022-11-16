@@ -1,4 +1,4 @@
-ul {
+.nav-bar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -16,14 +16,13 @@ li {
   flex-grow: 1;
 }
 
-li a, li span {
+.nav-bar li a, .nav-bar li span {
   display: block;
   color: white;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-li a:hover {
+.nav-bar li a:hover {
   background-color: #015939;
 }
-

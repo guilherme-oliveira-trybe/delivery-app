@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import SellerNavBar from '../components/SellerNavBar';
 import CheckoutTable from '../components/CheckoutTable';
+import './styles/OrderDetails.css';
 
 export default function SellOrderDetails() {
   const [order, setOrder] = useState([]);
@@ -81,11 +82,12 @@ export default function SellOrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <SellerNavBar />
       {loading && <span>Carregando...</span>}
-      <table>
-        <thead>
+      <div className="order-details-container">
+        <h1>Pedido</h1>
+        <table className="order-card">
           <tr>
             <th
               data-testid={ `${dataTest}-order-id` }
@@ -103,27 +105,17 @@ export default function SellOrderDetails() {
               {saleStatus}
             </th>
           </tr>
-        </thead>
-      </table>
-      <button
-        data-testid="seller_order_details__button-preparing-check"
-        type="button"
-        onClick={ () => handleOnClick('Preparando') }
-        disabled={ preparingIsDisabled }
-      >
-        PREPARAR PEDIDO
+        </table>
+        <button
+          data-testid="seller_order_details__button-preparing-check"
+          type="button"
+          onClick={ () => handleOnClick('Preparando') }
+          disabled={ preparingIsDisabled }
+        >
+          PREPARAR PEDIDO
 
-      </button>
-      <button
-        data-testid="seller_order_details__button-dispatch-check"
-        type="button"
-        onClick={ () => handleOnClick('Em Trânsito') }
-        disabled={ dispatchIsDisabled }
-      >
-        SAIU PARA ENTREGA
-
-      </button>
-      {!loading
+        </button>
+        {!loading
       && <CheckoutTable
         needButton={ false }
         dateTest="seller_order_details__element-order-table"
@@ -131,6 +123,16 @@ export default function SellOrderDetails() {
         cart={ order }
         setCart={ () => {} }
       />}
-    </div>
+        <button
+          data-testid="seller_order_details__button-dispatch-check"
+          type="button"
+          onClick={ () => handleOnClick('Em Trânsito') }
+          disabled={ dispatchIsDisabled }
+        >
+          SAIU PARA ENTREGA
+
+        </button>
+      </div>
+    </>
   );
 }

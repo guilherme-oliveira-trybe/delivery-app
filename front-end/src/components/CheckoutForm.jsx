@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import './styles/CheckoutForm.css';
 
 export default function CheckoutForm({ cart }) {
   const [sellerId, setSellerId] = useState('');
@@ -41,7 +42,7 @@ export default function CheckoutForm({ cart }) {
   };
 
   return (
-    <form>
+    <form className="checkout-form">
       <label htmlFor="seller">
         P. Vendedora Responsável:
         <select

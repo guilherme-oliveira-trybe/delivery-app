@@ -50,7 +50,7 @@ function Register() {
         className="logo"
         data-testid="login_logo"
       />
-      <h1 data-testid="login_title">App de Delivery</h1>
+      <h1 data-testid="login_title">Maria Delivery</h1>
       <h2>Cadastro</h2>
       <form>
         <label htmlFor="register-name">

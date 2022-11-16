@@ -1,6 +1,6 @@
 .adminContainer {
   /* background-color: red; */
-  margin-top: 60px;
+  margin-top: 90px;
 }
 
 .adminFormContainer {
@@ -40,11 +40,9 @@
   opacity: 0.8;
 }
 
-
-
-
-
-
 .adminTableContainer {
-  background-color: green;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

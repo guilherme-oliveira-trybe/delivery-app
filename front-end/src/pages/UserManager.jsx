@@ -175,7 +175,7 @@ export default function UserManager() {
       </section>
       {failedCreate && (
         <p data-testid="admin_manage__element-invalid-register">
-          User already exists.
+          Usuário já existe.
         </p>
       )}
     </section>
