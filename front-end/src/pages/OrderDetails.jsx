@@ -88,7 +88,7 @@ export default function OrderDetails() {
       <NavBar />
       <div className="order-details-container">
         {loading && <span>Carregando...</span>}
-        <h1>Pedido</h1>
+        <h1 className="order-details-main-title">Pedido</h1>
         <table className="order-card">
           <tr>
             <th
@@ -114,7 +114,7 @@ export default function OrderDetails() {
           </tr>
         </table>
         <div>
-          <h3>Detalhes da compra</h3>
+          <h3 className="order-details-title">Detalhes da compra</h3>
           {!loading
       && <CheckoutTable
         needButton={ false }
@@ -124,6 +124,7 @@ export default function OrderDetails() {
         setCart={ () => {} }
       />}
           <button
+            className="order-details-delivery-button"
             data-testid="customer_order_details__button-delivery-check"
             type="button"
             onClick={ handleOnClick }
