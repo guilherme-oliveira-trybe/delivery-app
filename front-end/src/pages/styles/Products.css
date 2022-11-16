@@ -8,12 +8,12 @@
 }
 
 .shopping-cart {
-  position: -webkit-sticky; /* Safari */
+  /* position: -webkit-sticky; Safari */
   position: sticky;
 }
 
 .shopping-cart button {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(22, 86, 46));
+  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(22, 86, 46));
   border: none;
   bottom: 0;
   color: white;
@@ -22,8 +22,8 @@
   font-weight: bolder;
   height: 50px;
   padding-right: 30px;
-  position: fixed;
   opacity: 0.8;
+  position: fixed;
   text-align: right;
   width: 100%;
 }

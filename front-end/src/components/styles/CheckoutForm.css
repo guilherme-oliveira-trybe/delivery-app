@@ -5,8 +5,7 @@
   text-align: center;
 }
 
-.checkout-form input,
-.checkout-form select {
+.checkout-form input, .checkout-form select {
   border: 1px solid #ccc;
   box-sizing: border-box;
   display: inline-block;

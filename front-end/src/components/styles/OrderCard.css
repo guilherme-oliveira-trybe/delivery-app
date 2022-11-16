@@ -29,7 +29,7 @@
   border-radius: 15px;
   display: flex;
   font-size: large;
-  font-weight: bold;
+  font-weight: 700;
   height: 100%;
   justify-content: center;
   text-transform: uppercase;
@@ -40,7 +40,7 @@
   background-color: rgba(102, 204, 0, 1);
 }
 
-.order-status-entregue div{
+.order-status-entregue div {
   background-color: rgba(0, 204, 155, 1);
 }
 
@@ -58,7 +58,7 @@
 .order-date-price li {
   background-color: rgba(242, 255, 252, 1);
   border-radius: 8%;
-  font-weight: bold;
+  font-weight: 700;
   height: 45%;
   padding: 10px;
   text-align: center;
