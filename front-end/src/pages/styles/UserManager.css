@@ -5,8 +5,8 @@
 .adminFormContainer {
   align-items: flex-end;
   display: flex;
-  justify-content: space-evenly;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   padding-inline: 60px;
 }
 
