@@ -105,7 +105,7 @@ export default function SellOrderDetails() {
             <th data-testid={ `${dataTest}-delivery-status` }>{saleStatus}</th>
           </tr>
         </table>
-        <div className="order-card-button-container">
+        <div className="seller-order-card-button-container">
           <button
             data-testid="seller_order_details__button-preparing-check"
             type="button"
