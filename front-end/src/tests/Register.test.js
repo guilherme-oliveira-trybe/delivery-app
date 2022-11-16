@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from '../services/renderWithRouter';
 import App from '../App';
 
 // Data-TestIds

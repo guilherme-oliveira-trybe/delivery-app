@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './renderWithRouter';
+import renderWithRouter from '../services/renderWithRouter';
 import App from '../App';
-// import URLS from './mocks/urls';
+import API from '../services/api';
 
 describe('Testes da tela de Login', () => {
 
@@ -80,6 +80,10 @@ describe('Testes da tela de Login', () => {
   })
 
   it('Testa se mensagem de erro é renderizada na tela ao fornecer dados de um usuário não-registrado', async () => {
+    jest.spyOn(API, 'post').mockRejectedValue(() => {
+      throw new Error('Login Inválido')
+    });
+    
     const { history } = renderWithRouter(<App />);
 
     const loginInputEmail = screen.getByTestId('common_login__input-email');
