@@ -8,6 +8,7 @@
 }
 
 .shopping-cart {
+
   /* position: -webkit-sticky; Safari */
   position: sticky;
 }
@@ -19,10 +20,10 @@
   color: white;
   cursor: pointer;
   font-size: large;
-  font-weight: bolder;
+  font-weight: 700;
   height: 50px;
-  padding-right: 30px;
   opacity: 0.8;
+  padding-right: 30px;
   position: fixed;
   text-align: right;
   width: 100%;
