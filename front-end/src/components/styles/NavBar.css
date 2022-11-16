@@ -12,6 +12,7 @@ ul {
 }
 
 li {
+  width: 25%;
   flex-grow: 1;
 }
 
