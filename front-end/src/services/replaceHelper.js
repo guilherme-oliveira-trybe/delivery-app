@@ -1,3 +1,1 @@
-const replaceHelper = (string) => string.replace('.', ',');
-
-export default replaceHelper;
+export default (string) => string.replace('.', ',');

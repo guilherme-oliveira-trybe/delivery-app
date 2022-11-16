@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import OrderCard from '../components/sellerOrders/SellerOrderCard';
+import SellerOrderCard from '../components/SellerOrderCard';
 import SellerNavBar from '../components/SellerNavBar';
+import api from '../services/api';
 
 export default function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
@@ -24,7 +24,7 @@ export default function SellerOrders() {
     const fetchSellerOrders = async (token, value) => {
       const url = 'http://www.localhost:3001/seller/orders';
       const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
+      const { data } = await api.get(url, header);
       const orderByUserId = data.filter((order) => order.sellerId === value);
       setSellerOrder(orderByUserId);
     };
@@ -46,7 +46,7 @@ export default function SellerOrders() {
         deliveryAddress,
         deliveryNumber,
       }, index) => (
-        <OrderCard
+        <SellerOrderCard
           key={ id }
           saleId={ id }
           sellerId={ userId }

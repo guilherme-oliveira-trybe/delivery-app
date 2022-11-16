@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import replaceHelper from '../../services/replaceHelper';
+import replaceHelper from '../services/replaceHelper';
 
-export default function OrderCard({
+export default function SellerOrderCard({
   saleId,
   order,
   status,
@@ -55,6 +55,6 @@ export default function OrderCard({
   );
 }
 
-OrderCard.propTypes = {
+SellerOrderCard.propTypes = {
   saleId: PropTypes.string,
 }.isRequired;
