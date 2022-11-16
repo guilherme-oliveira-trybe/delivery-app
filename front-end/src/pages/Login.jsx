@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { loginAttempt } from '../services/api';
 import DeliveryContext from '../context/DeliveryContext';
 import './styles/Login.css';
-import logo from '../images/logo-beer.gif';
+import logo from '../images/logo-drink.gif';
 
 export default function Login() {
   const [email, setEmail] = useState('');
