@@ -16,3 +16,7 @@ table button {
 table button:hover {
   opacity: 1;
 }
+
+.total-price {
+  padding-block: 15px;
+}

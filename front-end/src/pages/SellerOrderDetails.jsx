@@ -12,7 +12,9 @@ export default function SellOrderDetails() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const history = useHistory();
-  const { location: { state } } = history;
+  const {
+    location: { state },
+  } = history;
   const [userToken, setUserToken] = useState();
   const [preparingIsDisabled, setPreparingIsDisabled] = useState(false);
   const [dispatchIsDisabled, setDispatchIsDisabled] = useState(false);
@@ -37,8 +39,12 @@ export default function SellOrderDetails() {
         const newOrder = [];
         if (products) {
           products.forEach((el) => {
-            const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
-            const subTotal = (quantity * unitPrice);
+            const {
+              SalesProduct: { quantity },
+              price: unitPrice,
+              ...remaingInfo
+            } = el;
+            const subTotal = quantity * unitPrice;
             newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
           });
         }
@@ -92,49 +98,42 @@ export default function SellOrderDetails() {
         <h1>Pedido</h1>
         <table className="order-card">
           <tr>
-            <th
-              data-testid={ `${dataTest}-order-id` }
-            >
-              {`Pedido: ${state}`}
-            </th>
-            <th
-              data-testid={ `${dataTest}-order-date` }
-            >
+            <th data-testid={ `${dataTest}-order-id` }>{`Pedido: ${state}`}</th>
+            <th data-testid={ `${dataTest}-order-date` }>
               {handleSaleDate(date)}
             </th>
-            <th
-              data-testid={ `${dataTest}-delivery-status` }
-            >
-              {saleStatus}
-            </th>
+            <th data-testid={ `${dataTest}-delivery-status` }>{saleStatus}</th>
           </tr>
         </table>
-        <button
-          data-testid="seller_order_details__button-preparing-check"
-          type="button"
-          onClick={ () => handleOnClick('Preparando') }
-          disabled={ preparingIsDisabled }
-        >
-          PREPARAR PEDIDO
+        <div className="order-card-button-container">
+          <button
+            data-testid="seller_order_details__button-preparing-check"
+            type="button"
+            onClick={ () => handleOnClick('Preparando') }
+            disabled={ preparingIsDisabled }
+          >
+            PREPARAR PEDIDO
+          </button>
 
-        </button>
-        {!loading
-      && <CheckoutTable
-        needButton={ false }
-        dateTest="seller_order_details__element-order-table"
-        dateTestTotal="seller_order_details"
-        cart={ order }
-        setCart={ () => {} }
-      />}
-        <button
-          data-testid="seller_order_details__button-dispatch-check"
-          type="button"
-          onClick={ () => handleOnClick('Em Trânsito') }
-          disabled={ dispatchIsDisabled }
-        >
-          SAIU PARA ENTREGA
+          <button
+            data-testid="seller_order_details__button-dispatch-check"
+            type="button"
+            onClick={ () => handleOnClick('Em Trânsito') }
+            disabled={ dispatchIsDisabled }
+          >
+            SAIU PARA ENTREGA
+          </button>
 
-        </button>
+        </div>
+        {!loading && (
+          <CheckoutTable
+            needButton={ false }
+            dateTest="seller_order_details__element-order-table"
+            dateTestTotal="seller_order_details"
+            cart={ order }
+            setCart={ () => {} }
+          />
+        )}
       </div>
     </>
   );
