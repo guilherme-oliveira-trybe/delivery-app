@@ -20,7 +20,7 @@ export default function Checkout() {
       <div className="checkout-container">
 
         <section className="checkout-table-container">
-          <h3>Finalizar Pedido</h3>
+          <h3 className="checkout-table-title">Finalizar Pedido</h3>
           {loading ? (
             <h2>Carregando...</h2>
           ) : (
@@ -35,7 +35,6 @@ export default function Checkout() {
         </section>
 
         <section className="checkout-form-container">
-          <h3>Detalhes e Endereço para Entrega</h3>
           <CheckoutForm cart={ cart } />
         </section>
       </div>

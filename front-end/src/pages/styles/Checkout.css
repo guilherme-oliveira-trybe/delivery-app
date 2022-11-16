@@ -1,5 +1,5 @@
 .checkout-container {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -10,12 +10,18 @@
 .checkout-table-container {
   border: 3px solid #f1f1f1;
   margin: 25px;
-  max-width: 700px;
+  min-width: 700px;
   padding: 25px;
   text-align: center;
+  max-height: 80vh;
+  overflow-x: scroll;
 }
 
 .checkout-form-container {
   max-width: 400px;
-  text-align: center;
+}
+
+.checkout-table-title {
+  text-align: start;
+  padding-bottom: 20px;
 }
