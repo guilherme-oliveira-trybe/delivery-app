@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import { getAllProducts } from '../services/api';
 import replaceHelper from '../services/replaceHelper';
+import './styles/Products.css';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -27,13 +28,29 @@ export default function Products() {
   }
 
   return (
-    <section>
+    <>
       <NavBar />
       {loading ? (
         <h2>Carregando...</h2>
       ) : (
-        <div>
-          <div>
+        <div className="products-container">
+          <div className="shopping-cart">
+            <button
+              type="submit"
+              data-testid="customer_products__button-cart"
+              onClick={ handleOnClick }
+              disabled={ cart.length === 0 }
+            >
+              Ver Carrinho: R$
+              {' '}
+              <span
+                data-testid="customer_products__checkout-bottom-value"
+              >
+                { replaceHelper(total.toFixed(2)) }
+              </span>
+            </button>
+          </div>
+          <div className="products-background">
             { products.map((product) => (
               <ProductCard
                 key={ product.id }
@@ -45,22 +62,8 @@ export default function Products() {
                 setCart={ setCart }
               />)) }
           </div>
-          <button
-            type="submit"
-            data-testid="customer_products__button-cart"
-            onClick={ handleOnClick }
-            disabled={ cart.length === 0 }
-          >
-            Ver Carrinho: R$
-            {' '}
-            <span
-              data-testid="customer_products__checkout-bottom-value"
-            >
-              { replaceHelper(total.toFixed(2)) }
-            </span>
-          </button>
         </div>
       )}
-    </section>
+    </>
   );
 }

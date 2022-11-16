@@ -1,0 +1,46 @@
+.checkout-form {
+  align-items: center;
+  border: 3px solid #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 25px;
+  max-height: 80vh;
+  min-height: 80vh;
+  padding: 25px;
+}
+
+.checkout-form input, .checkout-form select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: large;
+  margin: 8px 0;
+  padding: 12px 20px;
+  width: 100%;
+}
+
+.checkout-form button {
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 8px 0;
+  padding: 14px 20px;
+  width: 100%;
+}
+
+.checkout-form button:hover {
+  opacity: 0.8;
+}
+
+.checkout-form button:disabled {
+  background-color: #adbfa9;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.checkout-form-title {
+  padding-bottom: 20px;
+  text-align: start;
+}

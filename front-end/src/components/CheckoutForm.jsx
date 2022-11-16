@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import './styles/CheckoutForm.css';
 import api from '../services/api';
 
 export default function CheckoutForm({ cart }) {
@@ -8,6 +9,7 @@ export default function CheckoutForm({ cart }) {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
+  const [isAble, setIsAble] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -17,6 +19,12 @@ export default function CheckoutForm({ cart }) {
     };
     updateSellers();
   }, []);
+
+  useEffect(() => {
+    if (sellerId !== '' && deliveryAddress !== '' && deliveryNumber) {
+      setIsAble(true);
+    }
+  }, [sellerId, deliveryAddress, deliveryNumber]);
 
   const handleClick = async () => {
     const { id, token } = JSON.parse(localStorage.getItem('user'));
@@ -41,7 +49,8 @@ export default function CheckoutForm({ cart }) {
   };
 
   return (
-    <form>
+    <form className="checkout-form">
+      <h3 className="checkout-form-title">Endereço para Entrega:</h3>
       <label htmlFor="seller">
         P. Vendedora Responsável:
         <select
@@ -82,6 +91,7 @@ export default function CheckoutForm({ cart }) {
         />
       </label>
       <button
+        disabled={ !isAble }
         data-testid="customer_checkout__button-submit-order"
         type="button"
         onClick={ handleClick }

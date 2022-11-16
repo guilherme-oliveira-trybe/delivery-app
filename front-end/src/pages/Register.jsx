@@ -2,7 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerAttempt } from '../services/api';
 import InvalidRegister from '../components/InvalidRegister';
+import logo from '../images/logo-drink.gif';
 import DeliveryContext from '../context/DeliveryContext';
+import './styles/Register.css';
 
 function Register() {
   const [name, setName] = useState('');
@@ -43,22 +45,32 @@ function Register() {
   });
 
   return (
-    <div>
-      <h2>Cadastro</h2>
+    <div className="register-container">
+      <img
+        src={ logo }
+        alt="app-logo"
+        className="logo"
+        data-testid="login_logo"
+      />
+      <h1
+        className="register_title"
+        data-testid="login_title"
+      >
+        Maria Delivery
+
+      </h1>
       <form>
         <label htmlFor="register-name">
-          Nome
           <input
             name="name"
             type="text"
-            placeholder="Seu Nome"
+            placeholder="Nome e Sobrenome"
             id="register-name"
             data-testid="common_register__input-name"
             onChange={ (e) => handleChange(e.target) }
           />
         </label>
         <label htmlFor="register-email">
-          Email
           <input
             name="email"
             type="email"
@@ -69,16 +81,18 @@ function Register() {
           />
         </label>
         <label htmlFor="register-password">
-          Senha
           <input
             name="password"
             type="password"
-            placeholder="*********"
+            placeholder="Senha"
             id="register-password"
             data-testid="common_register__input-password"
             onChange={ (e) => handleChange(e.target) }
           />
         </label>
+        {(name.length > 0
+          || email.length > 0
+          || password.length > 0) && <InvalidRegister />}
         <button
           type="button"
           data-testid="common_register__button-register"
@@ -97,7 +111,6 @@ function Register() {
           Cadastrar
         </button>
       </form>
-      <InvalidRegister />
     </div>
   );
 }

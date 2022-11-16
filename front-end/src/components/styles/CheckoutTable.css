@@ -1,0 +1,22 @@
+th, td {
+  border: 0.5px solid;
+  padding: 10px;
+}
+
+table button {
+  background-color: #02613e;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 8px 0;
+  opacity: 0.8;
+  padding: 14px 20px;
+}
+
+table button:hover {
+  opacity: 1;
+}
+
+.total-price {
+  padding-block: 15px;
+}

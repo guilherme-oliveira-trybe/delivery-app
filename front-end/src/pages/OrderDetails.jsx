@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CheckoutTable from '../components/CheckoutTable';
 import api from '../services/api';
+import './styles/OrderDetails.css';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState([]);
@@ -83,11 +84,12 @@ export default function OrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <NavBar />
-      {loading && <span>Carregando...</span>}
-      <table>
-        <thead>
+      <div className="order-details-container">
+        {loading && <span>Carregando...</span>}
+        <h1 className="order-details-main-title">Pedido</h1>
+        <table className="order-card">
           <tr>
             <th
               data-testid={ `${dataTest}-order-id` }
@@ -110,17 +112,10 @@ export default function OrderDetails() {
               {saleStatus}
             </th>
           </tr>
-        </thead>
-      </table>
-      <button
-        data-testid="customer_order_details__button-delivery-check"
-        type="button"
-        onClick={ handleOnClick }
-        disabled={ deliveryIsDisabled }
-      >
-        MARCAR COMO ENTREGUE
-      </button>
-      {!loading
+        </table>
+        <div>
+          <h3 className="order-details-title">Detalhes da compra</h3>
+          {!loading
       && <CheckoutTable
         needButton={ false }
         dateTest="customer_order_details__element-order-table"
@@ -128,6 +123,17 @@ export default function OrderDetails() {
         cart={ order }
         setCart={ () => {} }
       />}
-    </div>
+          <button
+            className="order-details-delivery-button"
+            data-testid="customer_order_details__button-delivery-check"
+            type="button"
+            onClick={ handleOnClick }
+            disabled={ deliveryIsDisabled }
+          >
+            MARCAR COMO ENTREGUE
+          </button>
+        </div>
+      </div>
+    </>
   );
 }

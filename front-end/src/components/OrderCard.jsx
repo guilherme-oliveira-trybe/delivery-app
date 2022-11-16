@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import replaceHelper from '../services/replaceHelper';
+import './styles/OrderCard.css';
 
 export default function OrderCard({
   saleId,
@@ -10,6 +11,16 @@ export default function OrderCard({
   saleDate,
   totalPrice }) {
   const history = useHistory();
+
+  let statusClass = '';
+
+  if (status === 'Preparando') {
+    statusClass = 'order-status-preparando';
+  }
+
+  if (status === 'Entregue') {
+    statusClass = 'order-status-entregue';
+  }
 
   const handleSaleDate = (date) => {
     const newDate = date.split('-');
@@ -28,35 +39,37 @@ export default function OrderCard({
   };
 
   return (
-    <div onClick={ () => onClick(saleId) } aria-hidden="true">
-      <section>
-        <span
-          data-testid={ `customer_orders__element-order-id-${saleId}` }
-        >
-          {`Pedido: ${order}`}
-        </span>
-      </section>
-      <section>
-        <span
+    <div
+      className="order-card-container"
+      onClick={ () => onClick(saleId) }
+      aria-hidden="true"
+      data-testid={ `customer_orders__element-order-id-${saleId}` }
+    >
+      <h3 className="order-title">{`Pedido ${order}`}</h3>
+      <div className={ `order-status ${statusClass}` }>
+        <div
           data-testid={ `customer_orders__element-delivery-status-${saleId}` }
         >
           {status}
-        </span>
-      </section>
-      <section>
-        <span
+        </div>
+      </div>
+      <ul className="order-date-price">
+        <li
           data-testid={ `customer_orders__element-order-date-${saleId}` }
         >
           {handleSaleDate(saleDate)}
-        </span>
-      </section>
-      <section>
-        <span
-          data-testid={ `customer_orders__element-card-price-${saleId}` }
-        >
-          {replaceHelper(totalPrice)}
-        </span>
-      </section>
+        </li>
+        <li>
+          R$
+          {' '}
+          {' '}
+          <span
+            data-testid={ `customer_orders__element-card-price-${saleId}` }
+          >
+            {replaceHelper(totalPrice)}
+          </span>
+        </li>
+      </ul>
     </div>
   );
 }

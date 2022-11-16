@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/OrderCard';
 import api from '../services/api';
+import './styles/Orders.css';
 
 export default function Orders() {
   const [customerOrder, setCustomerOrder] = useState([]);
@@ -34,10 +35,10 @@ export default function Orders() {
   }, [idUser, history, userToken]);
 
   return (
-    <div>
-      { loading && <span>Loading</span>}
+    <>
       { !loading && <NavBar />}
-      { !loading
+      <div className="orders-background">
+        { !loading
       && customerOrder.map(({ id, userId, status, saleDate, totalPrice }, index) => (
         <OrderCard
           key={ id }
@@ -49,6 +50,7 @@ export default function Orders() {
           totalPrice={ totalPrice }
         />
       ))}
-    </div>
+      </div>
+    </>
   );
 }

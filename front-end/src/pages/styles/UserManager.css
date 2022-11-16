@@ -1,0 +1,52 @@
+.adminContainer {
+  margin-top: 90px;
+}
+
+.adminFormContainer {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-inline: 60px;
+}
+
+.adminFormContainer label {
+  display: flex;
+  flex-direction: column;
+}
+
+.adminFormContainer label input, .adminFormContainer label select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 8px 0;
+  padding: 12px 20px;
+  width: 100%;
+}
+
+.adminFormContainer button {
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 8px 0;
+  opacity: 1;
+  padding: 14px 20px;
+}
+
+.adminFormContainer button:hover {
+  opacity: 0.8;
+}
+
+.adminTableContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.adminFormContainer button:disabled {
+  background-color: #adbfa9;
+  cursor: not-allowed;
+  opacity: 0.8;
+}

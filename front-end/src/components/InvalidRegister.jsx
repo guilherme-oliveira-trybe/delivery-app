@@ -1,11 +1,14 @@
+import './styles/InvalidRegister.css';
+
 function InvalidRegister() {
   return (
     <div>
-      <span
+      <p
+        className="invalid-register"
         data-testid="common_register__element-invalid_register"
       >
         Registro Inválido!
-      </span>
+      </p>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import SellerNavBar from '../components/SellerNavBar';
 import CheckoutTable from '../components/CheckoutTable';
 import api from '../services/api';
+import './styles/OrderDetails.css';
 
 export default function SellOrderDetails() {
   const [order, setOrder] = useState([]);
@@ -11,7 +12,9 @@ export default function SellOrderDetails() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const history = useHistory();
-  const { location: { state } } = history;
+  const {
+    location: { state },
+  } = history;
   const [userToken, setUserToken] = useState();
   const [preparingIsDisabled, setPreparingIsDisabled] = useState(false);
   const [dispatchIsDisabled, setDispatchIsDisabled] = useState(false);
@@ -36,8 +39,12 @@ export default function SellOrderDetails() {
         const newOrder = [];
         if (products) {
           products.forEach((el) => {
-            const { SalesProduct: { quantity }, price: unitPrice, ...remaingInfo } = el;
-            const subTotal = (quantity * unitPrice);
+            const {
+              SalesProduct: { quantity },
+              price: unitPrice,
+              ...remaingInfo
+            } = el;
+            const subTotal = quantity * unitPrice;
             newOrder.push({ quantity, subTotal, unitPrice, ...remaingInfo });
           });
         }
@@ -84,56 +91,50 @@ export default function SellOrderDetails() {
   };
 
   return (
-    <div>
+    <>
       <SellerNavBar />
       {loading && <span>Carregando...</span>}
-      <table>
-        <thead>
+      <div className="order-details-container">
+        <h1>Pedido</h1>
+        <table className="order-card">
           <tr>
-            <th
-              data-testid={ `${dataTest}-order-id` }
-            >
-              {`Pedido: ${state}`}
-            </th>
-            <th
-              data-testid={ `${dataTest}-order-date` }
-            >
+            <th data-testid={ `${dataTest}-order-id` }>{`Pedido: ${state}`}</th>
+            <th data-testid={ `${dataTest}-order-date` }>
               {handleSaleDate(date)}
             </th>
-            <th
-              data-testid={ `${dataTest}-delivery-status` }
-            >
-              {saleStatus}
-            </th>
+            <th data-testid={ `${dataTest}-delivery-status` }>{saleStatus}</th>
           </tr>
-        </thead>
-      </table>
-      <button
-        data-testid="seller_order_details__button-preparing-check"
-        type="button"
-        onClick={ () => handleOnClick('Preparando') }
-        disabled={ preparingIsDisabled }
-      >
-        PREPARAR PEDIDO
+        </table>
+        <div className="seller-order-card-button-container">
+          <button
+            data-testid="seller_order_details__button-preparing-check"
+            type="button"
+            onClick={ () => handleOnClick('Preparando') }
+            disabled={ preparingIsDisabled }
+          >
+            PREPARAR PEDIDO
+          </button>
 
-      </button>
-      <button
-        data-testid="seller_order_details__button-dispatch-check"
-        type="button"
-        onClick={ () => handleOnClick('Em Trânsito') }
-        disabled={ dispatchIsDisabled }
-      >
-        SAIU PARA ENTREGA
+          <button
+            data-testid="seller_order_details__button-dispatch-check"
+            type="button"
+            onClick={ () => handleOnClick('Em Trânsito') }
+            disabled={ dispatchIsDisabled }
+          >
+            SAIU PARA ENTREGA
+          </button>
 
-      </button>
-      {!loading
-      && <CheckoutTable
-        needButton={ false }
-        dateTest="seller_order_details__element-order-table"
-        dateTestTotal="seller_order_details"
-        cart={ order }
-        setCart={ () => {} }
-      />}
-    </div>
+        </div>
+        {!loading && (
+          <CheckoutTable
+            needButton={ false }
+            dateTest="seller_order_details__element-order-table"
+            dateTestTotal="seller_order_details"
+            cart={ order }
+            setCart={ () => {} }
+          />
+        )}
+      </div>
+    </>
   );
 }

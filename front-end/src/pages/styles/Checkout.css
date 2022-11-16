@@ -1,0 +1,30 @@
+.checkout-container {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  padding-inline: 30px;
+}
+
+.checkout-table-container {
+  border: 3px solid #f1f1f1;
+  margin: 25px;
+  max-height: 80vh;
+  max-width: 700px;
+  min-height: 80vh;
+  min-width: 700px;
+  overflow-x: scroll;
+  padding: 25px;
+  text-align: center;
+}
+
+.checkout-form-container {
+  max-width: 400px;
+}
+
+.checkout-table-title {
+  padding-bottom: 20px;
+  text-align: start;
+}

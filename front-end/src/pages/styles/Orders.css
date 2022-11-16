@@ -1,0 +1,8 @@
+.orders-background {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px auto 30px;
+  padding-inline: 50px;
+  width: 90%;
+}

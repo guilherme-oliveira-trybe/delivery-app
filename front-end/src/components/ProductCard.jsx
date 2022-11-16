@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import replaceHelper from '../services/replaceHelper';
+import './styles/ProductCard.css';
 
 export default function ProductCard({ id, name, price, urlImage, setCart }) {
   const [qtyValue, setQtyValue] = useState(0);
@@ -85,20 +86,10 @@ export default function ProductCard({ id, name, price, urlImage, setCart }) {
 
   return (
     <div
-      className="cardProductContainer"
+      className="product-card-container"
     >
-      <span>
-        R$
-        {' '}
-        <span
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
-          { replaceHelper(price) }
-        </span>
-      </span>
       <img
         src={ urlImage }
-        width="100"
         alt={ name }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
@@ -107,6 +98,15 @@ export default function ProductCard({ id, name, price, urlImage, setCart }) {
       >
         {name}
       </p>
+      <h4>
+        R$
+        {' '}
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          { replaceHelper(price) }
+        </span>
+      </h4>
       <div>
         <button
           type="button"

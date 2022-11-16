@@ -1,33 +1,21 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import './styles/NavBar.css';
 
-function NavBar() {
+function AdminNavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
-  const history = useHistory();
 
   return (
     <nav className="nav-bar">
-      <ul className="box">
+      <ul>
         <li>
           <a
-            href="/customer/products"
+            href="/admin/manage"
             data-testid="customer_products__element-navbar-link-products"
           >
-            PRODUTOS
+            GERENCIAR USUÁRIOS
           </a>
         </li>
-        <li>
-          <a
-            href="/customer/orders"
-            data-testid="customer_products__element-navbar-link-orders"
-            onClick={ () => {
-              history.push('/customer/orders');
-            } }
-          >
-            MEUS PEDIDOS
-          </a>
-        </li>
+        <li />
         <li>
           <p
             data-testid="customer_products__element-navbar-user-full-name"
@@ -39,12 +27,9 @@ function NavBar() {
           <a
             href="/"
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => {
-              localStorage.clear();
-              history.push('/login');
-            } }
+            onClick={ () => localStorage.clear() }
           >
-            Sair
+            SAIR
           </a>
         </li>
       </ul>
@@ -52,4 +37,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default AdminNavBar;
