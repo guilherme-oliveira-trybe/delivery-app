@@ -2,6 +2,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../services/renderWithRouter';
 import App from '../App';
@@ -115,9 +116,6 @@ describe('Teste da Tela de Products', () => {
     userEvent.click(logInButton);
 
     waitFor(() => {
-      // const addItem = screen.getByTestId(cardAddItemId);
-      // userEvent.click(`${addItem}1`);
-      // expect(screen.getByTestId(checkoutBottomValue)).to.deep.equal('2.20');
       allProducts.forEach((_, index) => {
         expect(screen.getByTestId(`${cardTitleId}${index}`)).toBeInTheDocument();
         expect(screen.getByTestId(`${cardPriceId}${index}`)).toBeInTheDocument();
@@ -139,7 +137,7 @@ describe('Teste da Tela de Products', () => {
     });
 
     jest.spyOn(API, 'get').mockResolvedValue({
-      data: allProducts,
+      data: allProducts.products,
     });
 
     const { history } = renderWithRouter(<App />);
