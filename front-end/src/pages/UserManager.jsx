@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import NavBar from '../components/NavBar';
-// import UserTable from '../components/UserTable';
+import AdminNavBar from '../components/AdminNavBar';
 import { admRegister, deleteUser } from '../services/api';
+import './styles/UserManager.css';
 
 export default function UserManager() {
   const [name, setName] = useState('');
@@ -58,16 +58,15 @@ export default function UserManager() {
   });
 
   return (
-    <div>
-      <h1>UserManager</h1>
-      <NavBar />
-      <form>
+    <section className="adminContainer">
+      <AdminNavBar />
+      <form className="adminFormContainer">
         <label htmlFor="register-name">
           Nome
           <input
             name="name"
             type="text"
-            placeholder="Seu Nome"
+            placeholder="Nome e Sobrenome"
             id="register-name"
             data-testid="admin_manage__input-name"
             onChange={ (e) => handleChange(e.target) }
@@ -125,60 +124,60 @@ export default function UserManager() {
         >
           Cadastrar
         </button>
-        <section>
-          { loading ? (
-            <h3>Carregando...</h3>
-          ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Nome</th>
-                  <th>E-mail</th>
-                  <th>Tipo</th>
-                  <th>Excluir</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => (
-                  <tr key={ index }>
-                    <td
-                      data-testid={ `${dateTest}-item-number-${index}` }
-                    >
-                      { index + 1 }
-                    </td>
-                    <td data-testid={ `${dateTest}-name-${index}` }>{ user.name }</td>
-                    <td data-testid={ `${dateTest}-email-${index}` }>{ user.email }</td>
-                    <td data-testid={ `${dateTest}-role-${index}` }>{ user.role }</td>
-                    <td>
-                      <button
-                        data-testid={ `${dateTest}-remove-${index}` }
-                        type="button"
-                        onClick={ async () => {
-                          try {
-                            await deleteUser(user.id);
-                            setLoading(true);
-                          } catch (error) {
-                            // console.log(error);
-                            return error;
-                          }
-                        } }
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </section>
       </form>
-      { failedCreate && (
+      <section className="adminTableContainer">
+        {loading ? (
+          <h3>Carregando...</h3>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Tipo</th>
+                <th>Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={ index }>
+                  <td data-testid={ `${dateTest}-item-number-${index}` }>
+                    {index + 1}
+                  </td>
+                  <td data-testid={ `${dateTest}-name-${index}` }>{user.name}</td>
+                  <td data-testid={ `${dateTest}-email-${index}` }>
+                    {user.email}
+                  </td>
+                  <td data-testid={ `${dateTest}-role-${index}` }>{user.role}</td>
+                  <td>
+                    <button
+                      data-testid={ `${dateTest}-remove-${index}` }
+                      type="button"
+                      onClick={ async () => {
+                        try {
+                          await deleteUser(user.id);
+                          setLoading(true);
+                        } catch (error) {
+                          // console.log(error);
+                          return error;
+                        }
+                      } }
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+      {failedCreate && (
         <p data-testid="admin_manage__element-invalid-register">
           User already exists.
         </p>
       )}
-    </div>
+    </section>
   );
 }
