@@ -3,8 +3,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-top: 50px;
   margin-bottom: 30px;
+  margin-top: 50px;
 }
 
 .shopping-cart {
@@ -14,18 +14,18 @@
 
 .shopping-cart button {
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(22, 86, 46));
-  color: white;
-  height: 50px;
   border: none;
+  bottom: 0;
+  color: white;
   cursor: pointer;
-  width: 100%;
   font-size: large;
   font-weight: bolder;
+  height: 50px;
+  padding-right: 30px;
   position: fixed;
-  bottom: 0;
   opacity: 0.8;
   text-align: right;
-  padding-right: 30px;
+  width: 100%;
 }
 
 .shopping-cart button:hover {

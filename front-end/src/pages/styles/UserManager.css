@@ -1,5 +1,4 @@
 .adminContainer {
-  /* background-color: red; */
   margin-top: 90px;
 }
 
@@ -28,12 +27,12 @@
 
 .adminFormContainer button {
   background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
   border: none;
-  cursor: pointer;
   border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin: 8px 0;
+  padding: 14px 20px;
 }
 
 .adminFormContainer button:hover {
@@ -41,8 +40,8 @@
 }
 
 .adminTableContainer {
-  margin-top: 60px;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+  margin-top: 60px;
 }

@@ -1,24 +1,25 @@
 .nav-bar ul {
+  background-color: #333;
+  display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0;
   overflow: hidden;
-  background-color: #333;
+  padding: 0;
   position: fixed;
+  text-align: center;
   top: 0;
   width: 100%;
-  display: flex;
-  text-align: center;
 }
 
 li {
-  width: 25%;
   flex-grow: 1;
+  width: 25%;
 }
 
-.nav-bar li a, .nav-bar li span {
-  display: block;
+.nav-bar li a,
+.nav-bar li span {
   color: white;
+  display: block;
   padding: 14px 16px;
   text-decoration: none;
 }

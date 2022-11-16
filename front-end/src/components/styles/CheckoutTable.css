@@ -5,12 +5,12 @@ th, td {
 
 table button {
   background-color: #02613e;
-  opacity: 0.8;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
   border: none;
+  color: white;
   cursor: pointer;
+  margin: 8px 0;
+  opacity: 0.8;
+  padding: 14px 20px;
 }
 
 table button:hover {

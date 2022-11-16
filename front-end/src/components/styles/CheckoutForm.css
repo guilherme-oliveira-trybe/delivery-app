@@ -1,27 +1,28 @@
 .checkout-form {
   border: 3px solid #f1f1f1;
-  text-align: center;
   margin: 25px;
   padding: 25px;
+  text-align: center;
 }
 
-.checkout-form input, .checkout-form select{
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
+.checkout-form input,
+.checkout-form select {
   border: 1px solid #ccc;
   box-sizing: border-box;
+  display: inline-block;
   font-size: large;
+  margin: 8px 0;
+  padding: 12px 20px;
+  width: 100%;
 }
 
 .checkout-form button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  background-color: #04aa6d;
   border: none;
+  color: white;
   cursor: pointer;
+  margin: 8px 0;
+  padding: 14px 20px;
   width: 100%;
 }
 
