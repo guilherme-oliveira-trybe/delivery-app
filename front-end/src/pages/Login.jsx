@@ -46,9 +46,12 @@ export default function Login() {
           className="logo"
           data-testid="login_logo"
         />
-
-        <h1 data-testid="login_title">Maria Delivery</h1>
-
+        <h1
+          className="login_title"
+          data-testid="login_title"
+        >
+          Maria Delivery
+        </h1>
         <form>
           <input
             type="email"
@@ -75,8 +78,11 @@ export default function Login() {
           {!!((errorEmail || errorPassword))
         && (email.length > 0 || password.length > 0)
         && (
-          <p data-testid="login__input_invalid_login_alert">
-            * Please, provide a valid email and password *
+          <p
+            className="login-alert"
+            data-testid="login__input_invalid_login_alert"
+          >
+            Please, provide a valid email and password
           </p>)}
 
           <button
