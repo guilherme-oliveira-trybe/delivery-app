@@ -1,0 +1,87 @@
+.seller-order-card-container {
+  border-radius: 5px;
+  margin: 35px;
+  width: 450px;
+  height: 130px;
+  box-shadow: 5px 10px 18px #888888;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.seller-order-title {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seller-order-info {
+  display: flex;
+  height: 100%;
+}
+
+.seller-order-status {
+  background-color: #EAF1EF;
+  width: 45%;
+  padding: 10px;
+}
+
+.seller-order-status div {
+  background-color: rgba(204, 184, 0, 1);
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: bold;
+}
+
+.seller-order-status-preparando div{
+  background-color: rgba(102, 204, 0, 1);
+}
+
+.seller-order-status-entregue div{
+  background-color: rgba(0, 204, 155, 1);
+}
+
+.seller-order-date-price {
+  background-color: #EAF1EF;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10%;
+  padding-right: 10px;
+  width: 30%;
+}
+
+.seller-order-date-price li {
+  background-color: rgba(242, 255, 252, 1);
+  border-radius: 5%;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.seller-order-address {
+  background-color: #EAF1EF;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seller-order-address-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.seller-order-address-container p{
+  width: 75%;
+}

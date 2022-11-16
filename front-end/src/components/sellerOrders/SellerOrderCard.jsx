@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import replaceHelper from '../../services/replaceHelper';
-import '../styles/OrderCard.css';
+import '../styles/sellerOrderCard.css';
 
 export default function OrderCard({
   saleId,
@@ -14,6 +14,16 @@ export default function OrderCard({
   deliveryNumber,
 }) {
   const history = useHistory();
+
+  let statusClass = '';
+
+  if (status === 'Preparando') {
+    statusClass = 'seller-order-status-preparando';
+  }
+
+  if (status === 'Entregue') {
+    statusClass = 'seller-order-status-entregue';
+  }
 
   const handleSaleDate = (date) => {
     const newDate = date.split('-');
@@ -33,29 +43,42 @@ export default function OrderCard({
 
   return (
     <div
-      className="order-card-container"
+      className="seller-order-card-container"
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
       data-testid={ `seller_orders__element-order-id-${saleId}` }
     >
-      <h3>{`Pedido ${order}`}</h3>
-      <ul>
-        <li data-testid={ `seller_orders__element-order-date-${saleId}` }>
-          {handleSaleDate(saleDate)}
-        </li>
-        <li data-testid={ `seller_orders__element-card-price-${saleId}` }>
-          {`R$ ${replaceHelper(totalPrice)}`}
-        </li>
-        <li data-testid={ `seller_orders__element-card-address-${saleId}` }>
+      <div className="seller-order-info">
+        <h3 className="seller-order-title">{`Pedido ${order}`}</h3>
+        <div className={ `seller-order-status ${statusClass}` }>
+          <div
+            data-testid={ `seller_orders__element-delivery-status-${saleId}` }
+          >
+            {status}
+          </div>
+        </div>
+        <ul className="seller-order-date-price">
+          <li data-testid={ `seller_orders__element-order-date-${saleId}` }>
+            {handleSaleDate(saleDate)}
+          </li>
+          <li>
+            R$
+            {' '}
+            {' '}
+            <span data-testid={ `seller_orders__element-card-price-${saleId}` }>
+              {replaceHelper(totalPrice)}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div className="seller-order-address-container">
+        <p
+          className="seller-order-address"
+          data-testid={ `seller_orders__element-card-address-${saleId}` }
+        >
           { `Endereço: ${deliveryAddress}, ${deliveryNumber}`}
-        </li>
-      </ul>
-      <span
-        className="order-status"
-        data-testid={ `seller_orders__element-delivery-status-${saleId}` }
-      >
-        {status}
-      </span>
+        </p>
+      </div>
     </div>
   );
 }
