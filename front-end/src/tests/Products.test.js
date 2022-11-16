@@ -3,7 +3,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
+import renderWithRouter from '../services/renderWithRouter';
 import App from '../App';
 import API from '../services/api';
 import allProducts from './mocks/products.mock';
